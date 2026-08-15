@@ -1,0 +1,1132 @@
+{
+  "status": "SUCCESS",
+  "scientific_model": "Reduced-order coupled greenhouse physics E0-E10; equations are mapped to GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md.",
+  "simulation": {
+    "window_start": "2024-06-01T00:00",
+    "window_end_inclusive": "2024-06-30T23:00",
+    "integration_end_exclusive": "2024-07-01T00:00",
+    "rows": 720,
+    "internal_timestep_s": 60,
+    "output_interval_s": 3600,
+    "runtime_selected_seconds": 5.748379999999088,
+    "runtime_all_validation_seconds": 10.364112200000818,
+    "weather_interpolation": "linear_nonnegative_radiation",
+    "actuator_interpolation": "piecewise_constant_per_internal_step",
+    "simulation_id": "nha_trang_2024_june_physics_v1_1",
+    "parameter_set_id": "smartgarden_pa1_v1_1_rootzone_prior"
+  },
+  "initial_state": {
+    "temperature_inside_c": 29.6,
+    "vapor_density_inside_kg_m3": 0.024633318950427478,
+    "soil_temperature_c": 29.6,
+    "soil_moisture_theta": 0.4,
+    "relative_humidity_inside_percent": 83.00000000000001
+  },
+  "final_state_at_exclusive_end": {
+    "temperature_inside_c": 28.50681341272901,
+    "vapor_density_inside_kg_m3": 0.024640824479898397,
+    "soil_temperature_c": 33.99293243229963,
+    "soil_moisture_theta": 0.21722952265522408
+  },
+  "state_summary": {
+    "temperature_inside_true": {
+      "min": 25.103054235486592,
+      "max": 39.600353417736926,
+      "mean": 31.0514566335703
+    },
+    "humidity_inside_true": {
+      "min": 45.73345710413205,
+      "max": 100.0,
+      "mean": 76.50176391915448
+    },
+    "vapor_density_inside_true": {
+      "min": 0.021304887971140805,
+      "max": 0.033056383281851905,
+      "mean": 0.024175603156825116
+    },
+    "soil_temperature_inside_true": {
+      "min": 29.439864982668055,
+      "max": 37.56482133232096,
+      "mean": 33.979936723807114
+    },
+    "soil_moisture_inside_true": {
+      "min": 0.20168620262303516,
+      "max": 0.40725225403915716,
+      "mean": 0.24313581179144222
+    },
+    "light_lux_inside_true": {
+      "min": 0.0,
+      "max": 89564.3408,
+      "mean": 23220.41636444444
+    },
+    "vpd_inside": {
+      "min": 0.0,
+      "max": 3.837910197332473,
+      "mean": 1.181488427213884
+    },
+    "solar_inside": {
+      "min": 0.0,
+      "max": 825.35,
+      "mean": 197.9154166666667
+    },
+    "ventilation_rate_m3_s": {
+      "min": 0.0007230421334155483,
+      "max": 0.00803608561569265,
+      "mean": 0.0030031757265722115
+    },
+    "evapotranspiration_rate_kg_s": {
+      "min": 2.4437612045378724e-08,
+      "max": 3.7598556081463e-05,
+      "mean": 5.264770054480821e-06
+    },
+    "water_stress_coefficient": {
+      "min": 0.3190506334755257,
+      "max": 1.0,
+      "mean": 0.5420224325376805
+    },
+    "condensation_rate_kg_s": {
+      "min": 0.0,
+      "max": 1.2530064061609816e-06,
+      "mean": 3.2990244790081746e-09
+    },
+    "air_density": {
+      "min": 1.1183396706199682,
+      "max": 1.1789023199081847,
+      "mean": 1.1535053137186486
+    }
+  },
+  "weather_quality": {
+    "status": "PASS",
+    "rows_checked": 70128,
+    "columns": [
+      "timestamp",
+      "temperature_2m",
+      "relative_humidity_2m",
+      "shortwave_radiation",
+      "wind_speed_10m",
+      "surface_pressure",
+      "direct_radiation",
+      "diffuse_radiation",
+      "dew_point_2m",
+      "vapour_pressure_deficit",
+      "et0_fao_evapotranspiration",
+      "soil_temperature_0_to_7cm",
+      "soil_moisture_0_to_7cm"
+    ],
+    "first_timestamp": "2018-01-01T00:00",
+    "last_timestamp": "2025-12-31T23:00",
+    "window_forcing_rows_including_endpoint": 721,
+    "duplicates": 0,
+    "timestamp_gaps": 0,
+    "nonfinite_core_values": 0
+  },
+  "range_checks": {
+    "status": "PASS",
+    "rows": 720,
+    "nan_count": 0,
+    "inf_count": 0,
+    "max_hourly_temperature_jump_c": 3.06790363999124,
+    "violations": []
+  },
+  "causal_tests": {
+    "status": "PASS",
+    "passed": 8,
+    "total": 8,
+    "tests": {
+      "A_solar_response": {
+        "status": "PASS",
+        "solar_inside_low_high_w_m2": [
+          85.0,
+          510.0
+        ],
+        "lux_low_high": [
+          9855.472,
+          59132.831999999995
+        ],
+        "temperature_tendency_low_high_c_s": [
+          -0.0032149004835957213,
+          -0.002409171316929055
+        ]
+      },
+      "B_ventilation_response": {
+        "status": "PASS",
+        "flow_off_on_m3_s": [
+          0.006006023120758109,
+          0.0073949231207581095
+        ],
+        "temperature_tendency_off_on_c_s": [
+          -0.006674089635422575,
+          -0.006940580716369513
+        ]
+      },
+      "C_humidity_exchange": {
+        "status": "PASS",
+        "vapor_tendency_fan_off_on_kg_m3_s": [
+          -1.1656820226842594e-05,
+          -1.6653012972870494e-05
+        ]
+      },
+      "D_pump_response": {
+        "status": "PASS",
+        "theta_tendency_off_on_s": [
+          0.0,
+          0.00013889
+        ]
+      },
+      "E_soil_stress": {
+        "status": "PASS",
+        "ks_dry_wet": [
+          0.16666666666666663,
+          1.0
+        ],
+        "et_dry_wet_kg_s": [
+          3.973507277056564e-06,
+          2.384104366233939e-05
+        ]
+      },
+      "F_et_coupling": {
+        "status": "PASS",
+        "vapor_tendency_base_high": [
+          3.229373935122508e-06,
+          2.8063794416726042e-05
+        ],
+        "temperature_tendency_base_high": [
+          -0.006024563877865153,
+          -0.0069980731607440115
+        ],
+        "soil_moisture_tendency_base_high": [
+          -1.1920521831169696e-06,
+          -2.384104366233939e-06
+        ]
+      },
+      "G_grow_light": {
+        "status": "PASS",
+        "lux_off_on": [
+          0.0,
+          5000.0
+        ],
+        "grow_heat_off_on_w": [
+          0.0,
+          11.700000000000001
+        ],
+        "temperature_tendency_off_on_c_s": [
+          -0.003376046316929055,
+          -0.003208608816929055
+        ]
+      },
+      "E0_atmospheric_boundaries": {
+        "status": "PASS",
+        "rh_cases_percent": [
+          0.0,
+          50.0,
+          100.0
+        ],
+        "checks_passed": 3
+      }
+    }
+  },
+  "mass_and_energy_consistency": {
+    "status": "PASS",
+    "root_zone_water": {
+      "irrigation_input_m3": 0.01000008,
+      "et_loss_m3": 0.013655489546895645,
+      "drainage_loss_m3": 0.0,
+      "overflow_drainage_m3": 0.0,
+      "storage_change_m3": -0.003655409546895519,
+      "residual_m3": 1.2620113287731272e-16,
+      "relative_residual": 1.726224261033776e-14
+    },
+    "indoor_vapor": {
+      "et_source_kg": 13.655489546895538,
+      "ventilation_exchange_kg": -13.646931270137534,
+      "condensation_sink_kg": 0.008551071449589191,
+      "storage_change_kg": 7.205308292083101e-06,
+      "residual_kg": -1.2263919077455188e-13,
+      "relative_residual": 8.510336043886012e-09
+    },
+    "indoor_air_energy": {
+      "integrated_net_energy_j": -65591.19523628445,
+      "storage_change_j": -65591.19523625952,
+      "residual_j": 2.4927430786192417e-08,
+      "relative_residual": 1.9002116592325437e-13,
+      "unit_audit": "All E7 terms are W; pressure converted hPa->Pa at input boundary; C_eff is J/K; dT/dt is K/s."
+    }
+  },
+  "numerical_stability": {
+    "status": "PASS",
+    "selected_timestep_s": 60,
+    "reason": "60 s selected as the most conservative knowledge-file baseline; 120 s must agree within configured V1 audit tolerances.",
+    "comparisons": {
+      "60": {
+        "status": "ACCEPTED",
+        "final_state_difference_vs_selected": {
+          "temperature_inside_c": 0.0,
+          "humidity_inside_percent": 0.0,
+          "soil_temperature_c": 0.0,
+          "soil_moisture_theta": 0.0
+        },
+        "runtime_seconds": 5.748379999999088
+      },
+      "120": {
+        "status": "ACCEPTED",
+        "final_state_difference_vs_selected": {
+          "temperature_inside_c": 5.5470049886707784e-08,
+          "humidity_inside_percent": 6.355057138307529e-07,
+          "soil_temperature_c": 2.4772574604980946e-06,
+          "soil_moisture_theta": 1.5530448441158917e-07
+        },
+        "runtime_seconds": 2.640756599999804
+      },
+      "300": {
+        "status": "ACCEPTED",
+        "final_state_difference_vs_selected": {
+          "temperature_inside_c": 1.2936013149555947e-07,
+          "humidity_inside_percent": 1.7637589735386427e-06,
+          "soil_temperature_c": 3.1014102361837104e-06,
+          "soil_moisture_theta": 1.2443796015004782e-06
+        },
+        "runtime_seconds": 1.054092500000479
+      }
+    }
+  },
+  "verification_passes": {
+    "pass_1_equation_audit": {
+      "status": "PASS",
+      "equation_map": {
+        "E0": "atmosphere.py saturation/actual pressure/vapor density",
+        "E1": "radiation.py greenhouse_solar_radiation",
+        "E2": "ventilation.py leakage + wind + buoyancy + fan",
+        "E3": "crop.py water_stress_coefficient",
+        "E4": "crop.py evapotranspiration_rate",
+        "E5": "greenhouse.py vapor_density_derivative + saturation closure",
+        "E6": "atmosphere.py relative_humidity_from_state",
+        "E7": "greenhouse.py indoor_temperature_derivative",
+        "E8": "soil.py soil_temperature_derivative",
+        "E9": "soil.py soil_moisture_derivative + overflow drainage closure",
+        "E10": "radiation.py indoor_illuminance_lux"
+      },
+      "sign_checks": {
+        "cover_and_ventilation": "(T_out - T_in)",
+        "soil_to_air": "(T_soil - T_in)",
+        "latent_et": "negative",
+        "condensation_heat": "positive when enabled"
+      }
+    },
+    "pass_2_parameter_provenance": {
+      "status": "PASS",
+      "parameter_records": 72,
+      "records_with_complete_metadata": 72,
+      "uncertain_parameters_explicitly_exposed": {
+        "greenhouse.effective_thermal_capacity_j_k": "INITIAL_PRIOR_TO_CALIBRATE",
+        "cover.shortwave_transmittance": "TO_CALIBRATE",
+        "cover.visible_transmittance": "TO_CALIBRATE",
+        "cover.u_value_w_m2_k": "TO_CALIBRATE",
+        "cover.air_solar_absorption_fraction": "INITIAL_PRIOR_TO_CALIBRATE",
+        "ventilation.passive_leakage_m3_s": "TO_CALIBRATE",
+        "ventilation.discharge_coefficient": "INITIAL_PRIOR_TO_CALIBRATE",
+        "ventilation.wind_effect_coefficient": "INITIAL_PRIOR_TO_CALIBRATE",
+        "ventilation.fan_effective_flow_factor": "TO_MEASURE_OR_CALIBRATE",
+        "crop.effective_area_m2": "INITIAL_PRIOR_TO_CALIBRATE",
+        "crop.transpiration_radiation_coefficient": "INITIAL_PRIOR_TO_CALIBRATE",
+        "crop.transpiration_vpd_coefficient": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_thermal.effective_heat_capacity_j_k": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_thermal.air_soil_heat_transfer_w_m2_k": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_thermal.solar_absorption_fraction": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_thermal.base_loss_u_w_m2_k": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_thermal.base_temperature_c": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_water.field_capacity": "TO_MEASURE",
+        "soil_water.wilting_point": "TO_CALIBRATE",
+        "soil_water.depletion_fraction": "TO_CALIBRATE",
+        "soil_water.drainage_coefficient_s": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_water.residual_lower_bound": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_water.saturation_upper_bound": "INITIAL_PRIOR_TO_CALIBRATE",
+        "irrigation.effective_flow_m3_s": "TO_MEASURE",
+        "grow_light.radiant_fraction": "INITIAL_PRIOR_TO_CALIBRATE",
+        "grow_light.heat_fraction": "INITIAL_PRIOR_TO_CALIBRATE",
+        "grow_light.canopy_lux_gain": "INITIAL_PRIOR_TO_MEASURE",
+        "light.direct_luminous_efficacy_lm_w": "INITIAL_PRIOR_TO_CALIBRATE",
+        "light.diffuse_luminous_efficacy_lm_w": "INITIAL_PRIOR_TO_CALIBRATE"
+      },
+      "numeric_literal_audit": "Physics magnitudes come from config; remaining literals are exact unit conversions, equation structure, bounds, or controlled-test fixtures."
+    },
+    "pass_3_numerical_audit": {
+      "status": "PASS",
+      "output": {
+        "status": "PASS",
+        "rows": 720,
+        "nan_count": 0,
+        "inf_count": 0,
+        "max_hourly_temperature_jump_c": 3.06790363999124,
+        "violations": []
+      },
+      "conservation_status": "PASS",
+      "stability_status": "PASS",
+      "pressure_boundary": "Open-Meteo hPa converted to Pa before ideal-gas density",
+      "closures": "Vapour saturation mass -> condensation; root saturation excess -> overflow drainage"
+    },
+    "pass_4_physical_behavior": {
+      "status": "PASS",
+      "controlled_tests_passed": 8,
+      "controlled_tests_total": 8
+    }
+  },
+  "sensor_model": {
+    "noise_enabled": false,
+    "true_state_mutated_by_sensor_noise": false,
+    "soil_sensor_mapping": "NOT_EMITTED_PENDING_CALIBRATION"
+  },
+  "parameter_config": "config\\greenhouse_parameters.yaml",
+  "parameter_provenance": {
+    "identity.parameter_set_id": {
+      "value": "smartgarden_pa1_v1_1_rootzone_prior",
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md plus 30-day E8 root-cause audit"
+    },
+    "identity.simulation_id": {
+      "value": "nha_trang_2024_june_physics_v1_1",
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "Task-defined 30-day validation window"
+    },
+    "physical_constants.svp_coefficient_kpa": {
+      "value": 0.6108,
+      "unit": "kPa",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "FAO-56; GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E0"
+    },
+    "physical_constants.svp_exponent_numerator": {
+      "value": 17.27,
+      "unit": "dimensionless",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "FAO-56; GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E0"
+    },
+    "physical_constants.svp_temperature_offset_c": {
+      "value": 237.3,
+      "unit": "degC",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "FAO-56; GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E0"
+    },
+    "physical_constants.kelvin_offset": {
+      "value": 273.15,
+      "unit": "K",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "SI temperature conversion"
+    },
+    "physical_constants.water_vapor_gas_constant_j_kg_k": {
+      "value": 461.5,
+      "unit": "J/(kg K)",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E0"
+    },
+    "physical_constants.dry_air_gas_constant_j_kg_k": {
+      "value": 287.05,
+      "unit": "J/(kg K)",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E7"
+    },
+    "physical_constants.dry_air_heat_capacity_j_kg_k": {
+      "value": 1005.0,
+      "unit": "J/(kg K)",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "FIXED_V1",
+      "source": "Standard near-ambient dry-air constant-pressure heat capacity"
+    },
+    "physical_constants.latent_heat_vaporization_j_kg": {
+      "value": 2450000.0,
+      "unit": "J/kg",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "FIXED_V1",
+      "source": "Standard near-ambient water latent heat prior"
+    },
+    "physical_constants.water_density_kg_m3": {
+      "value": 1000.0,
+      "unit": "kg/m3",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "FIXED_V1",
+      "source": "Standard liquid-water density prior"
+    },
+    "physical_constants.gravity_m_s2": {
+      "value": 9.80665,
+      "unit": "m/s2",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "Standard gravity"
+    },
+    "greenhouse.length_m": {
+      "value": 0.8,
+      "unit": "m",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 3.2"
+    },
+    "greenhouse.width_m": {
+      "value": 0.8,
+      "unit": "m",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 3.2"
+    },
+    "greenhouse.height_m": {
+      "value": 1.5,
+      "unit": "m",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 3.2"
+    },
+    "greenhouse.volume_m3": {
+      "value": 0.96,
+      "unit": "m3",
+      "provenance": "DERIVED",
+      "status": "BASELINE",
+      "source": "0.8 m x 0.8 m x 1.5 m"
+    },
+    "greenhouse.floor_area_m2": {
+      "value": 0.64,
+      "unit": "m2",
+      "provenance": "DERIVED",
+      "status": "BASELINE",
+      "source": "0.8 m x 0.8 m"
+    },
+    "greenhouse.exposed_cover_area_m2": {
+      "value": 5.44,
+      "unit": "m2",
+      "provenance": "DERIVED",
+      "status": "BASELINE",
+      "source": "Rectangular enclosure excluding floor"
+    },
+    "greenhouse.effective_thermal_capacity_j_k": {
+      "value": 60000.0,
+      "unit": "J/K",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Executable V1 lumped-capacitance prior; calibrate from measured indoor response"
+    },
+    "cover.shortwave_transmittance": {
+      "value": 0.85,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "TO_CALIBRATE",
+      "source": "Baneshi et al. 2020; hardware knowledge section 5.2"
+    },
+    "cover.visible_transmittance": {
+      "value": 0.88,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_CALIBRATE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 5.2"
+    },
+    "cover.u_value_w_m2_k": {
+      "value": 6.4,
+      "unit": "W/(m2 K)",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "TO_CALIBRATE",
+      "source": "UGA Extension and doi:10.1007/s43621-024-00276-5"
+    },
+    "cover.air_solar_absorption_fraction": {
+      "value": 0.35,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Executable V1 effective solar-gain prior for E7; not measured"
+    },
+    "ventilation.passive_leakage_m3_s": {
+      "value": 0.0,
+      "unit": "m3/s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_CALIBRATE",
+      "source": "Conservative V1 prior; explicit leakage term retained in E2"
+    },
+    "ventilation.vent_area_m2": {
+      "value": 0.01,
+      "unit": "m2",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 6"
+    },
+    "ventilation.vent_height_m": {
+      "value": 1.2,
+      "unit": "m",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 6"
+    },
+    "ventilation.discharge_coefficient": {
+      "value": 0.65,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Teitel and Tanny 1999 driver form; geometry-dependent V1 prior"
+    },
+    "ventilation.wind_effect_coefficient": {
+      "value": 0.09,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Teitel and Tanny 1999 driver form; geometry-dependent V1 prior"
+    },
+    "ventilation.fan_nominal_airflow_m3_s": {
+      "value": 0.0013889,
+      "unit": "m3/s",
+      "provenance": "DERIVED",
+      "status": "BASELINE_FREE_AIR_SPEC",
+      "source": "Verified 5 m3/h product specification"
+    },
+    "ventilation.fan_effective_flow_factor": {
+      "value": 1.0,
+      "unit": "dimensionless",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "TO_MEASURE_OR_CALIBRATE",
+      "source": "Hardware knowledge section 10 initial effective-flow baseline"
+    },
+    "crop.effective_area_m2": {
+      "value": 0.3,
+      "unit": "m2",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "One compact tomato V1 effective-area prior; not measured"
+    },
+    "crop.transpiration_radiation_coefficient": {
+      "value": 1.5e-07,
+      "unit": "kg/(m2 s)/(W/m2)",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "E4 executable magnitude prior; driver structure from Boulard and Wang 2000"
+    },
+    "crop.transpiration_vpd_coefficient": {
+      "value": 2e-06,
+      "unit": "kg/(m2 s kPa)",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "E4 executable magnitude prior; driver structure from Boulard and Wang 2000"
+    },
+    "soil_thermal.surface_area_m2": {
+      "value": 0.0707,
+      "unit": "m2",
+      "provenance": "DERIVED",
+      "status": "BASELINE",
+      "source": "20 L pot geometry in hardware knowledge section 4.1"
+    },
+    "soil_thermal.effective_heat_capacity_j_k": {
+      "value": 90000.0,
+      "unit": "J/K",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Executable V1 effective root-zone thermal-mass prior; not measured"
+    },
+    "soil_thermal.air_soil_heat_transfer_w_m2_k": {
+      "value": 8.0,
+      "unit": "W/(m2 K)",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Natural-convection order-of-magnitude prior for E7/E8"
+    },
+    "soil_thermal.solar_absorption_fraction": {
+      "value": 0.2,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Revised after 30-day E8 audit: effective coupling into the lumped 7 cm root-zone state, not literal surface absorptivity; sensitivity-tested but not measured; calibrate with ES-SM-TH-01; tomato root-zone context doi:10.1016/0304-4238(84)90027-X"
+    },
+    "soil_thermal.base_loss_u_w_m2_k": {
+      "value": 2.0,
+      "unit": "W/(m2 K)",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "E8 slow thermal-base loss prior; not measured"
+    },
+    "soil_thermal.base_temperature_c": {
+      "value": 27.0,
+      "unit": "degC",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Fixed V1 thermal-base prior; external reanalysis soil is not substituted"
+    },
+    "soil_water.root_volume_m3": {
+      "value": 0.02,
+      "unit": "m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "20 L root-zone design in hardware knowledge section 4.1"
+    },
+    "soil_water.field_capacity": {
+      "value": 0.42,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_MEASURE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 4.2 initial prior"
+    },
+    "soil_water.wilting_point": {
+      "value": 0.15,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_CALIBRATE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 4.2 initial prior"
+    },
+    "soil_water.depletion_fraction": {
+      "value": 0.4,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "TO_CALIBRATE",
+      "source": "FAO-56 adapted E3 prior"
+    },
+    "soil_water.drainage_coefficient_s": {
+      "value": 4.62962962962963e-05,
+      "unit": "1/s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Six-hour excess-water drainage timescale prior for executable E9"
+    },
+    "soil_water.residual_lower_bound": {
+      "value": 0.05,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Numerical physical lower bound below wilting point; substrate-specific"
+    },
+    "soil_water.saturation_upper_bound": {
+      "value": 0.55,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Potting-mix saturation prior; excess is recorded as overflow drainage"
+    },
+    "soil_water.initial_theta": {
+      "value": 0.4,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_INITIAL_CONDITION",
+      "source": "Near field-capacity initialization required by task"
+    },
+    "irrigation.effective_flow_m3_s": {
+      "value": 2.7778e-06,
+      "unit": "m3/s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_MEASURE",
+      "source": "10 L/h emitter design setting; hardware knowledge section 12"
+    },
+    "irrigation.pump_nominal_flow_min_l_h": {
+      "value": 280.0,
+      "unit": "L/h",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY_NOT_USED_BY_E9",
+      "source": "Pump product specification"
+    },
+    "irrigation.pump_nominal_flow_max_l_h": {
+      "value": 500.0,
+      "unit": "L/h",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY_NOT_USED_BY_E9",
+      "source": "Pump product specification"
+    },
+    "grow_light.electrical_power_w": {
+      "value": 18.0,
+      "unit": "W",
+      "provenance": "USER_BOM",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 13"
+    },
+    "grow_light.radiant_fraction": {
+      "value": 0.25,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Testable E4 prior only; not inferred from 18 W and not sensor-calibrated"
+    },
+    "grow_light.heat_fraction": {
+      "value": 0.65,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Testable E7 prior only; not inferred from 18 W and not measured"
+    },
+    "grow_light.canopy_lux_gain": {
+      "value": 5000.0,
+      "unit": "lux",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_MEASURE",
+      "source": "Testable E10 prior only; replace using ES-ALS-02 night calibration"
+    },
+    "light.direct_luminous_efficacy_lm_w": {
+      "value": 100.0,
+      "unit": "lm/W",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Fakra et al. 2011 tropical-humid luminous-efficacy model context"
+    },
+    "light.diffuse_luminous_efficacy_lm_w": {
+      "value": 139.98,
+      "unit": "lm/W",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Fakra et al. 2011 all-sky diffuse efficacy prior"
+    },
+    "controls.pump_pulse_start_seconds": {
+      "value": [
+        21600,
+        64800
+      ],
+      "unit": "s after local midnight",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_DETERMINISTIC",
+      "source": "V1 deterministic schedule: 06:00 and 18:00"
+    },
+    "controls.pump_pulse_duration_s": {
+      "value": 60,
+      "unit": "s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_DETERMINISTIC",
+      "source": "V1 deterministic pulse schedule"
+    },
+    "controls.fan_on_temperature_c": {
+      "value": 30.0,
+      "unit": "degC",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_DETERMINISTIC",
+      "source": "V1 threshold controller"
+    },
+    "controls.fan_minimum_cooling_delta_c": {
+      "value": 0.5,
+      "unit": "degC",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_DETERMINISTIC",
+      "source": "Fan enabled only when indoor air is warmer than outdoor air"
+    },
+    "controls.grow_light_baseline_state": {
+      "value": 0,
+      "unit": "binary",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_DETERMINISTIC",
+      "source": "Physics-first baseline keeps grow light OFF"
+    },
+    "controls.vent_state": {
+      "value": 1.0,
+      "unit": "fraction",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "Hardware knowledge section 26: passive opening always present"
+    },
+    "simulation.start_timestamp": {
+      "value": "2024-06-01T00:00",
+      "unit": "Asia/Ho_Chi_Minh local time",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TASK_WINDOW",
+      "source": "Task requested strong-solar 30-day preference"
+    },
+    "simulation.duration_days": {
+      "value": 30,
+      "unit": "day",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TASK_WINDOW",
+      "source": "Task requirement"
+    },
+    "simulation.internal_timestep_s": {
+      "value": 60,
+      "unit": "s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "SELECTED_AFTER_STABILITY_TEST",
+      "source": "Knowledge-file recommended 60-300 s range"
+    },
+    "simulation.output_interval_s": {
+      "value": 3600,
+      "unit": "s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "Hourly raw-weather and task output contract"
+    },
+    "simulation.weather_interpolation": {
+      "value": "linear_nonnegative_radiation",
+      "unit": "method",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "Task weather interpolation rule"
+    },
+    "sensor_model.noise_enabled": {
+      "value": false,
+      "unit": "boolean",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "DISABLED_FOR_PHYSICS_VALIDATION",
+      "source": "Task V1 sensor-model rule"
+    },
+    "sensor_model.air_temperature_accuracy_c": {
+      "value": 0.5,
+      "unit": "degC",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY",
+      "source": "TH10S-B-PE product specification"
+    },
+    "sensor_model.air_humidity_accuracy_percent": {
+      "value": 3.0,
+      "unit": "percent RH",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY",
+      "source": "TH10S-B-PE product specification"
+    },
+    "sensor_model.soil_temperature_accuracy_c": {
+      "value": 0.5,
+      "unit": "degC",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY",
+      "source": "ES-SM-TH-01 product specification"
+    },
+    "sensor_model.light_accuracy_percent": {
+      "value": 5.0,
+      "unit": "percent",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY",
+      "source": "ES-ALS-02 product specification"
+    }
+  },
+  "parameters_still_to_calibrate": [
+    {
+      "parameter": "greenhouse.effective_thermal_capacity_j_k",
+      "value": 60000.0,
+      "unit": "J/K",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Executable V1 lumped-capacitance prior; calibrate from measured indoor response"
+    },
+    {
+      "parameter": "cover.shortwave_transmittance",
+      "value": 0.85,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "TO_CALIBRATE",
+      "source": "Baneshi et al. 2020; hardware knowledge section 5.2"
+    },
+    {
+      "parameter": "cover.visible_transmittance",
+      "value": 0.88,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_CALIBRATE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 5.2"
+    },
+    {
+      "parameter": "cover.u_value_w_m2_k",
+      "value": 6.4,
+      "unit": "W/(m2 K)",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "TO_CALIBRATE",
+      "source": "UGA Extension and doi:10.1007/s43621-024-00276-5"
+    },
+    {
+      "parameter": "cover.air_solar_absorption_fraction",
+      "value": 0.35,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Executable V1 effective solar-gain prior for E7; not measured"
+    },
+    {
+      "parameter": "ventilation.passive_leakage_m3_s",
+      "value": 0.0,
+      "unit": "m3/s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_CALIBRATE",
+      "source": "Conservative V1 prior; explicit leakage term retained in E2"
+    },
+    {
+      "parameter": "ventilation.discharge_coefficient",
+      "value": 0.65,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Teitel and Tanny 1999 driver form; geometry-dependent V1 prior"
+    },
+    {
+      "parameter": "ventilation.wind_effect_coefficient",
+      "value": 0.09,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Teitel and Tanny 1999 driver form; geometry-dependent V1 prior"
+    },
+    {
+      "parameter": "ventilation.fan_effective_flow_factor",
+      "value": 1.0,
+      "unit": "dimensionless",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "TO_MEASURE_OR_CALIBRATE",
+      "source": "Hardware knowledge section 10 initial effective-flow baseline"
+    },
+    {
+      "parameter": "crop.effective_area_m2",
+      "value": 0.3,
+      "unit": "m2",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "One compact tomato V1 effective-area prior; not measured"
+    },
+    {
+      "parameter": "crop.transpiration_radiation_coefficient",
+      "value": 1.5e-07,
+      "unit": "kg/(m2 s)/(W/m2)",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "E4 executable magnitude prior; driver structure from Boulard and Wang 2000"
+    },
+    {
+      "parameter": "crop.transpiration_vpd_coefficient",
+      "value": 2e-06,
+      "unit": "kg/(m2 s kPa)",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "E4 executable magnitude prior; driver structure from Boulard and Wang 2000"
+    },
+    {
+      "parameter": "soil_thermal.effective_heat_capacity_j_k",
+      "value": 90000.0,
+      "unit": "J/K",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Executable V1 effective root-zone thermal-mass prior; not measured"
+    },
+    {
+      "parameter": "soil_thermal.air_soil_heat_transfer_w_m2_k",
+      "value": 8.0,
+      "unit": "W/(m2 K)",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Natural-convection order-of-magnitude prior for E7/E8"
+    },
+    {
+      "parameter": "soil_thermal.solar_absorption_fraction",
+      "value": 0.2,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Revised after 30-day E8 audit: effective coupling into the lumped 7 cm root-zone state, not literal surface absorptivity; sensitivity-tested but not measured; calibrate with ES-SM-TH-01; tomato root-zone context doi:10.1016/0304-4238(84)90027-X"
+    },
+    {
+      "parameter": "soil_thermal.base_loss_u_w_m2_k",
+      "value": 2.0,
+      "unit": "W/(m2 K)",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "E8 slow thermal-base loss prior; not measured"
+    },
+    {
+      "parameter": "soil_thermal.base_temperature_c",
+      "value": 27.0,
+      "unit": "degC",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Fixed V1 thermal-base prior; external reanalysis soil is not substituted"
+    },
+    {
+      "parameter": "soil_water.field_capacity",
+      "value": 0.42,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_MEASURE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 4.2 initial prior"
+    },
+    {
+      "parameter": "soil_water.wilting_point",
+      "value": 0.15,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_CALIBRATE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 4.2 initial prior"
+    },
+    {
+      "parameter": "soil_water.depletion_fraction",
+      "value": 0.4,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "TO_CALIBRATE",
+      "source": "FAO-56 adapted E3 prior"
+    },
+    {
+      "parameter": "soil_water.drainage_coefficient_s",
+      "value": 4.62962962962963e-05,
+      "unit": "1/s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Six-hour excess-water drainage timescale prior for executable E9"
+    },
+    {
+      "parameter": "soil_water.residual_lower_bound",
+      "value": 0.05,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Numerical physical lower bound below wilting point; substrate-specific"
+    },
+    {
+      "parameter": "soil_water.saturation_upper_bound",
+      "value": 0.55,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Potting-mix saturation prior; excess is recorded as overflow drainage"
+    },
+    {
+      "parameter": "irrigation.effective_flow_m3_s",
+      "value": 2.7778e-06,
+      "unit": "m3/s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_MEASURE",
+      "source": "10 L/h emitter design setting; hardware knowledge section 12"
+    },
+    {
+      "parameter": "grow_light.radiant_fraction",
+      "value": 0.25,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Testable E4 prior only; not inferred from 18 W and not sensor-calibrated"
+    },
+    {
+      "parameter": "grow_light.heat_fraction",
+      "value": 0.65,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Testable E7 prior only; not inferred from 18 W and not measured"
+    },
+    {
+      "parameter": "grow_light.canopy_lux_gain",
+      "value": 5000.0,
+      "unit": "lux",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_MEASURE",
+      "source": "Testable E10 prior only; replace using ES-ALS-02 night calibration"
+    },
+    {
+      "parameter": "light.direct_luminous_efficacy_lm_w",
+      "value": 100.0,
+      "unit": "lm/W",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Fakra et al. 2011 tropical-humid luminous-efficacy model context"
+    },
+    {
+      "parameter": "light.diffuse_luminous_efficacy_lm_w",
+      "value": 139.98,
+      "unit": "lm/W",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Fakra et al. 2011 all-sky diffuse efficacy prior"
+    }
+  ],
+  "warnings": [
+    "Vapour saturation closure produced 115 condensation events; mass is retained in the balance audit.",
+    "Grow-light radiant/heat/lux values are explicit V1 priors and are not sensor-calibrated.",
+    "External Open-Meteo soil variables are retained only as context; E8/E9 use independent greenhouse states.",
+    "Hourly Open-Meteo solar radiation is treated as an hourly forcing and linearly interpolated with a nonnegative floor."
+  ],
+  "output_files": {
+    "csv": "outputs\\greenhouse_simulation_30days.csv",
+    "validation_report": "outputs\\greenhouse_simulation_30days_validation.json"
+  }
+}

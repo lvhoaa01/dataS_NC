@@ -1,0 +1,1189 @@
+{
+  "status": "PASS",
+  "master_file": "outputs\\greenhouse_simulation_30days.csv",
+  "master_sha256": "4a5fef1181266f150a18a9b6bf81eafcc447c830bfc99ad4b7fba8b54596ab07",
+  "config_file": "config\\greenhouse_parameters.yaml",
+  "config_sha256": "c4f56a0201cde7d07270c4c83454842d652804e48bb72b7e9b9970713376fb93",
+  "simulator_report_file": "outputs\\greenhouse_simulation_30days_validation.json",
+  "simulator_report_sha256": "bc2534d49f60324473f91b2dae5f1f3203332f68be6b7cc0f0d15d4a8cb5f346",
+  "dataset": {
+    "rows": 720,
+    "columns": 33,
+    "window_start": "2024-06-01T00:00",
+    "window_end": "2024-06-30T23:00",
+    "duplicates": 0,
+    "timestamp_gaps": 0,
+    "missing_values": 0,
+    "nonfinite_values": 0,
+    "dtypes": {
+      "timestamp": "datetime",
+      "simulation_id": "string",
+      "parameter_set_id": "string",
+      "actuator_states": "binary numeric",
+      "remaining_columns": "finite float"
+    }
+  },
+  "column_groups": {
+    "WEATHER": [
+      "temperature_outside",
+      "humidity_outside",
+      "shortwave_radiation",
+      "direct_radiation",
+      "diffuse_radiation",
+      "wind_speed",
+      "surface_pressure"
+    ],
+    "ACTUATOR": [
+      "pump_state",
+      "fan_state",
+      "grow_light_state",
+      "vent_state"
+    ],
+    "PHYSICS TRUE STATE": [
+      "temperature_inside_true",
+      "vapor_density_inside_true",
+      "soil_temperature_inside_true",
+      "soil_moisture_inside_true"
+    ],
+    "DERIVED OUTPUT": [
+      "humidity_inside_true",
+      "light_lux_inside_true"
+    ],
+    "PHYSICS DIAGNOSTIC": [
+      "vpd_inside",
+      "solar_inside",
+      "ventilation_rate_m3_s",
+      "evapotranspiration_rate_kg_s",
+      "water_stress_coefficient",
+      "condensation_rate_kg_s",
+      "drainage_rate_m3_s",
+      "air_density"
+    ],
+    "QA / REFERENCE": [
+      "dew_point_outside",
+      "vpd_outside_reference",
+      "et0_outside_reference",
+      "external_soil_temperature_context",
+      "external_soil_moisture_context"
+    ],
+    "METADATA": [
+      "timestamp",
+      "simulation_id",
+      "parameter_set_id"
+    ]
+  },
+  "unclassified_columns": [],
+  "duplicated_column_classifications": [],
+  "statistics": {
+    "temperature_inside_true": {
+      "min": 25.103054235486592,
+      "max": 39.600353417736926,
+      "mean": 31.0514566335703,
+      "median": 30.10801991524366,
+      "std": 3.261177526789692,
+      "p01": 26.233070892684307,
+      "p05": 26.986528074442234,
+      "p95": 37.51035813949716,
+      "p99": 38.77425763537585
+    },
+    "humidity_inside_true": {
+      "min": 45.73345710413205,
+      "max": 100.0,
+      "mean": 76.50176391915448,
+      "median": 79.51427335491815,
+      "std": 12.838820012741595,
+      "p01": 47.800996546969074,
+      "p05": 51.21882840473944,
+      "p95": 92.85591564960941,
+      "p99": 96.8430418714818
+    },
+    "soil_temperature_inside_true": {
+      "min": 29.439864982668055,
+      "max": 37.56482133232096,
+      "mean": 33.979936723807114,
+      "median": 34.28003966552265,
+      "std": 1.8640173118577132,
+      "p01": 29.586717088395638,
+      "p05": 30.932717160549934,
+      "p95": 36.62428996833178,
+      "p99": 37.28769589324462
+    },
+    "soil_moisture_inside_true": {
+      "min": 0.20168620262303516,
+      "max": 0.40725225403915716,
+      "mean": 0.24313581179144222,
+      "median": 0.22679692365792198,
+      "std": 0.046311289945132166,
+      "p01": 0.20280584128040938,
+      "p05": 0.20821602755748753,
+      "p95": 0.3665674585475537,
+      "p99": 0.39973019717078195
+    },
+    "light_lux_inside_true": {
+      "min": 0.0,
+      "max": 89564.3408,
+      "mean": 23220.41636444444,
+      "median": 2648.5536,
+      "std": 29279.97433138648,
+      "p01": 0.0,
+      "p05": 0.0,
+      "p95": 81116.99376,
+      "p99": 86934.95078399997
+    },
+    "ventilation_rate_m3_s": {
+      "min": 0.0007230421334155483,
+      "max": 0.00803608561569265,
+      "mean": 0.0030031757265722115,
+      "median": 0.0023617126901947895,
+      "std": 0.0014248430917428007,
+      "p01": 0.0011095717570962446,
+      "p05": 0.0014503028481211429,
+      "p95": 0.005556113749969497,
+      "p99": 0.006977039473479168
+    },
+    "evapotranspiration_rate_kg_s": {
+      "min": 2.4437612045378724e-08,
+      "max": 3.7598556081463e-05,
+      "mean": 5.264770054480821e-06,
+      "median": 8.78422564387892e-07,
+      "std": 7.407548885419558e-06,
+      "p01": 3.387584840855914e-08,
+      "p05": 1.0425162439013465e-07,
+      "p95": 2.0600714341123474e-05,
+      "p99": 3.365791006009319e-05
+    },
+    "vpd_inside": {
+      "min": 0.0,
+      "max": 3.837910197332473,
+      "mean": 1.181488427213884,
+      "median": 0.882859480984693,
+      "std": 0.8782965327982624,
+      "p01": 0.10901019873575965,
+      "p05": 0.26803843260334737,
+      "p95": 3.079875057256208,
+      "p99": 3.596566485066929
+    },
+    "condensation_rate_kg_s": {
+      "min": 0.0,
+      "max": 1.2530064061609816e-06,
+      "mean": 3.2990244790081746e-09,
+      "median": 0.0,
+      "std": 5.4060395531350973e-08,
+      "p01": 0.0,
+      "p05": 0.0,
+      "p95": 0.0,
+      "p99": 0.0
+    },
+    "water_stress_coefficient": {
+      "min": 0.3190506334755257,
+      "max": 1.0,
+      "mean": 0.5420224325376805,
+      "median": 0.47405508430816046,
+      "std": 0.1993061923066244,
+      "p01": 0.3259619832124036,
+      "p05": 0.3593581947993057,
+      "p95": 1.0,
+      "p99": 1.0
+    }
+  },
+  "temperature_analysis": {
+    "largest_positive_hourly_change": {
+      "timestamp": "2024-06-16T10:00",
+      "air_temperature_delta_c": 2.641814750636776,
+      "soil_temperature_delta_c": 0.23534318607624982,
+      "soil_moisture_delta": -0.0018194850062609735,
+      "humidity_delta_percent": -8.563237126731039,
+      "solar_inside": 672.35,
+      "fan_state": 1,
+      "pump_state": 0,
+      "max_normalized_abs_jump": 0.3425294850692416
+    },
+    "largest_negative_hourly_change": {
+      "timestamp": "2024-06-21T14:00",
+      "air_temperature_delta_c": -3.06790363999124,
+      "soil_temperature_delta_c": 0.14264195848474515,
+      "soil_moisture_delta": -0.0011539068734747193,
+      "humidity_delta_percent": 11.129853599828394,
+      "solar_inside": 175.95,
+      "fan_state": 1,
+      "pump_state": 0,
+      "max_normalized_abs_jump": 0.4451941439931357
+    },
+    "top_five_absolute_state_jumps": [
+      {
+        "timestamp": "2024-06-04T09:00",
+        "air_temperature_delta_c": 2.0216860607253153,
+        "soil_temperature_delta_c": 0.21441370744607724,
+        "soil_moisture_delta": -0.003733281145906542,
+        "humidity_delta_percent": -20.288138877321444,
+        "solar_inside": 542.3,
+        "fan_state": 1,
+        "pump_state": 0,
+        "max_normalized_abs_jump": 0.8115255550928577
+      },
+      {
+        "timestamp": "2024-06-27T09:00",
+        "air_temperature_delta_c": 1.6891790942645741,
+        "soil_temperature_delta_c": 0.1773823045718217,
+        "soil_moisture_delta": -0.0017705977181358412,
+        "humidity_delta_percent": -20.17810455516181,
+        "solar_inside": 464.09999999999997,
+        "fan_state": 1,
+        "pump_state": 0,
+        "max_normalized_abs_jump": 0.8071241822064724
+      },
+      {
+        "timestamp": "2024-06-05T09:00",
+        "air_temperature_delta_c": 2.0809413785413255,
+        "soil_temperature_delta_c": 0.1818200738177964,
+        "soil_moisture_delta": -0.003225646087913314,
+        "humidity_delta_percent": -19.620198274732985,
+        "solar_inside": 530.4,
+        "fan_state": 1,
+        "pump_state": 0,
+        "max_normalized_abs_jump": 0.7848079309893194
+      },
+      {
+        "timestamp": "2024-06-03T09:00",
+        "air_temperature_delta_c": 2.1654697345883065,
+        "soil_temperature_delta_c": 0.22089979110091207,
+        "soil_moisture_delta": -0.0036474144207686576,
+        "humidity_delta_percent": -18.976243972166202,
+        "solar_inside": 538.05,
+        "fan_state": 1,
+        "pump_state": 0,
+        "max_normalized_abs_jump": 0.759049758886648
+      },
+      {
+        "timestamp": "2024-06-01T10:00",
+        "air_temperature_delta_c": 1.5537780479904555,
+        "soil_temperature_delta_c": 0.34095704548796135,
+        "soil_moisture_delta": -0.004247947957719267,
+        "humidity_delta_percent": -15.337469525533209,
+        "solar_inside": 572.05,
+        "fan_state": 1,
+        "pump_state": 0,
+        "max_normalized_abs_jump": 0.6134987810213284
+      }
+    ],
+    "day_mean_inside_c": 32.833880720205514,
+    "night_mean_inside_c": 28.86067532584839,
+    "fan_on_hourly_rows": 281
+  },
+  "humidity_analysis": {
+    "saturated_rows": 1,
+    "saturated_percent": 0.1388888888888889,
+    "longest_continuous_saturation_hours": 1,
+    "hourly_rows_with_condensation": 4,
+    "classification": "SPARSE_PHYSICAL_SATURATION_CLOSURE"
+  },
+  "soil_temperature_analysis": {
+    "max_timestamp": "2024-06-15T17:00",
+    "max_c": 37.56482133232096,
+    "classification": "VALID_PHYSICAL_EXTREME_WITH_CALIBRATION_RISK",
+    "parameters": {
+      "effective_heat_capacity_j_k": 90000.0,
+      "surface_area_m2": 0.0707,
+      "air_soil_heat_transfer_w_m2_k": 8.0,
+      "solar_absorption_fraction": 0.2,
+      "base_loss_u_w_m2_k": 2.0,
+      "base_temperature_c": 27.0
+    },
+    "peak_e8_terms": {
+      "q_air_to_soil_w": -2.2713740597158676,
+      "q_solar_to_soil_w": 2.16342,
+      "q_base_loss_w": 1.4938657363901837,
+      "net_e8_w": -1.6018197961060514,
+      "instantaneous_tendency_c_per_hour": -0.06407279184424206
+    },
+    "plus_minus_6_hour_window": [
+      {
+        "timestamp": "2024-06-15T11:00",
+        "temperature_outside": 35.1,
+        "temperature_inside_true": 37.77766514077628,
+        "humidity_inside_true": 51.951734583645454,
+        "soil_temperature_inside_true": 35.83776334852151,
+        "soil_moisture_inside_true": 0.21335135408181974,
+        "light_lux_inside_true": 76944.9824,
+        "solar_inside": 700.4,
+        "ventilation_rate_m3_s": 0.004346538308225624,
+        "evapotranspiration_rate_kg_s": 1.3063286645113143e-05,
+        "water_stress_coefficient": 0.3910577412458009,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": 1.0972084536992954,
+        "q_solar_to_soil_w": 9.903656,
+        "q_base_loss_w": 1.249659737480942,
+        "net_e8_w": 9.751204716218353,
+        "instantaneous_tendency_c_per_hour": 0.39004818864873414
+      },
+      {
+        "timestamp": "2024-06-15T12:00",
+        "temperature_outside": 35.8,
+        "temperature_inside_true": 38.77518461741703,
+        "humidity_inside_true": 49.0758401929566,
+        "soil_temperature_inside_true": 36.250548133064754,
+        "soil_moisture_inside_true": 0.21094344827312667,
+        "light_lux_inside_true": 85972.39199999999,
+        "solar_inside": 760.75,
+        "ventilation_rate_m3_s": 0.00466305633867426,
+        "evapotranspiration_rate_kg_s": 1.3672516472065135e-05,
+        "water_stress_coefficient": 0.37619412514275724,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": 1.4279343955496486,
+        "q_solar_to_soil_w": 10.757005,
+        "q_base_loss_w": 1.3080275060153561,
+        "net_e8_w": 10.876911889534291,
+        "instantaneous_tendency_c_per_hour": 0.43507647558137164
+      },
+      {
+        "timestamp": "2024-06-15T13:00",
+        "temperature_outside": 36.2,
+        "temperature_inside_true": 39.222500704707144,
+        "humidity_inside_true": 46.92200882543826,
+        "soil_temperature_inside_true": 36.66988823975283,
+        "soil_moisture_inside_true": 0.2086093325446805,
+        "light_lux_inside_true": 78845.008,
+        "solar_inside": 703.8,
+        "ventilation_rate_m3_s": 0.005138159346134794,
+        "evapotranspiration_rate_kg_s": 1.2273333767062934e-05,
+        "water_stress_coefficient": 0.36178600336222533,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": 1.4437576101781604,
+        "q_solar_to_soil_w": 9.951732,
+        "q_base_loss_w": 1.36732219710105,
+        "net_e8_w": 10.02816741307711,
+        "instantaneous_tendency_c_per_hour": 0.4011266965230844
+      },
+      {
+        "timestamp": "2024-06-15T14:00",
+        "temperature_outside": 36.0,
+        "temperature_inside_true": 39.198721710554004,
+        "humidity_inside_true": 45.94928984051632,
+        "soil_temperature_inside_true": 37.06926593755209,
+        "soil_moisture_inside_true": 0.20642168166885344,
+        "light_lux_inside_true": 78265.1584,
+        "solar_inside": 716.55,
+        "ventilation_rate_m3_s": 0.00573096634044607,
+        "evapotranspiration_rate_kg_s": 1.2028410458616268e-05,
+        "water_stress_coefficient": 0.34828198561020646,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": 1.204420185209883,
+        "q_solar_to_soil_w": 10.132017,
+        "q_base_loss_w": 1.4237942035698654,
+        "net_e8_w": 9.912642981640017,
+        "instantaneous_tendency_c_per_hour": 0.3965057192656007
+      },
+      {
+        "timestamp": "2024-06-15T15:00",
+        "temperature_outside": 33.9,
+        "temperature_inside_true": 37.376693333811325,
+        "humidity_inside_true": 50.8377335121558,
+        "soil_temperature_inside_true": 37.399840421023185,
+        "soil_moisture_inside_true": 0.2045214078245995,
+        "light_lux_inside_true": 63146.17759999999,
+        "solar_inside": 559.3,
+        "ventilation_rate_m3_s": 0.006288604021552249,
+        "evapotranspiration_rate_kg_s": 9.106327075576301e-06,
+        "water_stress_coefficient": 0.3365519001518487,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": -0.013091992527028385,
+        "q_solar_to_soil_w": 7.9085019999999995,
+        "q_base_loss_w": 1.4705374355326783,
+        "net_e8_w": 6.424872571940292,
+        "instantaneous_tendency_c_per_hour": 0.2569949028776117
+      },
+      {
+        "timestamp": "2024-06-15T16:00",
+        "temperature_outside": 32.6,
+        "temperature_inside_true": 35.020114391953385,
+        "humidity_inside_true": 59.42088585554206,
+        "soil_temperature_inside_true": 37.56323557850983,
+        "soil_moisture_inside_true": 0.20322132816975125,
+        "light_lux_inside_true": 37644.8688,
+        "solar_inside": 334.05,
+        "ventilation_rate_m3_s": 0.006045191933784257,
+        "evapotranspiration_rate_kg_s": 5.38874266721198e-06,
+        "water_stress_coefficient": 0.32852671709722997,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": -1.4383893431163268,
+        "q_solar_to_soil_w": 4.723467,
+        "q_base_loss_w": 1.4936415108012904,
+        "net_e8_w": 1.791436146082383,
+        "instantaneous_tendency_c_per_hour": 0.07165744584329532
+      },
+      {
+        "timestamp": "2024-06-15T17:00",
+        "temperature_outside": 32.3,
+        "temperature_inside_true": 33.548954890107616,
+        "humidity_inside_true": 63.59150077587091,
+        "soil_temperature_inside_true": 37.56482133232096,
+        "soil_moisture_inside_true": 0.2025052499831675,
+        "light_lux_inside_true": 18267.5856,
+        "solar_inside": 153.0,
+        "ventilation_rate_m3_s": 0.004071859692071418,
+        "evapotranspiration_rate_kg_s": 2.5987284321506647e-06,
+        "water_stress_coefficient": 0.32410648137757714,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": -2.2713740597158676,
+        "q_solar_to_soil_w": 2.16342,
+        "q_base_loss_w": 1.4938657363901837,
+        "net_e8_w": -1.6018197961060514,
+        "instantaneous_tendency_c_per_hour": -0.06407279184424206
+      },
+      {
+        "timestamp": "2024-06-15T18:00",
+        "temperature_outside": 31.6,
+        "temperature_inside_true": 32.39983940857786,
+        "humidity_inside_true": 66.16685722699602,
+        "soil_temperature_inside_true": 37.460443124169565,
+        "soil_moisture_inside_true": 0.20217564247137804,
+        "light_lux_inside_true": 6353.1071999999995,
+        "solar_inside": 51.85,
+        "ventilation_rate_m3_s": 0.0035148989235019292,
+        "evapotranspiration_rate_kg_s": 1.0694356668525536e-06,
+        "water_stress_coefficient": 0.32207186710727187,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 1.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": -2.8622774615386675,
+        "q_solar_to_soil_w": 0.733159,
+        "q_base_loss_w": 1.4791066577575764,
+        "net_e8_w": -3.608225119296244,
+        "instantaneous_tendency_c_per_hour": -0.14432900477184976
+      },
+      {
+        "timestamp": "2024-06-15T19:00",
+        "temperature_outside": 30.8,
+        "temperature_inside_true": 31.310283518324173,
+        "humidity_inside_true": 69.38398601908669,
+        "soil_temperature_inside_true": 37.29117992313093,
+        "soil_moisture_inside_true": 0.21036981901795035,
+        "light_lux_inside_true": 0.0,
+        "solar_inside": 0.0,
+        "ventilation_rate_m3_s": 0.0039259233077047345,
+        "evapotranspiration_rate_kg_s": 3.1301460473924456e-07,
+        "water_stress_coefficient": 0.37265320381450834,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": -3.3827950065587036,
+        "q_solar_to_soil_w": 0.0,
+        "q_base_loss_w": 1.4551728411307139,
+        "net_e8_w": -4.837967847689417,
+        "instantaneous_tendency_c_per_hour": -0.1935187139075767
+      },
+      {
+        "timestamp": "2024-06-15T20:00",
+        "temperature_outside": 30.1,
+        "temperature_inside_true": 30.50062723262506,
+        "humidity_inside_true": 71.0424782030486,
+        "soil_temperature_inside_true": 37.0908112798629,
+        "soil_moisture_inside_true": 0.2103166368652045,
+        "light_lux_inside_true": 0.0,
+        "solar_inside": 0.0,
+        "ventilation_rate_m3_s": 0.0023291107859699585,
+        "evapotranspiration_rate_kg_s": 2.82463168905792e-07,
+        "water_stress_coefficient": 0.37232491892101544,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 0.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": -3.727408097117721,
+        "q_solar_to_soil_w": 0.0,
+        "q_base_loss_w": 1.4268407149726137,
+        "net_e8_w": -5.1542488120903345,
+        "instantaneous_tendency_c_per_hour": -0.2061699524836134
+      },
+      {
+        "timestamp": "2024-06-15T21:00",
+        "temperature_outside": 29.8,
+        "temperature_inside_true": 30.038215644523408,
+        "humidity_inside_true": 71.6419250948128,
+        "soil_temperature_inside_true": 36.88169829086117,
+        "soil_moisture_inside_true": 0.21026723238843223,
+        "light_lux_inside_true": 0.0,
+        "solar_inside": 0.0,
+        "ventilation_rate_m3_s": 0.0021055210247065185,
+        "evapotranspiration_rate_kg_s": 2.691694342851422e-07,
+        "water_stress_coefficient": 0.3720199530150138,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 0.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": -3.87067378476864,
+        "q_solar_to_soil_w": 0.0,
+        "q_base_loss_w": 1.39727213832777,
+        "net_e8_w": -5.26794592309641,
+        "instantaneous_tendency_c_per_hour": -0.2107178369238564
+      },
+      {
+        "timestamp": "2024-06-15T22:00",
+        "temperature_outside": 29.4,
+        "temperature_inside_true": 29.66418329221309,
+        "humidity_inside_true": 74.13970915413094,
+        "soil_temperature_inside_true": 36.669826538122024,
+        "soil_moisture_inside_true": 0.21022118533688378,
+        "light_lux_inside_true": 0.0,
+        "solar_inside": 0.0,
+        "ventilation_rate_m3_s": 0.0022139577162446082,
+        "evapotranspiration_rate_kg_s": 2.4006169127729115e-07,
+        "water_stress_coefficient": 0.3717357119560727,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 0.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": -3.9623918198860935,
+        "q_solar_to_soil_w": 0.0,
+        "q_base_loss_w": 1.367313472490454,
+        "net_e8_w": -5.3297052923765476,
+        "instantaneous_tendency_c_per_hour": -0.21318821169506189
+      },
+      {
+        "timestamp": "2024-06-15T23:00",
+        "temperature_outside": 29.1,
+        "temperature_inside_true": 29.32979023683992,
+        "humidity_inside_true": 76.2793020167933,
+        "soil_temperature_inside_true": 36.455736092612206,
+        "soil_moisture_inside_true": 0.21018026619995706,
+        "light_lux_inside_true": 0.0,
+        "solar_inside": 0.0,
+        "ventilation_rate_m3_s": 0.002350592547806065,
+        "evapotranspiration_rate_kg_s": 2.158541979919517e-07,
+        "water_stress_coefficient": 0.37148312469109296,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 0.0,
+        "grow_light_state": 0.0,
+        "q_air_to_soil_w": -4.0304349760248055,
+        "q_solar_to_soil_w": 0.0,
+        "q_base_loss_w": 1.3370410834953659,
+        "net_e8_w": -5.367476059520172,
+        "instantaneous_tendency_c_per_hour": -0.21469904238080686
+      }
+    ],
+    "fix_history": {
+      "issue": "V1.0 effective root-zone temperature reached 48.6689 degC because the surface-like solar coupling prior (eta_s=0.6) was applied directly to the lumped state representing the 7 cm sensor/root zone.",
+      "diagnosis": "At the peak, positive E8 solar input exceeded air exchange plus base loss. RK4 dt=60/120/300 results agreed, excluding an integration issue.",
+      "fix": "Kept E8 unchanged; revised eta_s to an explicitly uncalibrated effective bulk root-zone coupling prior of 0.2 and versioned the parameter set V1.1.",
+      "pre_fix_max_soil_temperature_c": 48.66893073901045
+    }
+  },
+  "soil_moisture_analysis": {
+    "configured_field_capacity": 0.42,
+    "configured_wilting_point": 0.15,
+    "configured_bounds": [
+      0.05,
+      0.55
+    ],
+    "violations": {
+      "below_wilting_point": 0,
+      "above_field_capacity": 0,
+      "below_physical_bound": 0,
+      "above_physical_bound": 0
+    },
+    "pump_on_intervals": 60,
+    "pump_on_intervals_with_positive_theta_change": 60,
+    "pump_off_et_intervals": 659,
+    "pump_off_et_intervals_with_negative_theta_change": 659
+  },
+  "light_analysis": {
+    "night_grow_off_rows": 323,
+    "night_grow_off_max_lux": 0.0,
+    "solar_lux_pearson_correlation": 0.9972660283325406,
+    "grow_light_on_rows": 0,
+    "grow_light_calibration_status": "INITIAL_PRIOR_TO_MEASURE"
+  },
+  "causal_tests": {
+    "status": "PASS",
+    "passed": 8,
+    "total": 8,
+    "tests": {
+      "A_solar_response": {
+        "status": "PASS",
+        "solar_inside_low_high_w_m2": [
+          85.0,
+          510.0
+        ],
+        "lux_low_high": [
+          9855.472,
+          59132.831999999995
+        ],
+        "temperature_tendency_low_high_c_s": [
+          -0.0032149004835957213,
+          -0.002409171316929055
+        ]
+      },
+      "B_ventilation_response": {
+        "status": "PASS",
+        "flow_off_on_m3_s": [
+          0.006006023120758109,
+          0.0073949231207581095
+        ],
+        "temperature_tendency_off_on_c_s": [
+          -0.006674089635422575,
+          -0.006940580716369513
+        ]
+      },
+      "C_humidity_exchange": {
+        "status": "PASS",
+        "vapor_tendency_fan_off_on_kg_m3_s": [
+          -1.1656820226842594e-05,
+          -1.6653012972870494e-05
+        ]
+      },
+      "D_pump_response": {
+        "status": "PASS",
+        "theta_tendency_off_on_s": [
+          0.0,
+          0.00013889
+        ]
+      },
+      "E_soil_stress": {
+        "status": "PASS",
+        "ks_dry_wet": [
+          0.16666666666666663,
+          1.0
+        ],
+        "et_dry_wet_kg_s": [
+          3.973507277056564e-06,
+          2.384104366233939e-05
+        ]
+      },
+      "F_et_coupling": {
+        "status": "PASS",
+        "vapor_tendency_base_high": [
+          3.229373935122508e-06,
+          2.8063794416726042e-05
+        ],
+        "temperature_tendency_base_high": [
+          -0.006024563877865153,
+          -0.0069980731607440115
+        ],
+        "soil_moisture_tendency_base_high": [
+          -1.1920521831169696e-06,
+          -2.384104366233939e-06
+        ]
+      },
+      "G_grow_light": {
+        "status": "PASS",
+        "lux_off_on": [
+          0.0,
+          5000.0
+        ],
+        "grow_heat_off_on_w": [
+          0.0,
+          11.700000000000001
+        ],
+        "temperature_tendency_off_on_c_s": [
+          -0.003376046316929055,
+          -0.003208608816929055
+        ]
+      },
+      "E0_atmospheric_boundaries": {
+        "status": "PASS",
+        "rh_cases_percent": [
+          0.0,
+          50.0,
+          100.0
+        ],
+        "checks_passed": 3
+      }
+    }
+  },
+  "mass_and_energy_consistency": {
+    "status": "PASS",
+    "root_zone_water": {
+      "irrigation_input_m3": 0.01000008,
+      "et_loss_m3": 0.013655489546895645,
+      "drainage_loss_m3": 0.0,
+      "overflow_drainage_m3": 0.0,
+      "storage_change_m3": -0.003655409546895519,
+      "residual_m3": 1.2620113287731272e-16,
+      "relative_residual": 1.726224261033776e-14
+    },
+    "indoor_vapor": {
+      "et_source_kg": 13.655489546895538,
+      "ventilation_exchange_kg": -13.646931270137534,
+      "condensation_sink_kg": 0.008551071449589191,
+      "storage_change_kg": 7.205308292083101e-06,
+      "residual_kg": -1.2263919077455188e-13,
+      "relative_residual": 8.510336043886012e-09
+    },
+    "indoor_air_energy": {
+      "integrated_net_energy_j": -65591.19523628445,
+      "storage_change_j": -65591.19523625952,
+      "residual_j": 2.4927430786192417e-08,
+      "relative_residual": 1.9002116592325437e-13,
+      "unit_audit": "All E7 terms are W; pressure converted hPa->Pa at input boundary; C_eff is J/K; dT/dt is K/s."
+    }
+  },
+  "numerical_stability": {
+    "status": "PASS",
+    "selected_timestep_s": 60,
+    "reason": "60 s selected as the most conservative knowledge-file baseline; 120 s must agree within configured V1 audit tolerances.",
+    "comparisons": {
+      "60": {
+        "status": "ACCEPTED",
+        "final_state_difference_vs_selected": {
+          "temperature_inside_c": 0.0,
+          "humidity_inside_percent": 0.0,
+          "soil_temperature_c": 0.0,
+          "soil_moisture_theta": 0.0
+        },
+        "runtime_seconds": 5.748379999999088
+      },
+      "120": {
+        "status": "ACCEPTED",
+        "final_state_difference_vs_selected": {
+          "temperature_inside_c": 5.5470049886707784e-08,
+          "humidity_inside_percent": 6.355057138307529e-07,
+          "soil_temperature_c": 2.4772574604980946e-06,
+          "soil_moisture_theta": 1.5530448441158917e-07
+        },
+        "runtime_seconds": 2.640756599999804
+      },
+      "300": {
+        "status": "ACCEPTED",
+        "final_state_difference_vs_selected": {
+          "temperature_inside_c": 1.2936013149555947e-07,
+          "humidity_inside_percent": 1.7637589735386427e-06,
+          "soil_temperature_c": 3.1014102361837104e-06,
+          "soil_moisture_theta": 1.2443796015004782e-06
+        },
+        "runtime_seconds": 1.054092500000479
+      }
+    }
+  },
+  "outliers": {
+    "top_five_hottest_air": [
+      {
+        "timestamp": "2024-06-13T13:00",
+        "temperature_outside": 36.5,
+        "temperature_inside_true": 39.600353417736926,
+        "humidity_inside_true": 46.8430327547503,
+        "soil_temperature_inside_true": 36.267189207319646,
+        "soil_moisture_inside_true": 0.21331252679581797,
+        "light_lux_inside_true": 81485.272,
+        "solar_inside": 734.4,
+        "ventilation_rate_m3_s": 0.0047195232387958076,
+        "evapotranspiration_rate_kg_s": 1.3815710252304475e-05,
+        "water_stress_coefficient": 0.39081806664085167,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-13T14:00",
+        "temperature_outside": 36.3,
+        "temperature_inside_true": 39.35389001787844,
+        "humidity_inside_true": 46.33029882663523,
+        "soil_temperature_inside_true": 36.673134657159416,
+        "soil_moisture_inside_true": 0.21100803554692243,
+        "light_lux_inside_true": 72157.36,
+        "solar_inside": 646.0,
+        "ventilation_rate_m3_s": 0.004611989632370685,
+        "evapotranspiration_rate_kg_s": 1.1811646801638659e-05,
+        "water_stress_coefficient": 0.37659281201803974,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-14T13:00",
+        "temperature_outside": 36.1,
+        "temperature_inside_true": 39.25620978495433,
+        "humidity_inside_true": 46.041079286209424,
+        "soil_temperature_inside_true": 36.60110593172075,
+        "soil_moisture_inside_true": 0.21027346911242123,
+        "light_lux_inside_true": 79408.8064,
+        "solar_inside": 720.8,
+        "ventilation_rate_m3_s": 0.006046305499631414,
+        "evapotranspiration_rate_kg_s": 1.2921899066515146e-05,
+        "water_stress_coefficient": 0.37205845131124216,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-15T13:00",
+        "temperature_outside": 36.2,
+        "temperature_inside_true": 39.222500704707144,
+        "humidity_inside_true": 46.92200882543826,
+        "soil_temperature_inside_true": 36.66988823975283,
+        "soil_moisture_inside_true": 0.2086093325446805,
+        "light_lux_inside_true": 78845.008,
+        "solar_inside": 703.8,
+        "ventilation_rate_m3_s": 0.005138159346134794,
+        "evapotranspiration_rate_kg_s": 1.2273333767062934e-05,
+        "water_stress_coefficient": 0.36178600336222533,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-15T14:00",
+        "temperature_outside": 36.0,
+        "temperature_inside_true": 39.198721710554004,
+        "humidity_inside_true": 45.94928984051632,
+        "soil_temperature_inside_true": 37.06926593755209,
+        "soil_moisture_inside_true": 0.20642168166885344,
+        "light_lux_inside_true": 78265.1584,
+        "solar_inside": 716.55,
+        "ventilation_rate_m3_s": 0.00573096634044607,
+        "evapotranspiration_rate_kg_s": 1.2028410458616268e-05,
+        "water_stress_coefficient": 0.34828198561020646,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      }
+    ],
+    "top_five_hottest_soil": [
+      {
+        "timestamp": "2024-06-15T17:00",
+        "temperature_outside": 32.3,
+        "temperature_inside_true": 33.548954890107616,
+        "humidity_inside_true": 63.59150077587091,
+        "soil_temperature_inside_true": 37.56482133232096,
+        "soil_moisture_inside_true": 0.2025052499831675,
+        "light_lux_inside_true": 18267.5856,
+        "solar_inside": 153.0,
+        "ventilation_rate_m3_s": 0.004071859692071418,
+        "evapotranspiration_rate_kg_s": 2.5987284321506647e-06,
+        "water_stress_coefficient": 0.32410648137757714,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-15T16:00",
+        "temperature_outside": 32.6,
+        "temperature_inside_true": 35.020114391953385,
+        "humidity_inside_true": 59.42088585554206,
+        "soil_temperature_inside_true": 37.56323557850983,
+        "soil_moisture_inside_true": 0.20322132816975125,
+        "light_lux_inside_true": 37644.8688,
+        "solar_inside": 334.05,
+        "ventilation_rate_m3_s": 0.006045191933784257,
+        "evapotranspiration_rate_kg_s": 5.38874266721198e-06,
+        "water_stress_coefficient": 0.32852671709722997,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-15T18:00",
+        "temperature_outside": 31.6,
+        "temperature_inside_true": 32.39983940857786,
+        "humidity_inside_true": 66.16685722699602,
+        "soil_temperature_inside_true": 37.460443124169565,
+        "soil_moisture_inside_true": 0.20217564247137804,
+        "light_lux_inside_true": 6353.1071999999995,
+        "solar_inside": 51.85,
+        "ventilation_rate_m3_s": 0.0035148989235019292,
+        "evapotranspiration_rate_kg_s": 1.0694356668525536e-06,
+        "water_stress_coefficient": 0.32207186710727187,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 1.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-14T17:00",
+        "temperature_outside": 34.1,
+        "temperature_inside_true": 35.62434202851224,
+        "humidity_inside_true": 55.099837161736595,
+        "soil_temperature_inside_true": 37.42473941060628,
+        "soil_moisture_inside_true": 0.20452891551463295,
+        "light_lux_inside_true": 27349.1328,
+        "solar_inside": 239.7,
+        "ventilation_rate_m3_s": 0.004203333746164042,
+        "evapotranspiration_rate_kg_s": 4.158440832720501e-06,
+        "water_stress_coefficient": 0.3365982439174874,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-15T15:00",
+        "temperature_outside": 33.9,
+        "temperature_inside_true": 37.376693333811325,
+        "humidity_inside_true": 50.8377335121558,
+        "soil_temperature_inside_true": 37.399840421023185,
+        "soil_moisture_inside_true": 0.2045214078245995,
+        "light_lux_inside_true": 63146.17759999999,
+        "solar_inside": 559.3,
+        "ventilation_rate_m3_s": 0.006288604021552249,
+        "evapotranspiration_rate_kg_s": 9.106327075576301e-06,
+        "water_stress_coefficient": 0.3365519001518487,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      }
+    ],
+    "top_five_lowest_soil_moisture": [
+      {
+        "timestamp": "2024-06-18T18:00",
+        "temperature_outside": 32.3,
+        "temperature_inside_true": 33.14156857491134,
+        "humidity_inside_true": 62.40614760185754,
+        "soil_temperature_inside_true": 36.67168805317209,
+        "soil_moisture_inside_true": 0.20168620262303516,
+        "light_lux_inside_true": 8641.0192,
+        "solar_inside": 72.25,
+        "ventilation_rate_m3_s": 0.003460060990438568,
+        "evapotranspiration_rate_kg_s": 1.402197762014812e-06,
+        "water_stress_coefficient": 0.3190506334755257,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 1.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-16T18:00",
+        "temperature_outside": 31.5,
+        "temperature_inside_true": 32.263927038233966,
+        "humidity_inside_true": 62.30992741497852,
+        "soil_temperature_inside_true": 36.96552403053872,
+        "soil_moisture_inside_true": 0.2019317505933356,
+        "light_lux_inside_true": 6546.5664,
+        "solar_inside": 51.0,
+        "ventilation_rate_m3_s": 0.003690984230096417,
+        "evapotranspiration_rate_kg_s": 1.0855619909472808e-06,
+        "water_stress_coefficient": 0.3205663616872568,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 1.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-18T17:00",
+        "temperature_outside": 32.8,
+        "temperature_inside_true": 34.21809886129113,
+        "humidity_inside_true": 59.496705944814664,
+        "soil_temperature_inside_true": 36.71783859486941,
+        "soil_moisture_inside_true": 0.2021107520402634,
+        "light_lux_inside_true": 23019.673600000002,
+        "solar_inside": 200.6,
+        "ventilation_rate_m3_s": 0.00444793183437107,
+        "evapotranspiration_rate_kg_s": 3.3246228839319734e-06,
+        "water_stress_coefficient": 0.3216713088905149,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-15T18:00",
+        "temperature_outside": 31.6,
+        "temperature_inside_true": 32.39983940857786,
+        "humidity_inside_true": 66.16685722699602,
+        "soil_temperature_inside_true": 37.460443124169565,
+        "soil_moisture_inside_true": 0.20217564247137804,
+        "light_lux_inside_true": 6353.1071999999995,
+        "solar_inside": 51.85,
+        "ventilation_rate_m3_s": 0.0035148989235019292,
+        "evapotranspiration_rate_kg_s": 1.0694356668525536e-06,
+        "water_stress_coefficient": 0.32207186710727187,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 1.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-16T17:00",
+        "temperature_outside": 32.1,
+        "temperature_inside_true": 33.677732794963724,
+        "humidity_inside_true": 57.742602790502914,
+        "soil_temperature_inside_true": 37.06094197189084,
+        "soil_moisture_inside_true": 0.2022521432190982,
+        "light_lux_inside_true": 19199.3472,
+        "solar_inside": 141.95,
+        "ventilation_rate_m3_s": 0.004263287846995893,
+        "evapotranspiration_rate_kg_s": 2.487591102064719e-06,
+        "water_stress_coefficient": 0.3225440939450507,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 1.0,
+        "grow_light_state": 0.0
+      }
+    ],
+    "top_five_highest_rh": [
+      {
+        "timestamp": "2024-06-03T08:00",
+        "temperature_outside": 31.3,
+        "temperature_inside_true": 31.381011845323478,
+        "humidity_inside_true": 100.0,
+        "soil_temperature_inside_true": 32.42006386410115,
+        "soil_moisture_inside_true": 0.35702304001677837,
+        "light_lux_inside_true": 39756.9568,
+        "solar_inside": 356.15,
+        "ventilation_rate_m3_s": 0.0014586827705644803,
+        "evapotranspiration_rate_kg_s": 1.6026749999999997e-05,
+        "water_stress_coefficient": 1.0,
+        "condensation_rate_kg_s": 2.0569545135631548e-07,
+        "pump_state": 0.0,
+        "fan_state": 0.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-27T08:00",
+        "temperature_outside": 28.4,
+        "temperature_inside_true": 28.998133535714967,
+        "humidity_inside_true": 99.98940526712379,
+        "soil_temperature_inside_true": 30.911950381039368,
+        "soil_moisture_inside_true": 0.2387483422012466,
+        "light_lux_inside_true": 37380.8688,
+        "solar_inside": 331.5,
+        "ventilation_rate_m3_s": 0.001456230258312096,
+        "evapotranspiration_rate_kg_s": 8.172382658888221e-06,
+        "water_stress_coefficient": 0.5478292728472013,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 0.0,
+        "fan_state": 0.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-01T08:00",
+        "temperature_outside": 30.2,
+        "temperature_inside_true": 30.348412056157493,
+        "humidity_inside_true": 98.36704394998065,
+        "soil_temperature_inside_true": 29.559223606486423,
+        "soil_moisture_inside_true": 0.40557372861463115,
+        "light_lux_inside_true": 35020.831999999995,
+        "solar_inside": 277.09999999999997,
+        "ventilation_rate_m3_s": 0.0015501946439002653,
+        "evapotranspiration_rate_kg_s": 1.2511910475190144e-05,
+        "water_stress_coefficient": 1.0,
+        "condensation_rate_kg_s": 1.2530064061609816e-06,
+        "pump_state": 0.0,
+        "fan_state": 0.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-20T18:00",
+        "temperature_outside": 26.7,
+        "temperature_inside_true": 26.995294796825792,
+        "humidity_inside_true": 97.85912291253437,
+        "soil_temperature_inside_true": 34.09611064628304,
+        "soil_moisture_inside_true": 0.21092787253437384,
+        "light_lux_inside_true": 2463.648,
+        "solar_inside": 17.0,
+        "ventilation_rate_m3_s": 0.00243311598592635,
+        "evapotranspiration_rate_kg_s": 3.049346334343321e-07,
+        "water_stress_coefficient": 0.3760979786072459,
+        "condensation_rate_kg_s": 0.0,
+        "pump_state": 1.0,
+        "fan_state": 0.0,
+        "grow_light_state": 0.0
+      },
+      {
+        "timestamp": "2024-06-27T07:00",
+        "temperature_outside": 27.3,
+        "temperature_inside_true": 26.82750731437727,
+        "humidity_inside_true": 97.76469232440661,
+        "soil_temperature_inside_true": 30.86788086877041,
+        "soil_moisture_inside_true": 0.23979276799921556,
+        "light_lux_inside_true": 15944.667199999998,
+        "solar_inside": 136.0,
+        "ventilation_rate_m3_s": 0.001586470682141844,
+        "evapotranspiration_rate_kg_s": 3.4184084720236165e-06,
+        "water_stress_coefficient": 0.5542763456741702,
+        "condensation_rate_kg_s": 6.578543604592739e-07,
+        "pump_state": 0.0,
+        "fan_state": 0.0,
+        "grow_light_state": 0.0
+      }
+    ],
+    "classification": "No numerical outliers. High soil temperatures are physical-model extremes governed by an explicit uncalibrated E8 prior."
+  },
+  "observation_mode": "physics_true_state",
+  "sensor_noise_enabled": false,
+  "deployment_contract": {
+    "status": "PASS",
+    "allowed_features": [
+      "air_temperature",
+      "air_humidity",
+      "soil_temperature",
+      "soil_moisture",
+      "light_lux",
+      "pump_state",
+      "fan_state",
+      "grow_light_state"
+    ],
+    "feature_availability": {
+      "air_temperature": {
+        "available": true,
+        "source": "TH10S-B-PE temperature"
+      },
+      "air_humidity": {
+        "available": true,
+        "source": "TH10S-B-PE relative humidity"
+      },
+      "soil_temperature": {
+        "available": true,
+        "source": "ES-SM-TH-01 temperature"
+      },
+      "soil_moisture": {
+        "available": true,
+        "source": "ES-SM-TH-01 calibrated moisture adapter"
+      },
+      "light_lux": {
+        "available": true,
+        "source": "ES-ALS-02 illuminance"
+      },
+      "pump_state": {
+        "available": true,
+        "source": "Raspberry Pi relay CH1 state"
+      },
+      "fan_state": {
+        "available": true,
+        "source": "Raspberry Pi relay CH2 state"
+      },
+      "grow_light_state": {
+        "available": true,
+        "source": "Raspberry Pi relay CH3 state"
+      }
+    },
+    "all_features_available_on_pa1": true,
+    "soil_moisture_real_adapter": "TO_CALIBRATE"
+  },
+  "verification_passes": {
+    "pass_1_schema": "PASS",
+    "pass_2_physics": "PASS",
+    "pass_3_numerical": "PASS",
+    "pass_4_deployment": "PASS"
+  },
+  "issues": []
+}

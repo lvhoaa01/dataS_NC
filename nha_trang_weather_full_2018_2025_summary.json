@@ -1,0 +1,862 @@
+{
+  "source": {
+    "name": "Open-Meteo Historical Weather API",
+    "endpoint": "https://archive-api.open-meteo.com/v1/archive",
+    "model": "era5_seamless",
+    "model_label": "ERA5-Seamless",
+    "cell_selection": "land"
+  },
+  "location": {
+    "name": "Nha Trang, Khanh Hoa, Vietnam",
+    "latitude": 12.24507,
+    "longitude": 109.19432,
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  "period": {
+    "start_date": "2018-01-01",
+    "end_date": "2025-12-31",
+    "temporal_resolution": "hourly"
+  },
+  "rows": 70128,
+  "expected_rows": 70128,
+  "columns": [
+    "timestamp",
+    "temperature_2m",
+    "relative_humidity_2m",
+    "dew_point_2m",
+    "surface_pressure",
+    "wind_speed_10m",
+    "wind_direction_10m",
+    "wind_gusts_10m",
+    "precipitation",
+    "cloud_cover",
+    "shortwave_radiation",
+    "direct_radiation",
+    "diffuse_radiation",
+    "vapour_pressure_deficit",
+    "et0_fao_evapotranspiration",
+    "soil_temperature_0_to_7cm",
+    "soil_moisture_0_to_7cm"
+  ],
+  "units": {
+    "timestamp": "iso8601",
+    "temperature_2m": "°C",
+    "relative_humidity_2m": "%",
+    "dew_point_2m": "°C",
+    "surface_pressure": "hPa",
+    "wind_speed_10m": "km/h",
+    "wind_direction_10m": "°",
+    "wind_gusts_10m": "km/h",
+    "precipitation": "mm",
+    "cloud_cover": "%",
+    "shortwave_radiation": "W/m²",
+    "direct_radiation": "W/m²",
+    "diffuse_radiation": "W/m²",
+    "vapour_pressure_deficit": "kPa",
+    "et0_fao_evapotranspiration": "mm",
+    "soil_temperature_0_to_7cm": "°C",
+    "soil_moisture_0_to_7cm": "m³/m³"
+  },
+  "first_timestamp": "2018-01-01T00:00",
+  "last_timestamp": "2025-12-31T23:00",
+  "timestamp_sorted_ascending": true,
+  "duplicates": 0,
+  "duplicate_examples": [],
+  "timestamp_gaps": [],
+  "missing": {
+    "timestamp": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "temperature_2m": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "relative_humidity_2m": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "dew_point_2m": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "surface_pressure": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "wind_speed_10m": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "wind_direction_10m": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "wind_gusts_10m": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "precipitation": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "cloud_cover": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "shortwave_radiation": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "direct_radiation": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "diffuse_radiation": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "vapour_pressure_deficit": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "et0_fao_evapotranspiration": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "soil_temperature_0_to_7cm": {
+      "count": 0,
+      "percentage": 0.0
+    },
+    "soil_moisture_0_to_7cm": {
+      "count": 0,
+      "percentage": 0.0
+    }
+  },
+  "total_missing_values": 0,
+  "statistics": {
+    "temperature_2m": {
+      "count": 70128,
+      "mean": 26.83514858544376,
+      "std": 2.917164038206731,
+      "min": 18.4,
+      "25%": 24.6,
+      "50%": 26.7,
+      "75%": 28.7,
+      "max": 36.7
+    },
+    "relative_humidity_2m": {
+      "count": 70128,
+      "mean": 80.89887063655031,
+      "std": 10.8478213984321,
+      "min": 41.0,
+      "25%": 74.0,
+      "50%": 83.0,
+      "75%": 89.0,
+      "max": 100.0
+    },
+    "dew_point_2m": {
+      "count": 70128,
+      "mean": 23.102385637691082,
+      "std": 2.1588453032195694,
+      "min": 14.2,
+      "25%": 21.9,
+      "50%": 23.5,
+      "75%": 24.7,
+      "max": 28.3
+    },
+    "surface_pressure": {
+      "count": 70128,
+      "mean": 1009.7960757472051,
+      "std": 3.639008141461118,
+      "min": 997.0,
+      "25%": 1007.2,
+      "50%": 1009.8,
+      "75%": 1012.5,
+      "max": 1021.9
+    },
+    "wind_speed_10m": {
+      "count": 70128,
+      "mean": 4.673723762263291,
+      "std": 2.654013375539647,
+      "min": 0.0,
+      "25%": 2.9,
+      "50%": 4.0,
+      "75%": 5.8,
+      "max": 19.6
+    },
+    "wind_direction_10m": {
+      "count": 70128,
+      "mean": 190.47160905772301,
+      "std": 116.11516061326205,
+      "min": 1.0,
+      "25%": 72.0,
+      "50%": 225.0,
+      "75%": 293.0,
+      "max": 360.0
+    },
+    "wind_gusts_10m": {
+      "count": 70128,
+      "mean": 19.3242570727812,
+      "std": 9.231876274834889,
+      "min": 3.2,
+      "25%": 12.2,
+      "50%": 17.6,
+      "75%": 24.8,
+      "max": 97.2
+    },
+    "precipitation": {
+      "count": 70128,
+      "mean": 0.25132757243896875,
+      "std": 0.7962492141821469,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 0.1,
+      "max": 17.7
+    },
+    "cloud_cover": {
+      "count": 70128,
+      "mean": 72.30518480492813,
+      "std": 31.109091215811628,
+      "min": 0.0,
+      "25%": 49.0,
+      "50%": 87.0,
+      "75%": 99.0,
+      "max": 100.0
+    },
+    "shortwave_radiation": {
+      "count": 70128,
+      "mean": 206.1730977640885,
+      "std": 281.8349360759323,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 9.0,
+      "75%": 396.0,
+      "max": 1038.0
+    },
+    "direct_radiation": {
+      "count": 70128,
+      "mean": 138.1501825233858,
+      "std": 214.57630113696294,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 1.0,
+      "75%": 227.0,
+      "max": 916.0
+    },
+    "diffuse_radiation": {
+      "count": 70128,
+      "mean": 68.02291524070272,
+      "std": 87.93593022694328,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 6.0,
+      "75%": 130.0,
+      "max": 449.0
+    },
+    "vapour_pressure_deficit": {
+      "count": 70128,
+      "mean": 0.7293265172256446,
+      "std": 0.5354371656572645,
+      "min": 0.01,
+      "25%": 0.37,
+      "50%": 0.57,
+      "75%": 0.96,
+      "max": 3.58
+    },
+    "et0_fao_evapotranspiration": {
+      "count": 70128,
+      "mean": 0.15324720511065482,
+      "std": 0.20827153510144414,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.02,
+      "75%": 0.29,
+      "max": 0.84
+    },
+    "soil_temperature_0_to_7cm": {
+      "count": 70128,
+      "mean": 27.509623830709558,
+      "std": 3.129937649187972,
+      "min": 19.4,
+      "25%": 25.2,
+      "50%": 27.2,
+      "75%": 29.5,
+      "max": 38.7
+    },
+    "soil_moisture_0_to_7cm": {
+      "count": 70128,
+      "mean": 0.29413394079397676,
+      "std": 0.0965932438143726,
+      "min": 0.107,
+      "25%": 0.209,
+      "50%": 0.307,
+      "75%": 0.383,
+      "max": 0.43
+    }
+  },
+  "sanity_checks": {
+    "relative_humidity_2m": {
+      "rule": "0 <= relative_humidity_2m <= 100",
+      "violations": 0,
+      "examples": []
+    },
+    "cloud_cover": {
+      "rule": "0 <= cloud_cover <= 100",
+      "violations": 0,
+      "examples": []
+    },
+    "soil_moisture_0_to_7cm": {
+      "rule": "soil_moisture_0_to_7cm >= 0",
+      "violations": 0,
+      "examples": []
+    },
+    "shortwave_radiation": {
+      "rule": "shortwave_radiation >= 0",
+      "violations": 0,
+      "examples": []
+    },
+    "direct_radiation": {
+      "rule": "direct_radiation >= 0",
+      "violations": 0,
+      "examples": []
+    },
+    "diffuse_radiation": {
+      "rule": "diffuse_radiation >= 0",
+      "violations": 0,
+      "examples": []
+    },
+    "vapour_pressure_deficit": {
+      "rule": "vapour_pressure_deficit >= 0",
+      "violations": 0,
+      "examples": []
+    },
+    "precipitation": {
+      "rule": "precipitation >= 0",
+      "violations": 0,
+      "examples": []
+    },
+    "et0_fao_evapotranspiration": {
+      "rule": "et0_fao_evapotranspiration >= 0",
+      "violations": 0,
+      "examples": []
+    },
+    "dew_point_2m": {
+      "rule": "dew_point_2m <= temperature_2m",
+      "violations": 0,
+      "examples": []
+    }
+  },
+  "api_returned_metadata_by_year": [
+    {
+      "year": 2018,
+      "latitude": 12.200005,
+      "longitude": 109.20001,
+      "elevation": 10.0,
+      "timezone": "Asia/Ho_Chi_Minh",
+      "utc_offset_seconds": 25200
+    },
+    {
+      "year": 2019,
+      "latitude": 12.200005,
+      "longitude": 109.20001,
+      "elevation": 10.0,
+      "timezone": "Asia/Ho_Chi_Minh",
+      "utc_offset_seconds": 25200
+    },
+    {
+      "year": 2020,
+      "latitude": 12.200005,
+      "longitude": 109.20001,
+      "elevation": 10.0,
+      "timezone": "Asia/Ho_Chi_Minh",
+      "utc_offset_seconds": 25200
+    },
+    {
+      "year": 2021,
+      "latitude": 12.200005,
+      "longitude": 109.20001,
+      "elevation": 10.0,
+      "timezone": "Asia/Ho_Chi_Minh",
+      "utc_offset_seconds": 25200
+    },
+    {
+      "year": 2022,
+      "latitude": 12.200005,
+      "longitude": 109.20001,
+      "elevation": 10.0,
+      "timezone": "Asia/Ho_Chi_Minh",
+      "utc_offset_seconds": 25200
+    },
+    {
+      "year": 2023,
+      "latitude": 12.200005,
+      "longitude": 109.20001,
+      "elevation": 10.0,
+      "timezone": "Asia/Ho_Chi_Minh",
+      "utc_offset_seconds": 25200
+    },
+    {
+      "year": 2024,
+      "latitude": 12.200005,
+      "longitude": 109.20001,
+      "elevation": 10.0,
+      "timezone": "Asia/Ho_Chi_Minh",
+      "utc_offset_seconds": 25200
+    },
+    {
+      "year": 2025,
+      "latitude": 12.200005,
+      "longitude": 109.20001,
+      "elevation": 10.0,
+      "timezone": "Asia/Ho_Chi_Minh",
+      "utc_offset_seconds": 25200
+    }
+  ],
+  "year_reports": [
+    {
+      "year": 2018,
+      "rows": 8760,
+      "first_timestamp": "2018-01-01T00:00",
+      "last_timestamp": "2018-12-31T23:00",
+      "missing": {
+        "temperature_2m": 0,
+        "relative_humidity_2m": 0,
+        "dew_point_2m": 0,
+        "surface_pressure": 0,
+        "wind_speed_10m": 0,
+        "wind_direction_10m": 0,
+        "wind_gusts_10m": 0,
+        "precipitation": 0,
+        "cloud_cover": 0,
+        "shortwave_radiation": 0,
+        "direct_radiation": 0,
+        "diffuse_radiation": 0,
+        "vapour_pressure_deficit": 0,
+        "et0_fao_evapotranspiration": 0,
+        "soil_temperature_0_to_7cm": 0,
+        "soil_moisture_0_to_7cm": 0
+      },
+      "units": {
+        "time": "iso8601",
+        "temperature_2m": "°C",
+        "relative_humidity_2m": "%",
+        "dew_point_2m": "°C",
+        "surface_pressure": "hPa",
+        "wind_speed_10m": "km/h",
+        "wind_direction_10m": "°",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "cloud_cover": "%",
+        "shortwave_radiation": "W/m²",
+        "direct_radiation": "W/m²",
+        "diffuse_radiation": "W/m²",
+        "vapour_pressure_deficit": "kPa",
+        "et0_fao_evapotranspiration": "mm",
+        "soil_temperature_0_to_7cm": "°C",
+        "soil_moisture_0_to_7cm": "m³/m³"
+      },
+      "api_metadata": {
+        "latitude": 12.200005,
+        "longitude": 109.20001,
+        "elevation": 10.0,
+        "timezone": "Asia/Ho_Chi_Minh",
+        "utc_offset_seconds": 25200
+      }
+    },
+    {
+      "year": 2019,
+      "rows": 8760,
+      "first_timestamp": "2019-01-01T00:00",
+      "last_timestamp": "2019-12-31T23:00",
+      "missing": {
+        "temperature_2m": 0,
+        "relative_humidity_2m": 0,
+        "dew_point_2m": 0,
+        "surface_pressure": 0,
+        "wind_speed_10m": 0,
+        "wind_direction_10m": 0,
+        "wind_gusts_10m": 0,
+        "precipitation": 0,
+        "cloud_cover": 0,
+        "shortwave_radiation": 0,
+        "direct_radiation": 0,
+        "diffuse_radiation": 0,
+        "vapour_pressure_deficit": 0,
+        "et0_fao_evapotranspiration": 0,
+        "soil_temperature_0_to_7cm": 0,
+        "soil_moisture_0_to_7cm": 0
+      },
+      "units": {
+        "time": "iso8601",
+        "temperature_2m": "°C",
+        "relative_humidity_2m": "%",
+        "dew_point_2m": "°C",
+        "surface_pressure": "hPa",
+        "wind_speed_10m": "km/h",
+        "wind_direction_10m": "°",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "cloud_cover": "%",
+        "shortwave_radiation": "W/m²",
+        "direct_radiation": "W/m²",
+        "diffuse_radiation": "W/m²",
+        "vapour_pressure_deficit": "kPa",
+        "et0_fao_evapotranspiration": "mm",
+        "soil_temperature_0_to_7cm": "°C",
+        "soil_moisture_0_to_7cm": "m³/m³"
+      },
+      "api_metadata": {
+        "latitude": 12.200005,
+        "longitude": 109.20001,
+        "elevation": 10.0,
+        "timezone": "Asia/Ho_Chi_Minh",
+        "utc_offset_seconds": 25200
+      }
+    },
+    {
+      "year": 2020,
+      "rows": 8784,
+      "first_timestamp": "2020-01-01T00:00",
+      "last_timestamp": "2020-12-31T23:00",
+      "missing": {
+        "temperature_2m": 0,
+        "relative_humidity_2m": 0,
+        "dew_point_2m": 0,
+        "surface_pressure": 0,
+        "wind_speed_10m": 0,
+        "wind_direction_10m": 0,
+        "wind_gusts_10m": 0,
+        "precipitation": 0,
+        "cloud_cover": 0,
+        "shortwave_radiation": 0,
+        "direct_radiation": 0,
+        "diffuse_radiation": 0,
+        "vapour_pressure_deficit": 0,
+        "et0_fao_evapotranspiration": 0,
+        "soil_temperature_0_to_7cm": 0,
+        "soil_moisture_0_to_7cm": 0
+      },
+      "units": {
+        "time": "iso8601",
+        "temperature_2m": "°C",
+        "relative_humidity_2m": "%",
+        "dew_point_2m": "°C",
+        "surface_pressure": "hPa",
+        "wind_speed_10m": "km/h",
+        "wind_direction_10m": "°",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "cloud_cover": "%",
+        "shortwave_radiation": "W/m²",
+        "direct_radiation": "W/m²",
+        "diffuse_radiation": "W/m²",
+        "vapour_pressure_deficit": "kPa",
+        "et0_fao_evapotranspiration": "mm",
+        "soil_temperature_0_to_7cm": "°C",
+        "soil_moisture_0_to_7cm": "m³/m³"
+      },
+      "api_metadata": {
+        "latitude": 12.200005,
+        "longitude": 109.20001,
+        "elevation": 10.0,
+        "timezone": "Asia/Ho_Chi_Minh",
+        "utc_offset_seconds": 25200
+      }
+    },
+    {
+      "year": 2021,
+      "rows": 8760,
+      "first_timestamp": "2021-01-01T00:00",
+      "last_timestamp": "2021-12-31T23:00",
+      "missing": {
+        "temperature_2m": 0,
+        "relative_humidity_2m": 0,
+        "dew_point_2m": 0,
+        "surface_pressure": 0,
+        "wind_speed_10m": 0,
+        "wind_direction_10m": 0,
+        "wind_gusts_10m": 0,
+        "precipitation": 0,
+        "cloud_cover": 0,
+        "shortwave_radiation": 0,
+        "direct_radiation": 0,
+        "diffuse_radiation": 0,
+        "vapour_pressure_deficit": 0,
+        "et0_fao_evapotranspiration": 0,
+        "soil_temperature_0_to_7cm": 0,
+        "soil_moisture_0_to_7cm": 0
+      },
+      "units": {
+        "time": "iso8601",
+        "temperature_2m": "°C",
+        "relative_humidity_2m": "%",
+        "dew_point_2m": "°C",
+        "surface_pressure": "hPa",
+        "wind_speed_10m": "km/h",
+        "wind_direction_10m": "°",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "cloud_cover": "%",
+        "shortwave_radiation": "W/m²",
+        "direct_radiation": "W/m²",
+        "diffuse_radiation": "W/m²",
+        "vapour_pressure_deficit": "kPa",
+        "et0_fao_evapotranspiration": "mm",
+        "soil_temperature_0_to_7cm": "°C",
+        "soil_moisture_0_to_7cm": "m³/m³"
+      },
+      "api_metadata": {
+        "latitude": 12.200005,
+        "longitude": 109.20001,
+        "elevation": 10.0,
+        "timezone": "Asia/Ho_Chi_Minh",
+        "utc_offset_seconds": 25200
+      }
+    },
+    {
+      "year": 2022,
+      "rows": 8760,
+      "first_timestamp": "2022-01-01T00:00",
+      "last_timestamp": "2022-12-31T23:00",
+      "missing": {
+        "temperature_2m": 0,
+        "relative_humidity_2m": 0,
+        "dew_point_2m": 0,
+        "surface_pressure": 0,
+        "wind_speed_10m": 0,
+        "wind_direction_10m": 0,
+        "wind_gusts_10m": 0,
+        "precipitation": 0,
+        "cloud_cover": 0,
+        "shortwave_radiation": 0,
+        "direct_radiation": 0,
+        "diffuse_radiation": 0,
+        "vapour_pressure_deficit": 0,
+        "et0_fao_evapotranspiration": 0,
+        "soil_temperature_0_to_7cm": 0,
+        "soil_moisture_0_to_7cm": 0
+      },
+      "units": {
+        "time": "iso8601",
+        "temperature_2m": "°C",
+        "relative_humidity_2m": "%",
+        "dew_point_2m": "°C",
+        "surface_pressure": "hPa",
+        "wind_speed_10m": "km/h",
+        "wind_direction_10m": "°",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "cloud_cover": "%",
+        "shortwave_radiation": "W/m²",
+        "direct_radiation": "W/m²",
+        "diffuse_radiation": "W/m²",
+        "vapour_pressure_deficit": "kPa",
+        "et0_fao_evapotranspiration": "mm",
+        "soil_temperature_0_to_7cm": "°C",
+        "soil_moisture_0_to_7cm": "m³/m³"
+      },
+      "api_metadata": {
+        "latitude": 12.200005,
+        "longitude": 109.20001,
+        "elevation": 10.0,
+        "timezone": "Asia/Ho_Chi_Minh",
+        "utc_offset_seconds": 25200
+      }
+    },
+    {
+      "year": 2023,
+      "rows": 8760,
+      "first_timestamp": "2023-01-01T00:00",
+      "last_timestamp": "2023-12-31T23:00",
+      "missing": {
+        "temperature_2m": 0,
+        "relative_humidity_2m": 0,
+        "dew_point_2m": 0,
+        "surface_pressure": 0,
+        "wind_speed_10m": 0,
+        "wind_direction_10m": 0,
+        "wind_gusts_10m": 0,
+        "precipitation": 0,
+        "cloud_cover": 0,
+        "shortwave_radiation": 0,
+        "direct_radiation": 0,
+        "diffuse_radiation": 0,
+        "vapour_pressure_deficit": 0,
+        "et0_fao_evapotranspiration": 0,
+        "soil_temperature_0_to_7cm": 0,
+        "soil_moisture_0_to_7cm": 0
+      },
+      "units": {
+        "time": "iso8601",
+        "temperature_2m": "°C",
+        "relative_humidity_2m": "%",
+        "dew_point_2m": "°C",
+        "surface_pressure": "hPa",
+        "wind_speed_10m": "km/h",
+        "wind_direction_10m": "°",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "cloud_cover": "%",
+        "shortwave_radiation": "W/m²",
+        "direct_radiation": "W/m²",
+        "diffuse_radiation": "W/m²",
+        "vapour_pressure_deficit": "kPa",
+        "et0_fao_evapotranspiration": "mm",
+        "soil_temperature_0_to_7cm": "°C",
+        "soil_moisture_0_to_7cm": "m³/m³"
+      },
+      "api_metadata": {
+        "latitude": 12.200005,
+        "longitude": 109.20001,
+        "elevation": 10.0,
+        "timezone": "Asia/Ho_Chi_Minh",
+        "utc_offset_seconds": 25200
+      }
+    },
+    {
+      "year": 2024,
+      "rows": 8784,
+      "first_timestamp": "2024-01-01T00:00",
+      "last_timestamp": "2024-12-31T23:00",
+      "missing": {
+        "temperature_2m": 0,
+        "relative_humidity_2m": 0,
+        "dew_point_2m": 0,
+        "surface_pressure": 0,
+        "wind_speed_10m": 0,
+        "wind_direction_10m": 0,
+        "wind_gusts_10m": 0,
+        "precipitation": 0,
+        "cloud_cover": 0,
+        "shortwave_radiation": 0,
+        "direct_radiation": 0,
+        "diffuse_radiation": 0,
+        "vapour_pressure_deficit": 0,
+        "et0_fao_evapotranspiration": 0,
+        "soil_temperature_0_to_7cm": 0,
+        "soil_moisture_0_to_7cm": 0
+      },
+      "units": {
+        "time": "iso8601",
+        "temperature_2m": "°C",
+        "relative_humidity_2m": "%",
+        "dew_point_2m": "°C",
+        "surface_pressure": "hPa",
+        "wind_speed_10m": "km/h",
+        "wind_direction_10m": "°",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "cloud_cover": "%",
+        "shortwave_radiation": "W/m²",
+        "direct_radiation": "W/m²",
+        "diffuse_radiation": "W/m²",
+        "vapour_pressure_deficit": "kPa",
+        "et0_fao_evapotranspiration": "mm",
+        "soil_temperature_0_to_7cm": "°C",
+        "soil_moisture_0_to_7cm": "m³/m³"
+      },
+      "api_metadata": {
+        "latitude": 12.200005,
+        "longitude": 109.20001,
+        "elevation": 10.0,
+        "timezone": "Asia/Ho_Chi_Minh",
+        "utc_offset_seconds": 25200
+      }
+    },
+    {
+      "year": 2025,
+      "rows": 8760,
+      "first_timestamp": "2025-01-01T00:00",
+      "last_timestamp": "2025-12-31T23:00",
+      "missing": {
+        "temperature_2m": 0,
+        "relative_humidity_2m": 0,
+        "dew_point_2m": 0,
+        "surface_pressure": 0,
+        "wind_speed_10m": 0,
+        "wind_direction_10m": 0,
+        "wind_gusts_10m": 0,
+        "precipitation": 0,
+        "cloud_cover": 0,
+        "shortwave_radiation": 0,
+        "direct_radiation": 0,
+        "diffuse_radiation": 0,
+        "vapour_pressure_deficit": 0,
+        "et0_fao_evapotranspiration": 0,
+        "soil_temperature_0_to_7cm": 0,
+        "soil_moisture_0_to_7cm": 0
+      },
+      "units": {
+        "time": "iso8601",
+        "temperature_2m": "°C",
+        "relative_humidity_2m": "%",
+        "dew_point_2m": "°C",
+        "surface_pressure": "hPa",
+        "wind_speed_10m": "km/h",
+        "wind_direction_10m": "°",
+        "wind_gusts_10m": "km/h",
+        "precipitation": "mm",
+        "cloud_cover": "%",
+        "shortwave_radiation": "W/m²",
+        "direct_radiation": "W/m²",
+        "diffuse_radiation": "W/m²",
+        "vapour_pressure_deficit": "kPa",
+        "et0_fao_evapotranspiration": "mm",
+        "soil_temperature_0_to_7cm": "°C",
+        "soil_moisture_0_to_7cm": "m³/m³"
+      },
+      "api_metadata": {
+        "latitude": 12.200005,
+        "longitude": 109.20001,
+        "elevation": 10.0,
+        "timezone": "Asia/Ho_Chi_Minh",
+        "utc_offset_seconds": 25200
+      }
+    }
+  ],
+  "generation_date": "2026-08-15T10:21:55",
+  "provenance": {
+    "statement": "This dataset contains historical reanalysis/model-based weather data retrieved from Open-Meteo. It is not greenhouse sensor measurement data.",
+    "soil_moisture_note": "soil_moisture_0_to_7cm is reanalysis/weather-grid soil moisture, not actual greenhouse pot or substrate moisture.",
+    "outdoor_state_note": "temperature_2m and relative_humidity_2m are outdoor weather variables, not indoor greenhouse state measurements."
+  },
+  "radiation_checks": {
+    "correlation": {
+      "shortwave_radiation_vs_direct_radiation": 0.9734683865666764,
+      "shortwave_radiation_vs_diffuse_radiation": 0.8296004855400456,
+      "direct_radiation_vs_diffuse_radiation": 0.6798256322383289
+    },
+    "range": {
+      "shortwave_radiation": {
+        "min": 0.0,
+        "max": 1038.0
+      },
+      "direct_radiation": {
+        "min": 0.0,
+        "max": 916.0
+      },
+      "diffuse_radiation": {
+        "min": 0.0,
+        "max": 449.0
+      }
+    },
+    "nighttime_definition": "local hour < 06:00 or >= 18:00",
+    "nighttime_rows": 35064,
+    "nighttime_positive_counts": {
+      "shortwave_radiation": 3136,
+      "direct_radiation": 2363,
+      "diffuse_radiation": 3136
+    },
+    "negative_counts": {
+      "shortwave_radiation": 0,
+      "direct_radiation": 0,
+      "diffuse_radiation": 0
+    },
+    "note": "shortwave_radiation is not forcibly checked as direct_radiation + diffuse_radiation because API variable definitions may differ."
+  },
+  "validation": {
+    "status": "PASS"
+  }
+}

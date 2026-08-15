@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "contract": "ML_DATA_CONTRACT.md",
+  "contract_version": "1.0",
+  "source_type": "synthetic",
+  "source_master_file": "outputs\\greenhouse_simulation_30days.csv",
+  "source_master_sha256": "4a5fef1181266f150a18a9b6bf81eafcc447c830bfc99ad4b7fba8b54596ab07",
+  "physics_validation_report": "outputs\\physics_master_30days_validation.json",
+  "physics_validation_report_sha256": "5fef827308ade85c5e1328b175833fe8612a0341bd17990b769dc5252746b102",
+  "physics_validation_status": "PASS",
+  "simulation_id": "nha_trang_2024_june_physics_v1_1",
+  "parameter_set_id": "smartgarden_pa1_v1_1_rootzone_prior",
+  "rows": 720,
+  "columns": 9,
+  "canonical_columns": [
+    "timestamp",
+    "air_temperature",
+    "air_humidity",
+    "soil_temperature",
+    "soil_moisture",
+    "light_lux",
+    "pump_state",
+    "fan_state",
+    "grow_light_state"
+  ],
+  "baseline_model_features": [
+    "air_temperature",
+    "air_humidity",
+    "soil_temperature",
+    "soil_moisture",
+    "light_lux",
+    "pump_state",
+    "fan_state",
+    "grow_light_state"
+  ],
+  "future_target_variables": [
+    "air_temperature",
+    "air_humidity",
+    "soil_temperature",
+    "soil_moisture",
+    "light_lux"
+  ],
+  "target_columns_materialized": false,
+  "observation_mode": "physics_true_state",
+  "sensor_noise_enabled": false,
+  "source_column_mapping": {
+    "air_temperature": "temperature_inside_true",
+    "air_humidity": "humidity_inside_true",
+    "soil_temperature": "soil_temperature_inside_true",
+    "soil_moisture": "soil_moisture_inside_true",
+    "light_lux": "light_lux_inside_true"
+  },
+  "metadata_not_model_features": [
+    "timestamp",
+    "simulation_id",
+    "parameter_set_id",
+    "source_type"
+  ],
+  "forbidden_physics_or_weather_columns_present": [],
+  "deployment_schema_compatible": true,
+  "soil_moisture_real_adapter_status": "TO_CALIBRATE",
+  "validation": {
+    "expected_rows": 720,
+    "timestamp_continuous": true,
+    "timestamp_duplicates": 0,
+    "missing_or_nonfinite_values": 0,
+    "actuator_states_binary": true,
+    "exact_column_order": true,
+    "physics_only_feature_count": 0,
+    "external_weather_feature_count": 0
+  }
+}

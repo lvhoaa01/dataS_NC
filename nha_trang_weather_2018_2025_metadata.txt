@@ -1,0 +1,230 @@
+NHA TRANG RAW HISTORICAL WEATHER DATASET 2018-2025
+==================================================
+
+source:
+Open-Meteo Historical Weather API
+
+endpoint:
+https://archive-api.open-meteo.com/v1/archive
+
+documentation:
+https://open-meteo.com/en/docs/historical-weather-api
+
+location:
+Nha Trang, Vietnam
+
+latitude:
+12.24507
+
+longitude:
+109.19432
+
+timezone:
+Asia/Ho_Chi_Minh
+
+start:
+2018-01-01
+
+end:
+2025-12-31
+
+selected reanalysis model:
+era5_seamless
+
+cell_selection:
+land
+
+wind_speed_unit request:
+ms
+
+temporal resolution:
+hourly
+
+variables:
+- temperature_2m
+- relative_humidity_2m
+- shortwave_radiation
+- wind_speed_10m
+- surface_pressure
+- direct_radiation
+- diffuse_radiation
+- dew_point_2m
+- vapour_pressure_deficit
+- et0_fao_evapotranspiration
+- soil_temperature_0_to_7cm
+- soil_moisture_0_to_7cm
+
+units returned by API:
+column                      unit   
+--------------------------  -------
+timestamp                   iso8601
+temperature_2m              °C     
+relative_humidity_2m        %      
+shortwave_radiation         W/m²   
+wind_speed_10m              m/s    
+surface_pressure            hPa    
+direct_radiation            W/m²   
+diffuse_radiation           W/m²   
+dew_point_2m                °C     
+vapour_pressure_deficit     kPa    
+et0_fao_evapotranspiration  mm     
+soil_temperature_0_to_7cm   °C     
+soil_moisture_0_to_7cm      m³/m³  
+
+number of rows:
+70128
+
+number of columns:
+13
+
+first timestamp:
+2018-01-01T00:00
+
+last timestamp:
+2025-12-31T23:00
+
+duplicate timestamps:
+0
+
+timestamp gaps:
+[]
+
+missing values:
+column                      missing_count  missing_percentage
+--------------------------  -------------  ------------------
+timestamp                   0              0                 
+temperature_2m              0              0                 
+relative_humidity_2m        0              0                 
+shortwave_radiation         0              0                 
+wind_speed_10m              0              0                 
+surface_pressure            0              0                 
+direct_radiation            0              0                 
+diffuse_radiation           0              0                 
+dew_point_2m                0              0                 
+vapour_pressure_deficit     0              0                 
+et0_fao_evapotranspiration  0              0                 
+soil_temperature_0_to_7cm   0              0                 
+soil_moisture_0_to_7cm      0              0                 
+
+basic statistics:
+column                      count  mean      std        min    25%     50%     75%     max   
+--------------------------  -----  --------  ---------  -----  ------  ------  ------  ------
+temperature_2m              70128  26.8351   2.91716    18.4   24.6    26.7    28.7    36.7  
+relative_humidity_2m        70128  80.8989   10.8478    41     74      83      89      100   
+shortwave_radiation         70128  206.173   281.835    0      0       9       396     1038  
+wind_speed_10m              70128  1.29834   0.736833   0      0.81    1.12    1.62    5.44  
+surface_pressure            70128  1009.8    3.63901    997    1007.2  1009.8  1012.5  1021.9
+direct_radiation            70128  138.15    214.576    0      0       1       227     916   
+diffuse_radiation           70128  68.0229   87.9359    0      0       6       130     449   
+dew_point_2m                70128  23.1024   2.15885    14.2   21.9    23.5    24.7    28.3  
+vapour_pressure_deficit     70128  0.729327  0.535437   0.01   0.37    0.57    0.96    3.58  
+et0_fao_evapotranspiration  70128  0.153247  0.208272   0      0       0.02    0.29    0.84  
+soil_temperature_0_to_7cm   70128  27.5096   3.12994    19.4   25.2    27.2    29.5    38.7  
+soil_moisture_0_to_7cm      70128  0.294134  0.0965932  0.107  0.209   0.307   0.383   0.43  
+
+physical sanity checks:
+column                  rule                              violations  examples
+----------------------  --------------------------------  ----------  --------
+relative_humidity_2m    0 <= relative_humidity_2m <= 100  0           []      
+shortwave_radiation     shortwave_radiation >= 0          0           []      
+direct_radiation        direct_radiation >= 0             0           []      
+diffuse_radiation       diffuse_radiation >= 0            0           []      
+surface_pressure        surface_pressure > 0              0           []      
+wind_speed_10m          wind_speed_10m >= 0               0           []      
+soil_moisture_0_to_7cm  0 <= soil_moisture_0_to_7cm <= 1  0           []      
+
+unit issues:
+[]
+
+api returned metadata by year:
+[
+  {
+    "year": 2018,
+    "latitude": 12.200005,
+    "longitude": 109.20001,
+    "elevation": 10.0,
+    "timezone": "Asia/Ho_Chi_Minh",
+    "utc_offset_seconds": 25200,
+    "model_requested": "era5_seamless"
+  },
+  {
+    "year": 2019,
+    "latitude": 12.200005,
+    "longitude": 109.20001,
+    "elevation": 10.0,
+    "timezone": "Asia/Ho_Chi_Minh",
+    "utc_offset_seconds": 25200,
+    "model_requested": "era5_seamless"
+  },
+  {
+    "year": 2020,
+    "latitude": 12.200005,
+    "longitude": 109.20001,
+    "elevation": 10.0,
+    "timezone": "Asia/Ho_Chi_Minh",
+    "utc_offset_seconds": 25200,
+    "model_requested": "era5_seamless"
+  },
+  {
+    "year": 2021,
+    "latitude": 12.200005,
+    "longitude": 109.20001,
+    "elevation": 10.0,
+    "timezone": "Asia/Ho_Chi_Minh",
+    "utc_offset_seconds": 25200,
+    "model_requested": "era5_seamless"
+  },
+  {
+    "year": 2022,
+    "latitude": 12.200005,
+    "longitude": 109.20001,
+    "elevation": 10.0,
+    "timezone": "Asia/Ho_Chi_Minh",
+    "utc_offset_seconds": 25200,
+    "model_requested": "era5_seamless"
+  },
+  {
+    "year": 2023,
+    "latitude": 12.200005,
+    "longitude": 109.20001,
+    "elevation": 10.0,
+    "timezone": "Asia/Ho_Chi_Minh",
+    "utc_offset_seconds": 25200,
+    "model_requested": "era5_seamless"
+  },
+  {
+    "year": 2024,
+    "latitude": 12.200005,
+    "longitude": 109.20001,
+    "elevation": 10.0,
+    "timezone": "Asia/Ho_Chi_Minh",
+    "utc_offset_seconds": 25200,
+    "model_requested": "era5_seamless"
+  },
+  {
+    "year": 2025,
+    "latitude": 12.200005,
+    "longitude": 109.20001,
+    "elevation": 10.0,
+    "timezone": "Asia/Ho_Chi_Minh",
+    "utc_offset_seconds": 25200,
+    "model_requested": "era5_seamless"
+  }
+]
+
+download/update timestamp:
+2026-08-15T11:38:40
+
+validation status:
+PASS
+
+validation errors:
+[]
+
+provenance notes:
+- This dataset contains historical reanalysis/model-based weather data retrieved from Open-Meteo.
+- It is not greenhouse sensor measurement data.
+- Open-Meteo soil temperature/moisture represent external reanalysis land-surface conditions and are NOT greenhouse pot/root-zone sensor states.
+- temperature_2m and relative_humidity_2m are outdoor weather variables, not inside-greenhouse state variables.
+- Open-Meteo hourly solar-radiation values follow Historical Weather API semantics; documentation notes solar radiation is averaged over the past hour, not an instantaneous sensor reading.
+- No filling, interpolation, clipping, radiation-to-lux conversion, greenhouse simulation, or synthetic greenhouse variable generation was performed.
