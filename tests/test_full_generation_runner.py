@@ -156,6 +156,30 @@ class FullGenerationRunnerTests(unittest.TestCase):
             with path.open(encoding="utf-8", newline="") as handle:
                 self.assertEqual(list(csv.DictReader(handle)), [{"value": "new"}])
 
+    def test_atomic_output_retries_transient_permission_error(self) -> None:
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "source.tmp"
+            destination = root / "destination.json"
+            source.write_text("complete", encoding="utf-8")
+            real_replace = runner.os.replace
+            calls = 0
+
+            def transient_replace(left: Path, right: Path) -> None:
+                nonlocal calls
+                calls += 1
+                if calls == 1:
+                    raise PermissionError("temporary scanner lock")
+                real_replace(left, right)
+
+            with (
+                patch.object(runner.os, "replace", side_effect=transient_replace),
+                patch.object(runner.time, "sleep"),
+            ):
+                runner.replace_atomic_with_retry(source, destination)
+            self.assertEqual(calls, 2)
+            self.assertEqual(destination.read_text(encoding="utf-8"), "complete")
+
     def test_benchmark_2024_row_count(self) -> None:
         args = runner.build_parser().parse_args(["--benchmark", "--dry-run"])
         jobs = runner.resolve_jobs(args, self.rows)

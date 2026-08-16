@@ -139,6 +139,24 @@ def _fsync_directory(path: Path) -> None:
         os.close(descriptor)
 
 
+def replace_atomic_with_retry(
+    temporary: Path,
+    destination: Path,
+    *,
+    attempts: int = 8,
+) -> None:
+    """Commit an atomic file while tolerating short Windows scanner locks."""
+
+    for attempt in range(attempts):
+        try:
+            os.replace(temporary, destination)
+            return
+        except PermissionError:
+            if attempt + 1 == attempts:
+                raise
+            time.sleep(0.025 * (2**attempt))
+
+
 def write_text_atomic(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
@@ -147,7 +165,7 @@ def write_text_atomic(path: Path, text: str) -> None:
             handle.write(text)
             handle.flush()
             os.fsync(handle.fileno())
-        os.replace(temporary, path)
+        replace_atomic_with_retry(temporary, path)
         _fsync_directory(path.parent)
     finally:
         temporary.unlink(missing_ok=True)
@@ -174,7 +192,7 @@ def write_csv_atomic(
             writer.writerows(rows)
             handle.flush()
             os.fsync(handle.fileno())
-        os.replace(temporary, path)
+        replace_atomic_with_retry(temporary, path)
         _fsync_directory(path.parent)
     finally:
         temporary.unlink(missing_ok=True)
@@ -748,7 +766,7 @@ def write_ml_atomic_timed(
         validation_started = time.perf_counter()
         ml_builder.validate_canonical_file(temporary, expected_row_count)
         validation_seconds = time.perf_counter() - validation_started
-        os.replace(temporary, path)
+        replace_atomic_with_retry(temporary, path)
         _fsync_directory(path.parent)
         return write_seconds, validation_seconds
     finally:
