@@ -4,12 +4,14 @@ import csv
 from dataclasses import replace
 from datetime import datetime
 import json
+import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 from unittest.mock import patch
 
 import build_ml_dataset as ml_builder
+import generate_pilot_scenarios as pilot
 import run_full_generation as runner
 from physics.config import load_parameter_config
 from physics.simulator import (
@@ -180,25 +182,42 @@ class FullGenerationRunnerTests(unittest.TestCase):
             self.assertEqual(calls, 2)
             self.assertEqual(destination.read_text(encoding="utf-8"), "complete")
 
+    def test_peak_rss_measurement_when_supported(self) -> None:
+        measured = runner.peak_rss_bytes()
+        if os.name == "nt":
+            self.assertIsNotNone(measured)
+        if measured is not None:
+            self.assertGreater(measured, 0)
+
     def test_benchmark_2024_row_count(self) -> None:
         args = runner.build_parser().parse_args(["--benchmark", "--dry-run"])
         jobs = runner.resolve_jobs(args, self.rows)
         self.assertEqual(len(jobs), 1)
         self.assertEqual(jobs[0].expected_rows, 8784)
+        physics = (
+            ROOT
+            / "outputs/full_generation_benchmark/run_1/physics"
+            / "pa1_full_000_baseline.csv"
+        )
+        ml_path = (
+            ROOT
+            / "outputs/full_generation_benchmark/run_1/ml"
+            / "pa1_full_000_baseline.csv"
+        )
+        self.assertEqual(runner.csv_shape(physics), (8784, OUTPUT_COLUMNS))
+        self.assertEqual(
+            runner.csv_shape(ml_path), (8784, ml_builder.CANONICAL_COLUMNS)
+        )
 
     def test_benchmark_leap_day(self) -> None:
-        weather, _ = load_and_validate_weather_range(
-            ROOT / "nha_trang_weather_2018_2025.csv",
-            runner.BENCHMARK_START,
-            runner.BENCHMARK_END_INCLUSIVE,
+        path = (
+            ROOT
+            / "outputs/full_generation_benchmark/run_1/physics"
+            / "pa1_full_000_baseline.csv"
         )
-        saved = weather[:-1]
-        leap_day = [
-            row
-            for row in saved
-            if datetime.fromisoformat(row.timestamp).date().isoformat()
-            == "2024-02-29"
-        ]
+        with path.open(encoding="utf-8", newline="") as handle:
+            saved = list(csv.DictReader(handle))
+        leap_day = [row for row in saved if row["timestamp"].startswith("2024-02-29")]
         self.assertEqual(len(saved), 8784)
         self.assertEqual(len(leap_day), 24)
 
@@ -217,6 +236,12 @@ class FullGenerationRunnerTests(unittest.TestCase):
                 "grow_light_state",
             ),
         )
+        path = (
+            ROOT
+            / "outputs/full_generation_benchmark/run_1/ml"
+            / "pa1_full_000_baseline.csv"
+        )
+        self.assertEqual(runner.csv_shape(path)[1], ml_builder.CANONICAL_COLUMNS)
 
     def test_physics_features_not_in_ml(self) -> None:
         forbidden = {
@@ -228,6 +253,48 @@ class FullGenerationRunnerTests(unittest.TestCase):
             )
         }
         self.assertEqual(forbidden, set())
+
+    def test_benchmark_reproducibility_and_full_stop_gate(self) -> None:
+        run_reports = []
+        for run_id in ("run_1", "run_2"):
+            report = json.loads(
+                (
+                    ROOT
+                    / f"outputs/full_generation_benchmark/{run_id}/validation"
+                    / "pa1_full_000_baseline.json"
+                ).read_text(encoding="utf-8")
+            )
+            state = json.loads(
+                (
+                    ROOT
+                    / f"outputs/full_generation_benchmark/{run_id}/state/run_state.json"
+                ).read_text(encoding="utf-8")
+            )
+            self.assertEqual(report["status"], "PASS")
+            self.assertFalse(report["full_generation_executed"])
+            self.assertFalse(state["full_mode_executed"])
+            self.assertEqual(
+                state["scenarios"]["pa1_full_000_baseline"]["status"],
+                "COMPLETE",
+            )
+            run_reports.append(report)
+        self.assertEqual(
+            run_reports[0]["files"]["physics_sha256"],
+            run_reports[1]["files"]["physics_sha256"],
+        )
+        self.assertEqual(
+            run_reports[0]["files"]["ml_sha256"],
+            run_reports[1]["files"]["ml_sha256"],
+        )
+
+        summary = json.loads(
+            (
+                ROOT
+                / "outputs/full_generation_benchmark/benchmark_summary.json"
+            ).read_text(encoding="utf-8")
+        )
+        self.assertTrue(summary["full_generation_ready"])
+        self.assertFalse(summary["full_generation_executed"])
 
     def test_continuous_state_chunk_handoff(self) -> None:
         source = load_parameter_config(
@@ -278,6 +345,27 @@ class FullGenerationRunnerTests(unittest.TestCase):
                 getattr(complete.final_state, field),
                 places=12,
             )
+
+    def test_june_baseline_numerical_regression(self) -> None:
+        config = load_parameter_config(
+            ROOT
+            / "outputs/final_parameter_preflight/configs/pa1_full_000_baseline.yaml"
+        )
+        weather, quality = load_and_validate_weather_range(
+            ROOT / "nha_trang_weather_2018_2025.csv",
+            datetime(2024, 6, 1),
+            datetime(2024, 6, 30, 23),
+        )
+        result = run_simulation(
+            weather, config.to_model_parameters(), weather_quality=quality
+        )
+        with (ROOT / "outputs/greenhouse_simulation_30days.csv").open(
+            encoding="utf-8-sig", newline=""
+        ) as handle:
+            reference = list(csv.DictReader(handle))
+        comparison = pilot.baseline_reproduction_difference(result.rows, reference)
+        self.assertEqual(comparison["status"], "PASS")
+        self.assertEqual(comparison["max_absolute_difference"], 0.0)
 
 
 if __name__ == "__main__":

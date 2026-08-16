@@ -228,8 +228,17 @@ def peak_rss_bytes() -> int | None:
 
         counters = ProcessMemoryCounters()
         counters.cb = ctypes.sizeof(counters)
-        success = ctypes.windll.psapi.GetProcessMemoryInfo(
-            ctypes.windll.kernel32.GetCurrentProcess(),
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        psapi = ctypes.WinDLL("psapi", use_last_error=True)
+        kernel32.GetCurrentProcess.restype = ctypes.c_void_p
+        psapi.GetProcessMemoryInfo.argtypes = (
+            ctypes.c_void_p,
+            ctypes.POINTER(ProcessMemoryCounters),
+            ctypes.c_ulong,
+        )
+        psapi.GetProcessMemoryInfo.restype = ctypes.c_int
+        success = psapi.GetProcessMemoryInfo(
+            kernel32.GetCurrentProcess(),
             ctypes.byref(counters),
             counters.cb,
         )
@@ -793,6 +802,9 @@ def run_one_job(
     existing = state["scenarios"].get(identifier)
     decision, reason = cache_decision(existing, identity, paths)
     if decision == "SKIP" and not force:
+        existing["last_resume_action"] = "SKIPPED_COMPLETE"
+        existing["last_checked_at"] = utc_now()
+        save_run_state(output_root, state)
         return {"parameter_set_id": identifier, "action": "SKIPPED", **existing}
 
     started_at = utc_now()

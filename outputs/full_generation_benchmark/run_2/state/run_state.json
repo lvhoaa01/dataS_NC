@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "runner_version": "pa1_full_generation_runner_v1",
+  "mode": "benchmark",
+  "full_mode_executed": false,
+  "created_at": "2026-08-16T06:11:57+00:00",
+  "updated_at": "2026-08-16T06:13:11+00:00",
+  "scenarios": {
+    "pa1_full_000_baseline": {
+      "parameter_set_id": "pa1_full_000_baseline",
+      "source_config_hash": "213c903b8d5cefe85add4502e2151b92f9b56a847db98b4bc0bbbe9514d46eb2",
+      "run_config_hash": "8e0050ab9d41de55755194de51d27e89a11cf37e40f2a82e666694bc6d9f666b",
+      "weather_hash": "8736b29a158f483d2d6e0f13037d05445d3c96a2cc06fa473517bdb7d91adfd5",
+      "start_timestamp": "2024-01-01T00:00",
+      "end_timestamp": "2024-12-31T23:00",
+      "expected_rows": 8784,
+      "internal_timestep_s": 60,
+      "runner_version": "pa1_full_generation_runner_v1",
+      "simulator_code_hash": "058bfd097ded4cb91c2098634bedfa28f3160392895cf0c2a48cfc4069ce9771",
+      "source_weather_sha256": "61bdf841a0f6b7d98bf27951ab3a89e93a4ce13ab48e85acc1b1513e246e0734",
+      "status": "COMPLETE",
+      "resume_reason": "FORCED",
+      "start_time_utc": "2026-08-16T06:11:57+00:00",
+      "end_time_utc": "2026-08-16T06:13:11+00:00",
+      "physics_rows": 8784,
+      "ml_rows": 8784,
+      "physics_hash": "6979ac51d8196224959bfe847817e72770f2d844b67e8c6d720568802637a730",
+      "ml_hash": "d1cc575bfa99bff630ff0c43f28624bb7dda785db6696d99c00996efb6e7d37c",
+      "runtime_seconds": 73.44215369999984,
+      "validation_status": "PASS",
+      "error": "",
+      "classification": "EXTREME_VALID",
+      "paths": {
+        "physics": "physics\\pa1_full_000_baseline.csv",
+        "ml": "ml\\pa1_full_000_baseline.csv",
+        "ml_metadata": "ml\\pa1_full_000_baseline_metadata.json",
+        "validation": "validation\\pa1_full_000_baseline.json",
+        "config": "configs\\pa1_full_000_baseline.yaml",
+        "log": "logs\\pa1_full_000_baseline.json"
+      }
+    }
+  },
+  "manifest_sha256": "194779c518d07182811449838250b1ce13f62da5634ce50b7b2594fba8ece9b8",
+  "source_weather_sha256": "61bdf841a0f6b7d98bf27951ab3a89e93a4ce13ab48e85acc1b1513e246e0734"
+}
