@@ -70,13 +70,10 @@ class FinalParameterSamplingTests(unittest.TestCase):
         self.assertTrue(valid_pass)
         self.assertEqual(valid_violations, [])
 
-    def test_no_duplicate_parameter_sets_and_exact_counts(self) -> None:
-        attempts, retained, metadata = sampling.generate_sampling_design(
+    def test_no_duplicate_parameter_sets(self) -> None:
+        _, retained, _ = sampling.generate_sampling_design(
             self.joint, self.base
         )
-        self.assertEqual(len(retained), 24)
-        self.assertEqual(sum(bool(row["is_baseline"]) for row in retained), 1)
-        self.assertEqual(metadata["joint_valid_retained"], 23)
         vectors = {
             tuple(
                 float(row["C_s_J_K"] if name == "C_s" else row[name])
@@ -85,9 +82,22 @@ class FinalParameterSamplingTests(unittest.TestCase):
             for row in retained
         }
         self.assertEqual(len(vectors), len(retained))
-        self.assertTrue(
-            all(row["joint_constraint_pass"] for row in retained)
+
+    def test_baseline_included_once(self) -> None:
+        _, retained, _ = sampling.generate_sampling_design(self.joint, self.base)
+        baseline = [row for row in retained if bool(row["is_baseline"])]
+        self.assertEqual(len(baseline), 1)
+        self.assertEqual(
+            baseline[0]["parameter_set_id"], "pa1_full_000_baseline"
         )
+
+    def test_exact_pending_candidate_counts(self) -> None:
+        attempts, retained, metadata = sampling.generate_sampling_design(
+            self.joint, self.base
+        )
+        self.assertEqual(len(retained), 24)
+        self.assertEqual(metadata["joint_valid_retained"], 23)
+        self.assertTrue(all(row["joint_constraint_pass"] for row in retained))
         self.assertGreaterEqual(len(attempts), len(retained))
 
     def test_lhs_coverage_does_not_collapse(self) -> None:

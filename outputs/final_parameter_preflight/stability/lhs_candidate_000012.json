@@ -1,0 +1,126 @@
+{
+  "candidate_id": "lhs_candidate_000012",
+  "parameter_set_id": "pa1_candidate_000012",
+  "selection_roles": [
+    "driest"
+  ],
+  "status": "PASS",
+  "comparison": {
+    "status": "PASS",
+    "selected_timestep_s": 60,
+    "reason": "60 s selected as the most conservative knowledge-file baseline; 120 s must agree within configured V1 audit tolerances.",
+    "comparisons": {
+      "60": {
+        "status": "ACCEPTED",
+        "final_state_difference_vs_selected": {
+          "temperature_inside_c": 0.0,
+          "humidity_inside_percent": 0.0,
+          "soil_temperature_c": 0.0,
+          "soil_moisture_theta": 0.0
+        },
+        "runtime_seconds": 5.260315199999241
+      },
+      "120": {
+        "status": "ACCEPTED",
+        "final_state_difference_vs_selected": {
+          "temperature_inside_c": 2.0857915927763315e-07,
+          "humidity_inside_percent": 1.1137076683098712e-06,
+          "soil_temperature_c": 1.2735340177982835e-05,
+          "soil_moisture_theta": 3.094439540718419e-08
+        },
+        "runtime_seconds": 2.5583168000011938
+      },
+      "300": {
+        "status": "ACCEPTED",
+        "final_state_difference_vs_selected": {
+          "temperature_inside_c": 1.8406407065185704e-07,
+          "humidity_inside_percent": 3.617432611235927e-07,
+          "soil_temperature_c": 1.908453841537039e-05,
+          "soil_moisture_theta": 5.032666278714792e-07
+        },
+        "runtime_seconds": 0.9990172999987408
+      }
+    }
+  },
+  "verification_passes": {
+    "pass_1_equation_audit": {
+      "status": "PASS",
+      "equation_map": {
+        "E0": "atmosphere.py saturation/actual pressure/vapor density",
+        "E1": "radiation.py greenhouse_solar_radiation",
+        "E2": "ventilation.py leakage + wind + buoyancy + fan",
+        "E3": "crop.py water_stress_coefficient",
+        "E4": "crop.py evapotranspiration_rate",
+        "E5": "greenhouse.py vapor_density_derivative + saturation closure",
+        "E6": "atmosphere.py relative_humidity_from_state",
+        "E7": "greenhouse.py indoor_temperature_derivative",
+        "E8": "soil.py soil_temperature_derivative",
+        "E9": "soil.py soil_moisture_derivative + overflow drainage closure",
+        "E10": "radiation.py indoor_illuminance_lux"
+      },
+      "sign_checks": {
+        "cover_and_ventilation": "(T_out - T_in)",
+        "soil_to_air": "(T_soil - T_in)",
+        "latent_et": "negative",
+        "condensation_heat": "positive when enabled"
+      }
+    },
+    "pass_2_parameter_provenance": {
+      "status": "PASS",
+      "parameter_records": 76,
+      "records_with_complete_metadata": 76,
+      "uncertain_parameters_explicitly_exposed": {
+        "greenhouse.effective_thermal_capacity_j_k": "INITIAL_PRIOR_TO_CALIBRATE",
+        "cover.shortwave_transmittance": "TO_CALIBRATE",
+        "cover.visible_transmittance": "TO_CALIBRATE",
+        "cover.u_value_w_m2_k": "TO_CALIBRATE",
+        "cover.air_solar_absorption_fraction": "INITIAL_PRIOR_TO_CALIBRATE",
+        "ventilation.passive_leakage_m3_s": "TO_CALIBRATE",
+        "ventilation.discharge_coefficient": "INITIAL_PRIOR_TO_CALIBRATE",
+        "ventilation.wind_effect_coefficient": "INITIAL_PRIOR_TO_CALIBRATE",
+        "ventilation.fan_effective_flow_factor": "TO_MEASURE_OR_CALIBRATE",
+        "crop.effective_area_m2": "INITIAL_PRIOR_TO_CALIBRATE",
+        "crop.transpiration_radiation_coefficient": "INITIAL_PRIOR_TO_CALIBRATE",
+        "crop.transpiration_vpd_coefficient": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_thermal.effective_heat_capacity_j_k": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_thermal.air_soil_heat_transfer_w_m2_k": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_thermal.solar_absorption_fraction": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_thermal.base_loss_u_w_m2_k": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_thermal.base_temperature_c": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_water.field_capacity": "TO_MEASURE",
+        "soil_water.wilting_point": "TO_CALIBRATE",
+        "soil_water.depletion_fraction": "TO_CALIBRATE",
+        "soil_water.drainage_coefficient_s": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_water.residual_lower_bound": "INITIAL_PRIOR_TO_CALIBRATE",
+        "soil_water.saturation_upper_bound": "INITIAL_PRIOR_TO_CALIBRATE",
+        "irrigation.effective_flow_m3_s": "TO_MEASURE",
+        "grow_light.radiant_fraction": "INITIAL_PRIOR_TO_CALIBRATE",
+        "grow_light.heat_fraction": "INITIAL_PRIOR_TO_CALIBRATE",
+        "grow_light.canopy_lux_gain": "INITIAL_PRIOR_TO_MEASURE",
+        "light.direct_luminous_efficacy_lm_w": "INITIAL_PRIOR_TO_CALIBRATE",
+        "light.diffuse_luminous_efficacy_lm_w": "INITIAL_PRIOR_TO_CALIBRATE"
+      },
+      "numeric_literal_audit": "Physics magnitudes come from config; remaining literals are exact unit conversions, equation structure, bounds, or controlled-test fixtures."
+    },
+    "pass_3_numerical_audit": {
+      "status": "PASS",
+      "output": {
+        "status": "PASS",
+        "rows": 720,
+        "nan_count": 0,
+        "inf_count": 0,
+        "max_hourly_temperature_jump_c": 3.190047107591486,
+        "violations": []
+      },
+      "conservation_status": "PASS",
+      "stability_status": "PASS",
+      "pressure_boundary": "Open-Meteo hPa converted to Pa before ideal-gas density",
+      "closures": "Vapour saturation mass -> condensation; root saturation excess -> overflow drainage"
+    },
+    "pass_4_physical_behavior": {
+      "status": "PASS",
+      "controlled_tests_passed": 8,
+      "controlled_tests_total": 8
+    }
+  }
+}

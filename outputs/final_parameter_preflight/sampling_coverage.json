@@ -1,0 +1,118 @@
+{
+  "status": "PASS",
+  "candidate_count": 23,
+  "axes": {
+    "C_d": {
+      "min": 0.25987923633928883,
+      "max": 0.6426082813659142,
+      "mean": 0.49899426934592095,
+      "median": 0.5238725617970446,
+      "std_population": 0.10768635098400807,
+      "p05": 0.3045602671847644,
+      "p25": 0.43453482923279085,
+      "p75": 0.5850487068754326,
+      "p95": 0.6356615529437132,
+      "normalized_range_coverage": 0.8505089889480564,
+      "unique_lhs_strata": 23,
+      "expected_strata": 23
+    },
+    "eta_s": {
+      "min": 0.11375162150324551,
+      "max": 0.1994964379704339,
+      "mean": 0.16669036210448257,
+      "median": 0.1709148979617735,
+      "std_population": 0.02344177106742033,
+      "p05": 0.12590633098878018,
+      "p25": 0.15160724144574428,
+      "p75": 0.1861246440102654,
+      "p95": 0.19616890694432274,
+      "normalized_range_coverage": 0.8574481646718838,
+      "unique_lhs_strata": 23,
+      "expected_strata": 23
+    },
+    "C_s": {
+      "min": 64453.45315903168,
+      "max": 89610.48398990538,
+      "mean": 80047.77505600371,
+      "median": 81160.58343956625,
+      "std_population": 7116.689831348528,
+      "p05": 68224.24560046014,
+      "p25": 75107.02037009604,
+      "p75": 86017.19912880432,
+      "p95": 88857.45773132167,
+      "normalized_range_coverage": 0.8385676943624567,
+      "unique_lhs_strata": 23,
+      "expected_strata": 23
+    },
+    "irrigation_flow_L_h": {
+      "min": 5.449289389440048,
+      "max": 13.61805324059373,
+      "mean": 9.94298640282827,
+      "median": 9.925998246296476,
+      "std_population": 2.0351837558322114,
+      "p05": 6.8567546519869484,
+      "p25": 8.54513128899631,
+      "p75": 11.39550044334792,
+      "p95": 12.98596785720285,
+      "normalized_range_coverage": 0.8168763851153681,
+      "unique_lhs_strata": 23,
+      "expected_strata": 23
+    },
+    "ET_scale": {
+      "min": 1.000019161624783,
+      "max": 1.2610378170228205,
+      "mean": 1.0998391533661833,
+      "median": 1.0910375915614683,
+      "std_population": 0.07187713605511924,
+      "p05": 1.0077053952922066,
+      "p25": 1.042149855266169,
+      "p75": 1.1491209744398936,
+      "p95": 1.215587722086641,
+      "normalized_range_coverage": 0.8700621846601244,
+      "unique_lhs_strata": 23,
+      "expected_strata": 23
+    }
+  },
+  "pairwise": {
+    "C_d_x_ET_scale": {
+      "pearson_correlation": -0.14675760322469839,
+      "median_quadrant_occupancy": {
+        "low_low": 5,
+        "low_high": 7,
+        "high_low": 7,
+        "high_high": 4
+      },
+      "occupied_quadrants": 4
+    },
+    "C_d_x_irrigation_flow_L_h": {
+      "pearson_correlation": 0.06975200046461237,
+      "median_quadrant_occupancy": {
+        "low_low": 7,
+        "low_high": 5,
+        "high_low": 5,
+        "high_high": 6
+      },
+      "occupied_quadrants": 4
+    },
+    "eta_s_x_C_s": {
+      "pearson_correlation": -0.1834514281380658,
+      "median_quadrant_occupancy": {
+        "low_low": 5,
+        "low_high": 7,
+        "high_low": 7,
+        "high_high": 4
+      },
+      "occupied_quadrants": 4
+    },
+    "irrigation_flow_L_h_x_ET_scale": {
+      "pearson_correlation": 0.17458591787303976,
+      "median_quadrant_occupancy": {
+        "low_low": 7,
+        "low_high": 5,
+        "high_low": 5,
+        "high_high": 6
+      },
+      "occupied_quadrants": 4
+    }
+  }
+}

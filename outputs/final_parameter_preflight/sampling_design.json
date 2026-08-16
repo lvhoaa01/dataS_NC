@@ -1,0 +1,22 @@
+{
+  "sampling_method": "constrained_latin_hypercube_sampling",
+  "sampling_version": "pa1_constrained_lhs_v1",
+  "sampling_seed": 20260816,
+  "dimensions": 5,
+  "lhs_batch_size": 23,
+  "requested_non_baseline": 23,
+  "raw_candidates_generated": 23,
+  "joint_constraint_rejects": 0,
+  "joint_valid_retained": 23,
+  "next_raw_candidate_index": 24,
+  "joint_space_file": "joint_parameter_space.yaml",
+  "joint_space_sha256": "68ba7987a6a24af742ba0818263271d211a8042a66e6be38b9767c506f3c4749",
+  "baseline_config_file": "config\\greenhouse_parameters.yaml",
+  "baseline_config_sha256": "c4f56a0201cde7d07270c4c83454842d652804e48bb72b7e9b9970713376fb93",
+  "candidate_manifest": "final_parameter_candidates.csv",
+  "candidate_manifest_sha256": "1125ed7638e089eb6cf6a5b0da8754639c77a64636ba21a3dfd6bbcd83e86a65",
+  "coverage_file": "outputs\\final_parameter_preflight\\sampling_coverage.json",
+  "preflight_status": "PASS",
+  "final_approved": 24,
+  "preflight_summary": "outputs\\final_parameter_preflight\\preflight_summary.json"
+}

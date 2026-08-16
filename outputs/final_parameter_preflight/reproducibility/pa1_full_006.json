@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "first_output_hash": "a755ff585f118d02bce724ef4dae5d028b12553bcc664a209583d13d8c6af0c3",
+  "second_output_hash": "a755ff585f118d02bce724ef4dae5d028b12553bcc664a209583d13d8c6af0c3",
+  "numeric_hash": "e9cdd5912481c764bee55776eb79592f1cb8e37f18d598dba8fdf94187a86641",
+  "expected_preflight_numeric_hash": "e9cdd5912481c764bee55776eb79592f1cb8e37f18d598dba8fdf94187a86641"
+}
