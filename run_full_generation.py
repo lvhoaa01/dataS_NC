@@ -377,15 +377,23 @@ def audit_weather_dataset() -> tuple[list[WeatherForcing], dict[str, Any]]:
     if TIMEZONE_NAME not in metadata:
         errors.append(f"Weather metadata does not declare {TIMEZONE_NAME}.")
     raw_weather = weather[:-1]
-    leap_2024_rows = sum(
-        datetime.fromisoformat(item.timestamp).year == 2024 for item in raw_weather
-    )
-    leap_day_rows = sum(
-        datetime.fromisoformat(item.timestamp).date().isoformat() == "2024-02-29"
-        for item in raw_weather
-    )
-    if leap_2024_rows != 8784 or leap_day_rows != 24:
-        errors.append("2024 leap-year coverage is incomplete.")
+    parsed_timestamps = [
+        datetime.fromisoformat(item.timestamp) for item in raw_weather
+    ]
+    leap_year_rows = {
+        str(year): sum(timestamp.year == year for timestamp in parsed_timestamps)
+        for year in (2020, 2024)
+    }
+    leap_day_rows = {
+        str(year): sum(
+            timestamp.date().isoformat() == f"{year}-02-29"
+            for timestamp in parsed_timestamps
+        )
+        for year in (2020, 2024)
+    }
+    for year in (2020, 2024):
+        if leap_year_rows[str(year)] != 8784 or leap_day_rows[str(year)] != 24:
+            errors.append(f"{year} leap-year coverage is incomplete.")
     audit = {
         "status": "PASS" if not errors else "FAIL",
         "file": str(WEATHER_PATH.relative_to(ROOT)),
@@ -398,8 +406,10 @@ def audit_weather_dataset() -> tuple[list[WeatherForcing], dict[str, Any]]:
         "duplicates": quality["duplicates"],
         "timestamp_gaps": quality["timestamp_gaps"],
         "nonfinite_core_values": quality["nonfinite_core_values"],
-        "leap_2024_rows": leap_2024_rows,
-        "leap_day_2024_rows": leap_day_rows,
+        "leap_year_rows": leap_year_rows,
+        "leap_day_rows": leap_day_rows,
+        "leap_2024_rows": leap_year_rows["2024"],
+        "leap_day_2024_rows": leap_day_rows["2024"],
         "full_run_terminal_endpoint_policy": quality["terminal_endpoint_policy"],
         "raw_dataset_modified": False,
         "errors": errors,
@@ -1106,21 +1116,32 @@ def execute(args: argparse.Namespace) -> dict[str, Any]:
     errors: list[dict[str, str]] = []
     with RunLock(output_root / "state" / "run.lock"):
         save_run_state(output_root, state)
-        for job in jobs:
+        for index, job in enumerate(jobs, start=1):
+            progress = f"[{index:02d}/{len(jobs):02d}] {job.parameter_set_id}"
+            print(f"{progress} RUNNING", flush=True)
             try:
-                results.append(
-                    run_one_job(
-                        job,
-                        output_root,
-                        state,
-                        all_weather,
-                        weather_audit["sha256"],
-                        force=args.force,
-                    )
+                result = run_one_job(
+                    job,
+                    output_root,
+                    state,
+                    all_weather,
+                    weather_audit["sha256"],
+                    force=args.force,
                 )
+                results.append(result)
+                if result["action"] == "SKIPPED":
+                    print(f"{progress} SKIPPED_COMPLETE", flush=True)
+                else:
+                    elapsed = result["timings"]["total_wall_seconds"]
+                    print(
+                        f"{progress} COMPLETE {elapsed:.1f}s",
+                        flush=True,
+                    )
             except KeyboardInterrupt:
+                print(f"{progress} INTERRUPTED", flush=True)
                 raise
             except Exception as exc:
+                print(f"{progress} FAILED: {exc}", flush=True)
                 errors.append(
                     {"parameter_set_id": job.parameter_set_id, "error": str(exc)}
                 )
@@ -1183,7 +1204,13 @@ def main(argv: list[str] | None = None) -> int:
     print(f"MODE: {report['mode']}")
     print(f"DRY_RUN: {'YES' if report['dry_run'] else 'NO'}")
     print(f"JOBS: {report['jobs']}")
+    print(f"PARAMETER_SETS: {len(report['parameter_set_ids'])}")
+    print(f"WEATHER_ROWS: {report['weather_audit']['rows']}")
+    print(f"WINDOW_START: {report['window'][0]}")
+    print(f"WINDOW_END: {report['window'][1]}")
     print(f"EXPECTED_ROWS_PER_JOB: {report['expected_rows_per_job']}")
+    print(f"EXPECTED_TOTAL_ROWS: {report['expected_total_rows']}")
+    print(f"OUTPUT_ROOT: {report['output_root']}")
     if not report["dry_run"]:
         print(f"COMPLETED: {report['completed']}")
         print(f"SKIPPED: {report['skipped']}")

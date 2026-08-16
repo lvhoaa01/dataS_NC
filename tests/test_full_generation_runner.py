@@ -64,6 +64,22 @@ class FullGenerationRunnerTests(unittest.TestCase):
         self.assertEqual(report["expected_rows_per_job"], 70128)
         self.assertFalse(report["full_mode_executed"])
 
+    def test_full_job_count_and_baseline_once(self) -> None:
+        args = runner.build_parser().parse_args(["--full", "--dry-run"])
+        jobs = runner.resolve_jobs(args, self.rows)
+        identifiers = [job.parameter_set_id for job in jobs]
+        self.assertEqual(len(jobs), 24)
+        self.assertEqual(identifiers.count("pa1_full_000_baseline"), 1)
+        self.assertEqual(sum(job.expected_rows for job in jobs), 1_683_072)
+        self.assertTrue(all(job.expected_rows == 70_128 for job in jobs))
+
+    def test_full_weather_row_count_and_leap_days(self) -> None:
+        _, audit = runner.audit_weather_dataset()
+        self.assertEqual(audit["status"], "PASS")
+        self.assertEqual(audit["rows"], 70_128)
+        self.assertEqual(audit["leap_year_rows"], {"2020": 8784, "2024": 8784})
+        self.assertEqual(audit["leap_day_rows"], {"2020": 24, "2024": 24})
+
     def _cache_fixture(
         self, directory: Path
     ) -> tuple[dict, dict, dict[str, Path]]:
@@ -147,6 +163,18 @@ class FullGenerationRunnerTests(unittest.TestCase):
                 runner.cache_decision(entry, identity, paths),
                 ("RERUN", "WEATHER_MISMATCH"),
             )
+
+    def test_active_run_lock_refuses_second_process(self) -> None:
+        with TemporaryDirectory() as temporary:
+            lock_path = Path(temporary) / "run.lock"
+            lock_path.write_text(
+                json.dumps({"pid": os.getpid()}), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(
+                runner.FullGenerationError, "locked by active PID"
+            ):
+                with runner.RunLock(lock_path):
+                    pass
 
     def test_atomic_output_commit(self) -> None:
         with TemporaryDirectory() as temporary:
@@ -254,6 +282,28 @@ class FullGenerationRunnerTests(unittest.TestCase):
         }
         self.assertEqual(forbidden, set())
 
+    def test_full_no_llm_dependency(self) -> None:
+        forbidden_markers = (
+            "import openai",
+            "from openai",
+            "import anthropic",
+            "from anthropic",
+            "chat.completions",
+            "responses.create",
+            "gemini client",
+            "llm client",
+        )
+        execution_files = list(ROOT.glob("*.py")) + list(
+            (ROOT / "physics").rglob("*.py")
+        )
+        findings = []
+        for path in execution_files:
+            source = path.read_text(encoding="utf-8").lower()
+            for marker in forbidden_markers:
+                if marker in source:
+                    findings.append(f"{path.relative_to(ROOT)}: {marker}")
+        self.assertEqual(findings, [])
+
     def test_benchmark_reproducibility_and_full_stop_gate(self) -> None:
         run_reports = []
         for run_id in ("run_1", "run_2"):
@@ -345,6 +395,58 @@ class FullGenerationRunnerTests(unittest.TestCase):
                 getattr(complete.final_state, field),
                 places=12,
             )
+
+    def test_full_continuous_state_across_year_boundary(self) -> None:
+        source = load_parameter_config(
+            ROOT
+            / "outputs/final_parameter_preflight/configs/pa1_full_000_baseline.yaml"
+        ).to_model_parameters()
+        weather, quality = load_and_validate_weather_range(
+            ROOT / "nha_trang_weather_2018_2025.csv",
+            datetime(2023, 12, 30),
+            datetime(2024, 1, 2, 23),
+        )
+        continuous_parameters = replace(
+            source,
+            simulation=replace(
+                source.simulation,
+                start_timestamp="2023-12-30T00:00",
+                duration_days=4,
+            ),
+        )
+        continuous = run_simulation(
+            weather, continuous_parameters, weather_quality=quality
+        )
+
+        first_parameters = replace(
+            continuous_parameters,
+            simulation=replace(
+                continuous_parameters.simulation,
+                duration_days=2,
+            ),
+        )
+        first = run_simulation(
+            weather[:49], first_parameters, weather_quality=quality
+        )
+        second_parameters = replace(
+            continuous_parameters,
+            simulation=replace(
+                continuous_parameters.simulation,
+                start_timestamp="2024-01-01T00:00",
+                duration_days=2,
+            ),
+        )
+        second = run_simulation(
+            weather[48:],
+            second_parameters,
+            weather_quality=quality,
+            initial_state=first.final_state,
+        )
+
+        self.assertEqual(len(continuous.rows), 96)
+        self.assertEqual(continuous.rows, first.rows + second.rows)
+        self.assertEqual(second.initial_state, first.final_state)
+        self.assertEqual(second.final_state, continuous.final_state)
 
     def test_june_baseline_numerical_regression(self) -> None:
         config = load_parameter_config(
