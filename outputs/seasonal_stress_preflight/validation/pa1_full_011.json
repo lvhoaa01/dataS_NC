@@ -1,0 +1,1306 @@
+{
+  "identity": {
+    "preflight_version": "pa1_multi_season_preflight_v1",
+    "parameter_set_id": "pa1_full_011",
+    "config_hash": "588d1d08aac332bec5bc79095b761e83e8e3dae06ed4992f407a5ef4c74e8ea3",
+    "weather_hash": "61bdf841a0f6b7d98bf27951ab3a89e93a4ce13ab48e85acc1b1513e246e0734",
+    "windows_hash": "97c7c27cba68749e61f3cd23737e50ccfcf25cd0e57b9a245500f2e49e5c4a69",
+    "simulator_code_hash": "058bfd097ded4cb91c2098634bedfa28f3160392895cf0c2a48cfc4069ce9771"
+  },
+  "parameters": {
+    "C_d": 0.6161757030527564,
+    "eta_s": 0.13257770940825891,
+    "C_s": 79677.48061941231,
+    "irrigation_flow_L_h": 9.925998246296476,
+    "ET_scale": 1.1710857296541235
+  },
+  "seasonal_preflight_status": "SEASONAL_PREFLIGHT_PASS",
+  "full_horizon_status": "NOT_RUN",
+  "classification": "SEASONAL_PREFLIGHT_PASS",
+  "runtime_seconds": 55.8707891999984,
+  "windows": [
+    {
+      "preflight_version": "pa1_multi_season_preflight_v1",
+      "parameter_set_id": "pa1_full_011",
+      "window_id": "reference_june",
+      "window_type": "REFERENCE_JUNE",
+      "status": "PASS",
+      "classification": "VALID",
+      "guard_violations": [],
+      "rows": 720,
+      "internal_timestep_s": 60,
+      "weather_identity": {
+        "warmup_start": "2024-05-02T00:00",
+        "warmup_end": "2024-06-01T00:00",
+        "stress_start": "2024-06-01T00:00",
+        "stress_end": "2024-06-30T23:00",
+        "warmup_forcing_rows": 721,
+        "stress_forcing_rows": 721
+      },
+      "state_handoff": {
+        "warmup_final_state": {
+          "temperature_inside_c": 29.7527397281626,
+          "vapor_density_inside_kg_m3": 0.024725818926771184,
+          "soil_temperature_c": 32.14191585429503,
+          "soil_moisture_theta": 0.21416116586916323
+        },
+        "stress_initial_state": {
+          "temperature_inside_c": 29.7527397281626,
+          "vapor_density_inside_kg_m3": 0.024725818926771184,
+          "soil_temperature_c": 32.14191585429503,
+          "soil_moisture_theta": 0.21416116586916323
+        },
+        "exact_match": true
+      },
+      "metrics": {
+        "states": {
+          "T_air": {
+            "min": 25.089245657155328,
+            "max": 39.70122603146889,
+            "mean": 31.121760342954953,
+            "p95": 37.85265692247799,
+            "p99": 39.271388722063215
+          },
+          "RH": {
+            "min": 45.22760038754857,
+            "max": 100.0,
+            "mean": 75.37711423767242,
+            "p95": 92.33925707599789,
+            "p99": 96.62973332128254
+          },
+          "T_soil": {
+            "min": 29.524719054268687,
+            "max": 35.88818010280164,
+            "mean": 32.89988506659143,
+            "p95": 35.183388241975905,
+            "p99": 35.682927152778504
+          },
+          "soil_moisture": {
+            "min": 0.18987096323125308,
+            "max": 0.230150142126421,
+            "mean": 0.20657516879441762,
+            "p95": 0.22212998629714953,
+            "p99": 0.22812100511007988
+          },
+          "light": {
+            "min": 0.0,
+            "max": 89564.3408,
+            "mean": 23220.41636444444,
+            "p95": 81116.99376,
+            "p99": 86934.95078399997
+          }
+        },
+        "humidity": {
+          "saturated_rows": 1,
+          "saturated_fraction": 0.001388888888888889,
+          "longest_continuous_saturation_hours": 1,
+          "condensation_total_kg": 0.0037634673827462526
+        },
+        "soil_temperature": {
+          "max_c": 35.88818010280164,
+          "max_timestamp": "2024-06-15T17:00",
+          "p95_c": 35.183388241975905,
+          "p99_c": 35.682927152778504,
+          "hours_above_36_c": 0,
+          "hours_above_38_c": 0,
+          "hours_above_40_c": 0,
+          "largest_hourly_rise_c": 0.43061093451152743,
+          "largest_hourly_fall_c": -0.19437532274832847
+        },
+        "soil_water": {
+          "stress_threshold": 0.31199999999999994,
+          "near_wilting_threshold": 0.1635,
+          "hours_below_stress_threshold": 720,
+          "hours_near_wilting": 0,
+          "hours_above_field_capacity": 0,
+          "water_stress_min": 0.2461170569830437,
+          "water_stress_mean": 0.349229437002578,
+          "et_total_kg": 10.085705682867786,
+          "irrigation_total_l": 9.925998246296466,
+          "drainage_total_l": 0.0,
+          "controller_pathology": {
+            "status": "PASS",
+            "pump_on_rows": 60,
+            "pump_transition_count": 120,
+            "expected_max_transition_count": 120,
+            "flags": {
+              "pump_always_on": false,
+              "pump_always_off": false,
+              "pump_oscillating_excessively": false,
+              "soil_always_above_field_capacity": false,
+              "soil_collapsed_to_lower_bound": false
+            }
+          }
+        }
+      },
+      "range_checks": {
+        "status": "PASS",
+        "rows": 720,
+        "nan_count": 0,
+        "inf_count": 0,
+        "max_hourly_temperature_jump_c": 3.066054430519987,
+        "violations": []
+      },
+      "causal_tests": {
+        "status": "PASS",
+        "passed": 8,
+        "total": 8,
+        "tests": {
+          "A_solar_response": {
+            "status": "PASS",
+            "solar_inside_low_high_w_m2": [
+              85.0,
+              510.0
+            ],
+            "lux_low_high": [
+              9855.472,
+              59132.831999999995
+            ],
+            "temperature_tendency_low_high_c_s": [
+              -0.003225037290451813,
+              -0.0025529153857869126
+            ]
+          },
+          "B_ventilation_response": {
+            "status": "PASS",
+            "flow_off_on_m3_s": [
+              0.005693485413821904,
+              0.007082385413821904
+            ],
+            "temperature_tendency_off_on_c_s": [
+              -0.006674635701622343,
+              -0.00694112678256928
+            ]
+          },
+          "C_humidity_exchange": {
+            "status": "PASS",
+            "vapor_tendency_fan_off_on_kg_m3_s": [
+              -8.830550652879519e-06,
+              -1.3826743398907414e-05
+            ]
+          },
+          "D_pump_response": {
+            "status": "PASS",
+            "theta_tendency_off_on_s": [
+              0.0,
+              0.00013786108675411772
+            ]
+          },
+          "E_soil_stress": {
+            "status": "PASS",
+            "ks_dry_wet": [
+              0.16666666666666663,
+              1.0
+            ],
+            "et_dry_wet_kg_s": [
+              4.6533176688377555e-06,
+              2.791990601302654e-05
+            ]
+          },
+          "F_et_coupling": {
+            "status": "PASS",
+            "vapor_tendency_base_high": [
+              8.602458899058334e-06,
+              3.768569432929432e-05
+            ],
+            "temperature_tendency_base_high": [
+              -0.006131150175411696,
+              -0.007271213004276946
+            ],
+            "soil_moisture_tendency_base_high": [
+              -1.395995300651327e-06,
+              -2.791990601302654e-06
+            ]
+          },
+          "G_grow_light": {
+            "status": "PASS",
+            "lux_off_on": [
+              0.0,
+              5000.0
+            ],
+            "grow_heat_off_on_w": [
+              0.0,
+              11.700000000000001
+            ],
+            "temperature_tendency_off_on_c_s": [
+              -0.0033594616713847926,
+              -0.0031967397218083844
+            ]
+          },
+          "E0_atmospheric_boundaries": {
+            "status": "PASS",
+            "rh_cases_percent": [
+              0.0,
+              50.0,
+              100.0
+            ],
+            "checks_passed": 3
+          }
+        }
+      },
+      "mass_and_energy_consistency": {
+        "status": "PASS",
+        "root_zone_water": {
+          "irrigation_input_m3": 0.009925998246296466,
+          "et_loss_m3": 0.010085705682867799,
+          "drainage_loss_m3": 0.0,
+          "overflow_drainage_m3": 0.0,
+          "storage_change_m3": -0.00015970743657135744,
+          "residual_m3": -2.42861286636753e-17,
+          "relative_residual": 7.603318037362048e-14
+        },
+        "indoor_vapor": {
+          "et_source_kg": 10.085705682867786,
+          "ventilation_exchange_kg": -10.082023339098122,
+          "condensation_sink_kg": 0.0037634673827462526,
+          "storage_change_kg": -8.112361311916171e-05,
+          "residual_kg": -3.7606785632630924e-14,
+          "relative_residual": 2.3178692488774772e-10
+        },
+        "indoor_air_energy": {
+          "integrated_net_energy_j": -75941.80871532542,
+          "storage_change_j": -75941.80871532267,
+          "residual_j": 2.750311978161335e-09,
+          "relative_residual": 1.8108022607620347e-14,
+          "unit_audit": "All E7 terms are W; pressure converted hPa->Pa at input boundary; C_eff is J/K; dT/dt is K/s."
+        }
+      },
+      "framework_status": "PASS",
+      "runtime_seconds": {
+        "warmup": 6.029700799997954,
+        "scoring": 5.526138799999899,
+        "total": 11.555839599997853
+      },
+      "warnings": [
+        "Vapour saturation closure produced 315 condensation events; mass is retained in the balance audit.",
+        "Vapour saturation closure produced 47 condensation events; mass is retained in the balance audit."
+      ]
+    },
+    {
+      "preflight_version": "pa1_multi_season_preflight_v1",
+      "parameter_set_id": "pa1_full_011",
+      "window_id": "humid_stress",
+      "window_type": "HUMID_STRESS",
+      "status": "PASS",
+      "classification": "EXTREME_VALID",
+      "guard_violations": [],
+      "rows": 720,
+      "internal_timestep_s": 60,
+      "weather_identity": {
+        "warmup_start": "2022-10-11T00:00",
+        "warmup_end": "2022-11-10T00:00",
+        "stress_start": "2022-11-10T00:00",
+        "stress_end": "2022-12-09T23:00",
+        "warmup_forcing_rows": 721,
+        "stress_forcing_rows": 721
+      },
+      "state_handoff": {
+        "warmup_final_state": {
+          "temperature_inside_c": 25.280287515772834,
+          "vapor_density_inside_kg_m3": 0.021116427992941868,
+          "soil_temperature_c": 29.341082513727123,
+          "soil_moisture_theta": 0.21763156275723122
+        },
+        "stress_initial_state": {
+          "temperature_inside_c": 25.280287515772834,
+          "vapor_density_inside_kg_m3": 0.021116427992941868,
+          "soil_temperature_c": 29.341082513727123,
+          "soil_moisture_theta": 0.21763156275723122
+        },
+        "exact_match": true
+      },
+      "metrics": {
+        "states": {
+          "T_air": {
+            "min": 23.033652133047614,
+            "max": 31.11815601942123,
+            "mean": 25.753880206424395,
+            "p95": 29.89554134148522,
+            "p99": 30.730678352836502
+          },
+          "RH": {
+            "min": 70.45919234311953,
+            "max": 100.0,
+            "mean": 91.30510478038728,
+            "p95": 99.84139457448346,
+            "p99": 100.0
+          },
+          "T_soil": {
+            "min": 25.547256146194172,
+            "max": 29.87910864302849,
+            "mean": 27.717681787064368,
+            "p95": 29.502325010207098,
+            "p99": 29.77807859590625
+          },
+          "soil_moisture": {
+            "min": 0.20996980129436885,
+            "max": 0.2729036945415869,
+            "mean": 0.23869868888089482,
+            "p95": 0.2591279047703398,
+            "p99": 0.2649185510565024
+          },
+          "light": {
+            "min": 0.0,
+            "max": 75307.7248,
+            "mean": 14476.98714,
+            "p95": 61985.60631999998,
+            "p99": 70849.66310399998
+          }
+        },
+        "humidity": {
+          "saturated_rows": 32,
+          "saturated_fraction": 0.044444444444444446,
+          "longest_continuous_saturation_hours": 4,
+          "condensation_total_kg": 0.1548864087673214
+        },
+        "soil_temperature": {
+          "max_c": 29.87910864302849,
+          "max_timestamp": "2022-11-10T17:00",
+          "p95_c": 29.502325010207098,
+          "p99_c": 29.77807859590625,
+          "hours_above_36_c": 0,
+          "hours_above_38_c": 0,
+          "hours_above_40_c": 0,
+          "largest_hourly_rise_c": 0.35196065208401706,
+          "largest_hourly_fall_c": -0.1370726026797051
+        },
+        "soil_water": {
+          "stress_threshold": 0.31199999999999994,
+          "near_wilting_threshold": 0.1635,
+          "hours_below_stress_threshold": 720,
+          "hours_near_wilting": 0,
+          "hours_above_field_capacity": 0,
+          "water_stress_min": 0.37018395860721515,
+          "water_stress_mean": 0.547522770869721,
+          "et_total_kg": 9.263015518378161,
+          "irrigation_total_l": 9.925998246296466,
+          "drainage_total_l": 0.0,
+          "controller_pathology": {
+            "status": "PASS",
+            "pump_on_rows": 60,
+            "pump_transition_count": 120,
+            "expected_max_transition_count": 120,
+            "flags": {
+              "pump_always_on": false,
+              "pump_always_off": false,
+              "pump_oscillating_excessively": false,
+              "soil_always_above_field_capacity": false,
+              "soil_collapsed_to_lower_bound": false
+            }
+          }
+        }
+      },
+      "range_checks": {
+        "status": "PASS",
+        "rows": 720,
+        "nan_count": 0,
+        "inf_count": 0,
+        "max_hourly_temperature_jump_c": 2.1452986477325275,
+        "violations": []
+      },
+      "causal_tests": {
+        "status": "PASS",
+        "passed": 8,
+        "total": 8,
+        "tests": {
+          "A_solar_response": {
+            "status": "PASS",
+            "solar_inside_low_high_w_m2": [
+              85.0,
+              510.0
+            ],
+            "lux_low_high": [
+              9855.472,
+              59132.831999999995
+            ],
+            "temperature_tendency_low_high_c_s": [
+              -0.003225037290451813,
+              -0.0025529153857869126
+            ]
+          },
+          "B_ventilation_response": {
+            "status": "PASS",
+            "flow_off_on_m3_s": [
+              0.005693485413821904,
+              0.007082385413821904
+            ],
+            "temperature_tendency_off_on_c_s": [
+              -0.006674635701622343,
+              -0.00694112678256928
+            ]
+          },
+          "C_humidity_exchange": {
+            "status": "PASS",
+            "vapor_tendency_fan_off_on_kg_m3_s": [
+              -8.830550652879519e-06,
+              -1.3826743398907414e-05
+            ]
+          },
+          "D_pump_response": {
+            "status": "PASS",
+            "theta_tendency_off_on_s": [
+              0.0,
+              0.00013786108675411772
+            ]
+          },
+          "E_soil_stress": {
+            "status": "PASS",
+            "ks_dry_wet": [
+              0.16666666666666663,
+              1.0
+            ],
+            "et_dry_wet_kg_s": [
+              4.6533176688377555e-06,
+              2.791990601302654e-05
+            ]
+          },
+          "F_et_coupling": {
+            "status": "PASS",
+            "vapor_tendency_base_high": [
+              8.602458899058334e-06,
+              3.768569432929432e-05
+            ],
+            "temperature_tendency_base_high": [
+              -0.006131150175411696,
+              -0.007271213004276946
+            ],
+            "soil_moisture_tendency_base_high": [
+              -1.395995300651327e-06,
+              -2.791990601302654e-06
+            ]
+          },
+          "G_grow_light": {
+            "status": "PASS",
+            "lux_off_on": [
+              0.0,
+              5000.0
+            ],
+            "grow_heat_off_on_w": [
+              0.0,
+              11.700000000000001
+            ],
+            "temperature_tendency_off_on_c_s": [
+              -0.0033594616713847926,
+              -0.0031967397218083844
+            ]
+          },
+          "E0_atmospheric_boundaries": {
+            "status": "PASS",
+            "rh_cases_percent": [
+              0.0,
+              50.0,
+              100.0
+            ],
+            "checks_passed": 3
+          }
+        }
+      },
+      "mass_and_energy_consistency": {
+        "status": "PASS",
+        "root_zone_water": {
+          "irrigation_input_m3": 0.009925998246296466,
+          "et_loss_m3": 0.009263015518378102,
+          "drainage_loss_m3": 0.0,
+          "overflow_drainage_m3": 0.0,
+          "storage_change_m3": 0.000662982727918341,
+          "residual_m3": -2.2985086056692694e-17,
+          "relative_residual": 1.733460397140493e-14
+        },
+        "indoor_vapor": {
+          "et_source_kg": 9.263015518378161,
+          "ventilation_exchange_kg": -9.11089011034503,
+          "condensation_sink_kg": 0.1548864087673214,
+          "storage_change_kg": -0.002761000734161977,
+          "residual_kg": 2.874480167780469e-14,
+          "relative_residual": 5.2055041713670025e-12
+        },
+        "indoor_air_energy": {
+          "integrated_net_energy_j": -64079.12674398028,
+          "storage_change_j": -64079.1267439905,
+          "residual_j": -1.021544449031353e-08,
+          "relative_residual": 7.970961067499546e-14,
+          "unit_audit": "All E7 terms are W; pressure converted hPa->Pa at input boundary; C_eff is J/K; dT/dt is K/s."
+        }
+      },
+      "framework_status": "PASS",
+      "runtime_seconds": {
+        "warmup": 5.826281800000288,
+        "scoring": 5.4119285000015225,
+        "total": 11.23821030000181
+      },
+      "warnings": [
+        "Vapour saturation closure produced 1396 condensation events; mass is retained in the balance audit.",
+        "Vapour saturation closure produced 1911 condensation events; mass is retained in the balance audit."
+      ]
+    },
+    {
+      "preflight_version": "pa1_multi_season_preflight_v1",
+      "parameter_set_id": "pa1_full_011",
+      "window_id": "hot_solar_stress",
+      "window_type": "HOT_SOLAR_STRESS",
+      "status": "PASS",
+      "classification": "VALID",
+      "guard_violations": [],
+      "rows": 720,
+      "internal_timestep_s": 60,
+      "weather_identity": {
+        "warmup_start": "2024-03-05T00:00",
+        "warmup_end": "2024-04-04T00:00",
+        "stress_start": "2024-04-04T00:00",
+        "stress_end": "2024-05-03T23:00",
+        "warmup_forcing_rows": 721,
+        "stress_forcing_rows": 721
+      },
+      "state_handoff": {
+        "warmup_final_state": {
+          "temperature_inside_c": 27.46721646557952,
+          "vapor_density_inside_kg_m3": 0.0230751854002361,
+          "soil_temperature_c": 32.98935725526749,
+          "soil_moisture_theta": 0.19624569872849235
+        },
+        "stress_initial_state": {
+          "temperature_inside_c": 27.46721646557952,
+          "vapor_density_inside_kg_m3": 0.0230751854002361,
+          "soil_temperature_c": 32.98935725526749,
+          "soil_moisture_theta": 0.19624569872849235
+        },
+        "exact_match": true
+      },
+      "metrics": {
+        "states": {
+          "T_air": {
+            "min": 24.43539909298951,
+            "max": 40.11231952584277,
+            "mean": 30.82335863819411,
+            "p95": 38.147587397658924,
+            "p99": 39.43898844893172
+          },
+          "RH": {
+            "min": 37.24599197668646,
+            "max": 95.66516682925383,
+            "mean": 71.34447347160025,
+            "p95": 90.45555063252088,
+            "p99": 93.85853983341786
+          },
+          "T_soil": {
+            "min": 30.39101074703184,
+            "max": 36.24517821782274,
+            "mean": 33.27800859333944,
+            "p95": 35.546864440015014,
+            "p99": 36.0339614711035
+          },
+          "soil_moisture": {
+            "min": 0.18390006863901304,
+            "max": 0.20626877168900853,
+            "mean": 0.19456436033192806,
+            "p95": 0.2023713925716721,
+            "p99": 0.2048274332414534
+          },
+          "light": {
+            "min": 0.0,
+            "max": 95513.0704,
+            "mean": 27506.774997777775,
+            "p95": 88779.76183999999,
+            "p99": 93535.224464
+          }
+        },
+        "humidity": {
+          "saturated_rows": 0,
+          "saturated_fraction": 0.0,
+          "longest_continuous_saturation_hours": 0,
+          "condensation_total_kg": 0.0
+        },
+        "soil_temperature": {
+          "max_c": 36.24517821782274,
+          "max_timestamp": "2024-04-30T17:00",
+          "p95_c": 35.546864440015014,
+          "p99_c": 36.0339614711035,
+          "hours_above_36_c": 10,
+          "hours_above_38_c": 0,
+          "hours_above_40_c": 0,
+          "largest_hourly_rise_c": 0.4489647062313651,
+          "largest_hourly_fall_c": -0.21165827055309094
+        },
+        "soil_water": {
+          "stress_threshold": 0.31199999999999994,
+          "near_wilting_threshold": 0.1635,
+          "hours_below_stress_threshold": 720,
+          "hours_near_wilting": 0,
+          "hours_above_field_capacity": 0,
+          "water_stress_min": 0.2092596829568706,
+          "water_stress_mean": 0.2750886440242474,
+          "et_total_kg": 9.975641089999186,
+          "irrigation_total_l": 9.925998246296466,
+          "drainage_total_l": 0.0,
+          "controller_pathology": {
+            "status": "PASS",
+            "pump_on_rows": 60,
+            "pump_transition_count": 120,
+            "expected_max_transition_count": 120,
+            "flags": {
+              "pump_always_on": false,
+              "pump_always_off": false,
+              "pump_oscillating_excessively": false,
+              "soil_always_above_field_capacity": false,
+              "soil_collapsed_to_lower_bound": false
+            }
+          }
+        }
+      },
+      "range_checks": {
+        "status": "PASS",
+        "rows": 720,
+        "nan_count": 0,
+        "inf_count": 0,
+        "max_hourly_temperature_jump_c": 2.719530967278711,
+        "violations": []
+      },
+      "causal_tests": {
+        "status": "PASS",
+        "passed": 8,
+        "total": 8,
+        "tests": {
+          "A_solar_response": {
+            "status": "PASS",
+            "solar_inside_low_high_w_m2": [
+              85.0,
+              510.0
+            ],
+            "lux_low_high": [
+              9855.472,
+              59132.831999999995
+            ],
+            "temperature_tendency_low_high_c_s": [
+              -0.003225037290451813,
+              -0.0025529153857869126
+            ]
+          },
+          "B_ventilation_response": {
+            "status": "PASS",
+            "flow_off_on_m3_s": [
+              0.005693485413821904,
+              0.007082385413821904
+            ],
+            "temperature_tendency_off_on_c_s": [
+              -0.006674635701622343,
+              -0.00694112678256928
+            ]
+          },
+          "C_humidity_exchange": {
+            "status": "PASS",
+            "vapor_tendency_fan_off_on_kg_m3_s": [
+              -8.830550652879519e-06,
+              -1.3826743398907414e-05
+            ]
+          },
+          "D_pump_response": {
+            "status": "PASS",
+            "theta_tendency_off_on_s": [
+              0.0,
+              0.00013786108675411772
+            ]
+          },
+          "E_soil_stress": {
+            "status": "PASS",
+            "ks_dry_wet": [
+              0.16666666666666663,
+              1.0
+            ],
+            "et_dry_wet_kg_s": [
+              4.6533176688377555e-06,
+              2.791990601302654e-05
+            ]
+          },
+          "F_et_coupling": {
+            "status": "PASS",
+            "vapor_tendency_base_high": [
+              8.602458899058334e-06,
+              3.768569432929432e-05
+            ],
+            "temperature_tendency_base_high": [
+              -0.006131150175411696,
+              -0.007271213004276946
+            ],
+            "soil_moisture_tendency_base_high": [
+              -1.395995300651327e-06,
+              -2.791990601302654e-06
+            ]
+          },
+          "G_grow_light": {
+            "status": "PASS",
+            "lux_off_on": [
+              0.0,
+              5000.0
+            ],
+            "grow_heat_off_on_w": [
+              0.0,
+              11.700000000000001
+            ],
+            "temperature_tendency_off_on_c_s": [
+              -0.0033594616713847926,
+              -0.0031967397218083844
+            ]
+          },
+          "E0_atmospheric_boundaries": {
+            "status": "PASS",
+            "rh_cases_percent": [
+              0.0,
+              50.0,
+              100.0
+            ],
+            "checks_passed": 3
+          }
+        }
+      },
+      "mass_and_energy_consistency": {
+        "status": "PASS",
+        "root_zone_water": {
+          "irrigation_input_m3": 0.009925998246296466,
+          "et_loss_m3": 0.00997564108999927,
+          "drainage_loss_m3": 0.0,
+          "overflow_drainage_m3": 0.0,
+          "storage_change_m3": -4.9642843702750185e-05,
+          "residual_m3": 5.4399844004460185e-17,
+          "relative_residual": 5.479122462259012e-13
+        },
+        "indoor_vapor": {
+          "et_source_kg": 9.975641089999186,
+          "ventilation_exchange_kg": -9.975443945058194,
+          "condensation_sink_kg": 0.0,
+          "storage_change_kg": 0.00019714494092227253,
+          "residual_kg": -7.027156092263842e-14,
+          "relative_residual": 1.782230895233068e-10
+        },
+        "indoor_air_energy": {
+          "integrated_net_energy_j": 76998.57506120291,
+          "storage_change_j": 76998.57506120147,
+          "residual_j": -1.4406396076083183e-09,
+          "relative_residual": 9.354975767169901e-15,
+          "unit_audit": "All E7 terms are W; pressure converted hPa->Pa at input boundary; C_eff is J/K; dT/dt is K/s."
+        }
+      },
+      "framework_status": "PASS",
+      "runtime_seconds": {
+        "warmup": 5.534603799998877,
+        "scoring": 5.437967399997433,
+        "total": 10.97257119999631
+      },
+      "warnings": [
+        "Vapour saturation closure produced 751 condensation events; mass is retained in the balance audit."
+      ]
+    },
+    {
+      "preflight_version": "pa1_multi_season_preflight_v1",
+      "parameter_set_id": "pa1_full_011",
+      "window_id": "dry_vpd_stress",
+      "window_type": "DRY_VPD_STRESS",
+      "status": "PASS",
+      "classification": "VALID",
+      "guard_violations": [],
+      "rows": 720,
+      "internal_timestep_s": 60,
+      "weather_identity": {
+        "warmup_start": "2019-05-18T00:00",
+        "warmup_end": "2019-06-17T00:00",
+        "stress_start": "2019-06-17T00:00",
+        "stress_end": "2019-07-16T23:00",
+        "warmup_forcing_rows": 721,
+        "stress_forcing_rows": 721
+      },
+      "state_handoff": {
+        "warmup_final_state": {
+          "temperature_inside_c": 30.408801956057772,
+          "vapor_density_inside_kg_m3": 0.023249313466912495,
+          "soil_temperature_c": 33.06655603117715,
+          "soil_moisture_theta": 0.20677697765335973
+        },
+        "stress_initial_state": {
+          "temperature_inside_c": 30.408801956057772,
+          "vapor_density_inside_kg_m3": 0.023249313466912495,
+          "soil_temperature_c": 33.06655603117715,
+          "soil_moisture_theta": 0.20677697765335973
+        },
+        "exact_match": true
+      },
+      "metrics": {
+        "states": {
+          "T_air": {
+            "min": 26.945158564280952,
+            "max": 39.02830813831587,
+            "mean": 31.59425870305886,
+            "p95": 37.478864535384524,
+            "p99": 38.16327655572647
+          },
+          "RH": {
+            "min": 41.31236183635336,
+            "max": 91.3697909276777,
+            "mean": 68.58071126712012,
+            "p95": 86.54584225848116,
+            "p99": 89.02642644459158
+          },
+          "T_soil": {
+            "min": 31.355853109868498,
+            "max": 35.28379601087024,
+            "mean": 33.38970663002268,
+            "p95": 34.72742394950439,
+            "p99": 35.07819808629478
+          },
+          "soil_moisture": {
+            "min": 0.1899162262710097,
+            "max": 0.22225385500065606,
+            "mean": 0.20297582200816777,
+            "p95": 0.21439186858564696,
+            "p99": 0.21911271687562167
+          },
+          "light": {
+            "min": 0.0,
+            "max": 88825.2464,
+            "mean": 23805.44002222222,
+            "p95": 80253.47967999997,
+            "p99": 86592.81030399994
+          }
+        },
+        "humidity": {
+          "saturated_rows": 0,
+          "saturated_fraction": 0.0,
+          "longest_continuous_saturation_hours": 0,
+          "condensation_total_kg": 0.0
+        },
+        "soil_temperature": {
+          "max_c": 35.28379601087024,
+          "max_timestamp": "2019-06-27T18:00",
+          "p95_c": 34.72742394950439,
+          "p99_c": 35.07819808629478,
+          "hours_above_36_c": 0,
+          "hours_above_38_c": 0,
+          "hours_above_40_c": 0,
+          "largest_hourly_rise_c": 0.4047674637859018,
+          "largest_hourly_fall_c": -0.18229385894368733
+        },
+        "soil_water": {
+          "stress_threshold": 0.31199999999999994,
+          "near_wilting_threshold": 0.1635,
+          "hours_below_stress_threshold": 720,
+          "hours_near_wilting": 0,
+          "hours_above_field_capacity": 0,
+          "water_stress_min": 0.2463964584630229,
+          "water_stress_mean": 0.3270112469639986,
+          "et_total_kg": 10.064331733850569,
+          "irrigation_total_l": 9.925998246296466,
+          "drainage_total_l": 0.0,
+          "controller_pathology": {
+            "status": "PASS",
+            "pump_on_rows": 60,
+            "pump_transition_count": 120,
+            "expected_max_transition_count": 120,
+            "flags": {
+              "pump_always_on": false,
+              "pump_always_off": false,
+              "pump_oscillating_excessively": false,
+              "soil_always_above_field_capacity": false,
+              "soil_collapsed_to_lower_bound": false
+            }
+          }
+        }
+      },
+      "range_checks": {
+        "status": "PASS",
+        "rows": 720,
+        "nan_count": 0,
+        "inf_count": 0,
+        "max_hourly_temperature_jump_c": 3.3711175346711215,
+        "violations": []
+      },
+      "causal_tests": {
+        "status": "PASS",
+        "passed": 8,
+        "total": 8,
+        "tests": {
+          "A_solar_response": {
+            "status": "PASS",
+            "solar_inside_low_high_w_m2": [
+              85.0,
+              510.0
+            ],
+            "lux_low_high": [
+              9855.472,
+              59132.831999999995
+            ],
+            "temperature_tendency_low_high_c_s": [
+              -0.003225037290451813,
+              -0.0025529153857869126
+            ]
+          },
+          "B_ventilation_response": {
+            "status": "PASS",
+            "flow_off_on_m3_s": [
+              0.005693485413821904,
+              0.007082385413821904
+            ],
+            "temperature_tendency_off_on_c_s": [
+              -0.006674635701622343,
+              -0.00694112678256928
+            ]
+          },
+          "C_humidity_exchange": {
+            "status": "PASS",
+            "vapor_tendency_fan_off_on_kg_m3_s": [
+              -8.830550652879519e-06,
+              -1.3826743398907414e-05
+            ]
+          },
+          "D_pump_response": {
+            "status": "PASS",
+            "theta_tendency_off_on_s": [
+              0.0,
+              0.00013786108675411772
+            ]
+          },
+          "E_soil_stress": {
+            "status": "PASS",
+            "ks_dry_wet": [
+              0.16666666666666663,
+              1.0
+            ],
+            "et_dry_wet_kg_s": [
+              4.6533176688377555e-06,
+              2.791990601302654e-05
+            ]
+          },
+          "F_et_coupling": {
+            "status": "PASS",
+            "vapor_tendency_base_high": [
+              8.602458899058334e-06,
+              3.768569432929432e-05
+            ],
+            "temperature_tendency_base_high": [
+              -0.006131150175411696,
+              -0.007271213004276946
+            ],
+            "soil_moisture_tendency_base_high": [
+              -1.395995300651327e-06,
+              -2.791990601302654e-06
+            ]
+          },
+          "G_grow_light": {
+            "status": "PASS",
+            "lux_off_on": [
+              0.0,
+              5000.0
+            ],
+            "grow_heat_off_on_w": [
+              0.0,
+              11.700000000000001
+            ],
+            "temperature_tendency_off_on_c_s": [
+              -0.0033594616713847926,
+              -0.0031967397218083844
+            ]
+          },
+          "E0_atmospheric_boundaries": {
+            "status": "PASS",
+            "rh_cases_percent": [
+              0.0,
+              50.0,
+              100.0
+            ],
+            "checks_passed": 3
+          }
+        }
+      },
+      "mass_and_energy_consistency": {
+        "status": "PASS",
+        "root_zone_water": {
+          "irrigation_input_m3": 0.009925998246296466,
+          "et_loss_m3": 0.010064331733850535,
+          "drainage_loss_m3": 0.0,
+          "overflow_drainage_m3": 0.0,
+          "storage_change_m3": -0.00013833348755408093,
+          "residual_m3": -1.1736488517155585e-17,
+          "relative_residual": 4.242099554009925e-14
+        },
+        "indoor_vapor": {
+          "et_source_kg": 10.064331733850569,
+          "ventilation_exchange_kg": -10.064707896128679,
+          "condensation_sink_kg": 0.0,
+          "storage_change_kg": -0.0003761622780213025,
+          "residual_kg": 8.891222176912739e-14,
+          "relative_residual": 1.1818333064431333e-10
+        },
+        "indoor_air_energy": {
+          "integrated_net_energy_j": -132695.48476389612,
+          "storage_change_j": -132695.48476390453,
+          "residual_j": -8.41100700199604e-09,
+          "relative_residual": 3.169289074515761e-14,
+          "unit_audit": "All E7 terms are W; pressure converted hPa->Pa at input boundary; C_eff is J/K; dT/dt is K/s."
+        }
+      },
+      "framework_status": "PASS",
+      "runtime_seconds": {
+        "warmup": 5.403796799997508,
+        "scoring": 5.67570120000164,
+        "total": 11.079497999999148
+      },
+      "warnings": [
+        "Vapour saturation closure produced 298 condensation events; mass is retained in the balance audit."
+      ]
+    },
+    {
+      "preflight_version": "pa1_multi_season_preflight_v1",
+      "parameter_set_id": "pa1_full_011",
+      "window_id": "transition_mixed",
+      "window_type": "TRANSITION_MIXED",
+      "status": "PASS",
+      "classification": "VALID",
+      "guard_violations": [],
+      "rows": 720,
+      "internal_timestep_s": 60,
+      "weather_identity": {
+        "warmup_start": "2019-07-28T00:00",
+        "warmup_end": "2019-08-27T00:00",
+        "stress_start": "2019-08-27T00:00",
+        "stress_end": "2019-09-25T23:00",
+        "warmup_forcing_rows": 721,
+        "stress_forcing_rows": 721
+      },
+      "state_handoff": {
+        "warmup_final_state": {
+          "temperature_inside_c": 28.405299908629885,
+          "vapor_density_inside_kg_m3": 0.02426394007911555,
+          "soil_temperature_c": 32.11139662301408,
+          "soil_moisture_theta": 0.20784711619371812
+        },
+        "stress_initial_state": {
+          "temperature_inside_c": 28.405299908629885,
+          "vapor_density_inside_kg_m3": 0.02426394007911555,
+          "soil_temperature_c": 32.11139662301408,
+          "soil_moisture_theta": 0.20784711619371812
+        },
+        "exact_match": true
+      },
+      "metrics": {
+        "states": {
+          "T_air": {
+            "min": 23.580154000554007,
+            "max": 37.208397490456534,
+            "mean": 28.757264487663456,
+            "p95": 35.13799991350219,
+            "p99": 36.894504967866915
+          },
+          "RH": {
+            "min": 45.358883721114445,
+            "max": 100.0,
+            "mean": 80.78775508872083,
+            "p95": 97.51622198787574,
+            "p99": 100.0
+          },
+          "T_soil": {
+            "min": 27.463061462351085,
+            "max": 34.03252175686696,
+            "mean": 30.66813901547604,
+            "p95": 33.39256355837998,
+            "p99": 33.79950688051541
+          },
+          "soil_moisture": {
+            "min": 0.19459669737781765,
+            "max": 0.24487230680080604,
+            "mean": 0.2170249752282456,
+            "p95": 0.23604404769907797,
+            "p99": 0.24083996784375167
+          },
+          "light": {
+            "min": 0.0,
+            "max": 91253.8,
+            "mean": 19543.164324444446,
+            "p95": 73635.56112000001,
+            "p99": 85731.57243199997
+          }
+        },
+        "humidity": {
+          "saturated_rows": 11,
+          "saturated_fraction": 0.015277777777777777,
+          "longest_continuous_saturation_hours": 3,
+          "condensation_total_kg": 0.03099057368197896
+        },
+        "soil_temperature": {
+          "max_c": 34.03252175686696,
+          "max_timestamp": "2019-09-11T16:00",
+          "p95_c": 33.39256355837998,
+          "p99_c": 33.79950688051541,
+          "hours_above_36_c": 0,
+          "hours_above_38_c": 0,
+          "hours_above_40_c": 0,
+          "largest_hourly_rise_c": 0.42437119889108743,
+          "largest_hourly_fall_c": -0.1886172955364671
+        },
+        "soil_water": {
+          "stress_threshold": 0.31199999999999994,
+          "near_wilting_threshold": 0.1635,
+          "hours_below_stress_threshold": 720,
+          "hours_near_wilting": 0,
+          "hours_above_field_capacity": 0,
+          "water_stress_min": 0.2752882554186275,
+          "water_stress_mean": 0.4137344149891703,
+          "et_total_kg": 9.668639087305639,
+          "irrigation_total_l": 9.925998246296466,
+          "drainage_total_l": 0.0,
+          "controller_pathology": {
+            "status": "PASS",
+            "pump_on_rows": 60,
+            "pump_transition_count": 120,
+            "expected_max_transition_count": 120,
+            "flags": {
+              "pump_always_on": false,
+              "pump_always_off": false,
+              "pump_oscillating_excessively": false,
+              "soil_always_above_field_capacity": false,
+              "soil_collapsed_to_lower_bound": false
+            }
+          }
+        }
+      },
+      "range_checks": {
+        "status": "PASS",
+        "rows": 720,
+        "nan_count": 0,
+        "inf_count": 0,
+        "max_hourly_temperature_jump_c": 3.548862782109886,
+        "violations": []
+      },
+      "causal_tests": {
+        "status": "PASS",
+        "passed": 8,
+        "total": 8,
+        "tests": {
+          "A_solar_response": {
+            "status": "PASS",
+            "solar_inside_low_high_w_m2": [
+              85.0,
+              510.0
+            ],
+            "lux_low_high": [
+              9855.472,
+              59132.831999999995
+            ],
+            "temperature_tendency_low_high_c_s": [
+              -0.003225037290451813,
+              -0.0025529153857869126
+            ]
+          },
+          "B_ventilation_response": {
+            "status": "PASS",
+            "flow_off_on_m3_s": [
+              0.005693485413821904,
+              0.007082385413821904
+            ],
+            "temperature_tendency_off_on_c_s": [
+              -0.006674635701622343,
+              -0.00694112678256928
+            ]
+          },
+          "C_humidity_exchange": {
+            "status": "PASS",
+            "vapor_tendency_fan_off_on_kg_m3_s": [
+              -8.830550652879519e-06,
+              -1.3826743398907414e-05
+            ]
+          },
+          "D_pump_response": {
+            "status": "PASS",
+            "theta_tendency_off_on_s": [
+              0.0,
+              0.00013786108675411772
+            ]
+          },
+          "E_soil_stress": {
+            "status": "PASS",
+            "ks_dry_wet": [
+              0.16666666666666663,
+              1.0
+            ],
+            "et_dry_wet_kg_s": [
+              4.6533176688377555e-06,
+              2.791990601302654e-05
+            ]
+          },
+          "F_et_coupling": {
+            "status": "PASS",
+            "vapor_tendency_base_high": [
+              8.602458899058334e-06,
+              3.768569432929432e-05
+            ],
+            "temperature_tendency_base_high": [
+              -0.006131150175411696,
+              -0.007271213004276946
+            ],
+            "soil_moisture_tendency_base_high": [
+              -1.395995300651327e-06,
+              -2.791990601302654e-06
+            ]
+          },
+          "G_grow_light": {
+            "status": "PASS",
+            "lux_off_on": [
+              0.0,
+              5000.0
+            ],
+            "grow_heat_off_on_w": [
+              0.0,
+              11.700000000000001
+            ],
+            "temperature_tendency_off_on_c_s": [
+              -0.0033594616713847926,
+              -0.0031967397218083844
+            ]
+          },
+          "E0_atmospheric_boundaries": {
+            "status": "PASS",
+            "rh_cases_percent": [
+              0.0,
+              50.0,
+              100.0
+            ],
+            "checks_passed": 3
+          }
+        }
+      },
+      "mass_and_energy_consistency": {
+        "status": "PASS",
+        "root_zone_water": {
+          "irrigation_input_m3": 0.009925998246296466,
+          "et_loss_m3": 0.009668639087305654,
+          "drainage_loss_m3": 0.0,
+          "overflow_drainage_m3": 0.0,
+          "storage_change_m3": 0.0002573591589907004,
+          "residual_m3": -1.1183545409187978e-16,
+          "relative_residual": 2.1727506130041526e-13
+        },
+        "indoor_vapor": {
+          "et_source_kg": 9.668639087305639,
+          "ventilation_exchange_kg": -9.640993545987417,
+          "condensation_sink_kg": 0.03099057368197896,
+          "storage_change_kg": -0.003345032363653365,
+          "residual_kg": 1.0365016137048322e-13,
+          "relative_residual": 1.5493147763699525e-11
+        },
+        "indoor_air_energy": {
+          "integrated_net_energy_j": -165074.72810206842,
+          "storage_change_j": -165074.72810205727,
+          "residual_j": 1.1146767064929008e-08,
+          "relative_residual": 3.3762790928352026e-14,
+          "unit_audit": "All E7 terms are W; pressure converted hPa->Pa at input boundary; C_eff is J/K; dT/dt is K/s."
+        }
+      },
+      "framework_status": "PASS",
+      "runtime_seconds": {
+        "warmup": 5.482062200000655,
+        "scoring": 5.495432299998356,
+        "total": 10.977494499999011
+      },
+      "warnings": [
+        "Vapour saturation closure produced 257 condensation events; mass is retained in the balance audit.",
+        "Vapour saturation closure produced 640 condensation events; mass is retained in the balance audit."
+      ]
+    }
+  ]
+}
