@@ -1,0 +1,1120 @@
+{
+  "schema_version": "1.0",
+  "status": "PILOT_VALIDATED",
+  "baseline": {
+    "config_file": "config/greenhouse_parameters.yaml",
+    "parameter_set_id": "smartgarden_pa1_v1_1_rootzone_prior",
+    "weather_file": "nha_trang_weather_2018_2025.csv",
+    "weather_window_start": "2024-06-01T00:00",
+    "weather_window_end_inclusive": "2024-06-30T23:00",
+    "expected_rows": 720,
+    "sensor_noise_enabled": false
+  },
+  "classifications": {
+    "fixed_design": [
+      "greenhouse.length_m",
+      "greenhouse.width_m",
+      "greenhouse.height_m",
+      "greenhouse.volume_m3",
+      "greenhouse.floor_area_m2",
+      "greenhouse.exposed_cover_area_m2",
+      "ventilation.vent_area_m2",
+      "ventilation.vent_height_m",
+      "ventilation.fan_nominal_airflow_m3_s",
+      "soil_thermal.surface_area_m2",
+      "soil_water.root_volume_m3",
+      "grow_light.electrical_power_w",
+      "sensor_model.noise_enabled"
+    ],
+    "control_or_time_varying": [
+      "weather forcing",
+      "pump_state",
+      "fan_state",
+      "grow_light_state",
+      "vent_state",
+      "controls.pump_pulse_start_seconds",
+      "controls.pump_pulse_duration_s",
+      "controls.fan_on_temperature_c",
+      "controls.fan_minimum_cooling_delta_c",
+      "controls.grow_light_baseline_state"
+    ]
+  },
+  "parameters": {
+    "effective_air_thermal_capacity": {
+      "config_paths": [
+        "greenhouse.effective_thermal_capacity_j_k"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 60000.0,
+      "unit": "J/K",
+      "candidate_min": 40000.0,
+      "candidate_max": 90000.0,
+      "distribution": {
+        "type": "fixed",
+        "mode": 60000.0,
+        "status": "provisional"
+      },
+      "equations": [
+        "E7"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "Engineering response-time prior: with baseline cover UA, 40-90 kJ/K spans about 0.32-0.72 h.",
+      "sources": [
+        "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E7",
+        "config/greenhouse_parameters.yaml"
+      ],
+      "coupled_with": [
+        "cover_u_value"
+      ],
+      "calibration_requirement": "Fit from measured indoor step/diurnal thermal response.",
+      "pilot_scenarios": [
+        "scenario_001_low_air_thermal_inertia",
+        "scenario_002_high_air_thermal_inertia"
+      ],
+      "final_status": "LOW_SENSITIVITY",
+      "pilot_result": "Both 40 and 90 kJ/K passed but all five sensitivity deltas stayed below the LOW_SENSITIVITY thresholds."
+    },
+    "cover_shortwave_transmittance": {
+      "config_paths": [
+        "cover.shortwave_transmittance"
+      ],
+      "parameter_kind": "DIRECT_PHYSICAL_PARAMETER",
+      "baseline": 0.85,
+      "unit": "dimensionless",
+      "candidate_min": 0.75,
+      "candidate_max": 0.92,
+      "distribution": {
+        "type": "triangular",
+        "mode": 0.85,
+        "status": "provisional"
+      },
+      "equations": [
+        "E1",
+        "E4",
+        "E7",
+        "E8"
+      ],
+      "provenance": "LITERATURE_PRIOR",
+      "confidence": "MEDIUM",
+      "range_basis": "Commercial greenhouse-cover measurement range already recorded in hardware knowledge.",
+      "sources": [
+        "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 5.2",
+        "https://doi.org/10.1016/j.energy.2020.118535"
+      ],
+      "coupled_with": [
+        "cover_visible_transmittance",
+        "air_solar_absorption_fraction"
+      ],
+      "calibration_requirement": "Select actual PA1 cover, then measure or use its datasheet.",
+      "pilot_scenarios": [],
+      "final_status": "FIX_AT_BASELINE"
+    },
+    "cover_visible_transmittance": {
+      "config_paths": [
+        "cover.visible_transmittance"
+      ],
+      "parameter_kind": "DIRECT_PHYSICAL_PARAMETER",
+      "baseline": 0.88,
+      "unit": "dimensionless",
+      "candidate_min": 0.75,
+      "candidate_max": 0.92,
+      "distribution": {
+        "type": "triangular",
+        "mode": 0.88,
+        "status": "provisional"
+      },
+      "equations": [
+        "E10"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "Bounded by the same commercial clear-cover optical envelope as tau_sw; not independently sampleable.",
+      "sources": [
+        "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 5.2",
+        "https://doi.org/10.1016/j.energy.2020.118535"
+      ],
+      "coupled_with": [
+        "cover_shortwave_transmittance",
+        "luminous_efficacy_profile"
+      ],
+      "calibration_requirement": "Measure against ES-ALS-02 after the cover is installed.",
+      "pilot_scenarios": [],
+      "final_status": "FIX_AT_BASELINE"
+    },
+    "cover_u_value": {
+      "config_paths": [
+        "cover.u_value_w_m2_k"
+      ],
+      "parameter_kind": "DIRECT_PHYSICAL_PARAMETER_WITH_ASSEMBLY_EFFECTS",
+      "baseline": 6.4,
+      "unit": "W/(m2 K)",
+      "candidate_min": 6.0,
+      "candidate_max": 7.0,
+      "distribution": {
+        "type": "triangular",
+        "mode": 6.4,
+        "status": "provisional"
+      },
+      "equations": [
+        "E7"
+      ],
+      "provenance": "LITERATURE_PRIOR",
+      "confidence": "MEDIUM",
+      "range_basis": "UGA single-film overall R=0.83 h ft2 F/Btu implies U about 6.84 W/(m2 K); project case-study prior is 6.4.",
+      "sources": [
+        "https://fieldreport.caes.uga.edu/publications/B792/greenhouses-heating-ventilation-and-cooling/",
+        "https://doi.org/10.1007/s43621-024-00276-5"
+      ],
+      "coupled_with": [
+        "effective_air_thermal_capacity"
+      ],
+      "calibration_requirement": "Fit U and C_eff jointly from real cooling curves.",
+      "pilot_scenarios": [],
+      "final_status": "FIX_AT_BASELINE"
+    },
+    "air_solar_absorption_fraction": {
+      "config_paths": [
+        "cover.air_solar_absorption_fraction"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 0.35,
+      "unit": "dimensionless",
+      "candidate_min": 0.2,
+      "candidate_max": 0.5,
+      "distribution": {
+        "type": "triangular",
+        "mode": 0.35,
+        "status": "provisional"
+      },
+      "equations": [
+        "E7"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "Engineering model prior for lumped absorption by air-coupled internal surfaces; not a material absorptivity.",
+      "sources": [
+        "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E7",
+        "config/greenhouse_parameters.yaml"
+      ],
+      "coupled_with": [
+        "cover_shortwave_transmittance",
+        "effective_air_thermal_capacity"
+      ],
+      "calibration_requirement": "Joint thermal calibration with tau_sw, U and C_eff.",
+      "pilot_scenarios": [],
+      "final_status": "NEEDS_REAL_CALIBRATION"
+    },
+    "passive_leakage": {
+      "config_paths": [
+        "ventilation.passive_leakage_m3_s"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 0.0,
+      "unit": "m3/s",
+      "candidate_min": 0.0,
+      "candidate_max": 0.0002667,
+      "distribution": {
+        "type": "uniform",
+        "status": "provisional"
+      },
+      "equations": [
+        "E2",
+        "E5",
+        "E7"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "0-1 ACH engineering envelope for a 0.96 m3 prototype, consistent with UGA low-wind new-plastic infiltration order.",
+      "sources": [
+        "https://fieldreport.caes.uga.edu/publications/B792/greenhouses-heating-ventilation-and-cooling/",
+        "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 6"
+      ],
+      "coupled_with": [
+        "passive_discharge_coefficient",
+        "wind_effect_coefficient"
+      ],
+      "calibration_requirement": "Tracer/decay or fan-off temperature-humidity fit.",
+      "pilot_scenarios": [],
+      "final_status": "FIX_AT_BASELINE"
+    },
+    "passive_discharge_coefficient": {
+      "config_paths": [
+        "ventilation.discharge_coefficient"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 0.65,
+      "unit": "dimensionless",
+      "candidate_min": 0.2,
+      "candidate_max": 0.7,
+      "distribution": {
+        "type": "triangular",
+        "mode": 0.65,
+        "status": "provisional"
+      },
+      "equations": [
+        "E2",
+        "E5",
+        "E7"
+      ],
+      "provenance": "LITERATURE_PRIOR",
+      "confidence": "MEDIUM_LOW",
+      "range_basis": "Wind-tunnel greenhouse openings report about 0.1-0.7 by opening geometry; screened vents have measured total Cd near 0.193.",
+      "sources": [
+        "https://doi.org/10.2480/agrmet.36.3",
+        "https://doi.org/10.1016/j.biosystemseng.2009.06.013"
+      ],
+      "coupled_with": [
+        "wind_effect_coefficient",
+        "passive_leakage"
+      ],
+      "calibration_requirement": "Measure after opening/mesh geometry is finalized.",
+      "pilot_scenarios": [
+        "scenario_003_low_passive_ventilation"
+      ],
+      "final_status": "APPROVED_FOR_SAMPLING",
+      "pilot_result": "Cd=0.20 PASS; mean RH delta 3.536 percentage points.",
+      "approved_min": 0.2,
+      "approved_max": 0.65
+    },
+    "wind_effect_coefficient": {
+      "config_paths": [
+        "ventilation.wind_effect_coefficient"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 0.09,
+      "unit": "dimensionless",
+      "candidate_min": 0.05,
+      "candidate_max": 0.15,
+      "distribution": {
+        "type": "triangular",
+        "mode": 0.09,
+        "status": "provisional"
+      },
+      "equations": [
+        "E2",
+        "E5",
+        "E7"
+      ],
+      "provenance": "LITERATURE_PRIOR",
+      "confidence": "LOW",
+      "range_basis": "Measured greenhouse wind coefficient 0.066 anchors the lower-middle range; broader bound remains geometry-dependent.",
+      "sources": [
+        "https://doi.org/10.1016/j.biosystemseng.2009.06.013",
+        "https://doi.org/10.1016/S0168-1923(99)00041-6"
+      ],
+      "coupled_with": [
+        "passive_discharge_coefficient"
+      ],
+      "calibration_requirement": "Do not sample independently from Cd without a natural-flow constraint.",
+      "pilot_scenarios": [],
+      "final_status": "FIX_AT_BASELINE"
+    },
+    "fan_effective_flow_factor": {
+      "config_paths": [
+        "ventilation.fan_effective_flow_factor"
+      ],
+      "parameter_kind": "EFFECTIVE_INSTALLATION_PARAMETER",
+      "baseline": 1.0,
+      "unit": "dimensionless",
+      "candidate_min": 0.5,
+      "candidate_max": 1.0,
+      "distribution": {
+        "type": "triangular",
+        "mode": 0.8,
+        "status": "provisional"
+      },
+      "equations": [
+        "E2",
+        "E5",
+        "E7"
+      ],
+      "provenance": "VERIFIED_PRODUCT_SPEC_PLUS_MODEL_UNCERTAINTY",
+      "confidence": "MEDIUM_LOW",
+      "range_basis": "Nominal free-air flow is the hard upper bound; 0.5 is an engineering installation-loss boundary pending measurement.",
+      "sources": [
+        "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 10"
+      ],
+      "coupled_with": [
+        "ventilation.fan_nominal_airflow_m3_s"
+      ],
+      "calibration_requirement": "Measure installed volumetric flow; never sample nominal flow and factor independently.",
+      "pilot_scenarios": [],
+      "final_status": "NEEDS_REAL_CALIBRATION"
+    },
+    "crop_effective_area": {
+      "config_paths": [
+        "crop.effective_area_m2"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 0.3,
+      "unit": "m2",
+      "candidate_min": 0.2,
+      "candidate_max": 0.5,
+      "distribution": {
+        "type": "triangular",
+        "mode": 0.3,
+        "status": "provisional"
+      },
+      "equations": [
+        "E4"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "Compact one-tomato effective-area engineering prior, bounded to the planned PA1 crop form rather than arbitrary greenhouse crops.",
+      "sources": [
+        "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md sections 3.1 and 25"
+      ],
+      "coupled_with": [
+        "crop_et_response_scale"
+      ],
+      "calibration_requirement": "Measure leaf area or fit only as part of one ET-response group.",
+      "pilot_scenarios": [],
+      "final_status": "FIX_AT_BASELINE"
+    },
+    "crop_et_response_scale": {
+      "config_paths": [
+        "crop.transpiration_radiation_coefficient",
+        "crop.transpiration_vpd_coefficient"
+      ],
+      "parameter_kind": "COUPLED_EFFECTIVE_MODEL_AXIS",
+      "baseline": 1.0,
+      "unit": "multiplier",
+      "candidate_min": 0.7,
+      "candidate_max": 1.3,
+      "distribution": {
+        "type": "triangular",
+        "mode": 1.0,
+        "status": "provisional"
+      },
+      "derived_baseline_values": {
+        "crop.transpiration_radiation_coefficient": 1.5e-07,
+        "crop.transpiration_vpd_coefficient": 2e-06
+      },
+      "equations": [
+        "E4",
+        "E5",
+        "E7",
+        "E9"
+      ],
+      "provenance": "PROJECT_REDUCED_FORM_CALIBRATION_AXIS",
+      "confidence": "LOW",
+      "range_basis": "30-day validated water/vapour/latent-energy budget envelope; coefficients are scaled together because this window does not identify them independently.",
+      "sources": [
+        "https://doi.org/10.1016/S0168-1923(99)00082-9",
+        "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E4"
+      ],
+      "coupled_with": [
+        "crop_effective_area",
+        "soil_stress_profile"
+      ],
+      "calibration_requirement": "Fit from lysimeter/water-loss and T/RH data; preserve kR:kD ratio until identifiable.",
+      "pilot_scenarios": [
+        "scenario_009_high_et_response"
+      ],
+      "final_status": "APPROVED_FOR_SAMPLING",
+      "pilot_result": "f_ET=1.30 PASS; mean theta delta=-0.01958.",
+      "approved_min": 1.0,
+      "approved_max": 1.3
+    },
+    "soil_effective_thermal_capacity": {
+      "config_paths": [
+        "soil_thermal.effective_heat_capacity_j_k"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 90000.0,
+      "unit": "J/K",
+      "candidate_min": 60000.0,
+      "candidate_max": 120000.0,
+      "distribution": {
+        "type": "triangular",
+        "mode": 90000.0,
+        "status": "provisional"
+      },
+      "equations": [
+        "E8"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "E8 thermal-lag engineering prior: with baseline h_as and U_s, this spans roughly 24-47 h.",
+      "sources": [
+        "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E8",
+        "physics_master_30days_validation.md"
+      ],
+      "coupled_with": [
+        "soil_solar_coupling",
+        "air_soil_heat_transfer",
+        "soil_base_loss"
+      ],
+      "calibration_requirement": "Fit jointly from ES-SM-TH-01 phase lag and amplitude.",
+      "pilot_scenarios": [
+        "scenario_007_low_soil_thermal_capacity"
+      ],
+      "final_status": "APPROVED_FOR_SAMPLING",
+      "pilot_result": "Cs=60 kJ/K PASS; delta Tsoil,max=0.743 C.",
+      "approved_min": 60000.0,
+      "approved_max": 90000.0
+    },
+    "air_soil_heat_transfer": {
+      "config_paths": [
+        "soil_thermal.air_soil_heat_transfer_w_m2_k"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 8.0,
+      "unit": "W/(m2 K)",
+      "candidate_min": 5.0,
+      "candidate_max": 12.0,
+      "distribution": {
+        "type": "triangular",
+        "mode": 8.0,
+        "status": "provisional"
+      },
+      "equations": [
+        "E7",
+        "E8"
+      ],
+      "provenance": "LITERATURE_ORDER_OF_MAGNITUDE_PRIOR",
+      "confidence": "LOW",
+      "range_basis": "Natural-convection order-of-magnitude engineering interval for a small exposed pot surface.",
+      "sources": [
+        "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E7-E8",
+        "config/greenhouse_parameters.yaml"
+      ],
+      "coupled_with": [
+        "soil_effective_thermal_capacity",
+        "soil_base_loss"
+      ],
+      "calibration_requirement": "Joint E8 fit; do not vary independently in first sampling release.",
+      "pilot_scenarios": [],
+      "final_status": "FIX_AT_BASELINE"
+    },
+    "soil_solar_coupling": {
+      "config_paths": [
+        "soil_thermal.solar_absorption_fraction"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 0.2,
+      "unit": "dimensionless",
+      "candidate_min": 0.1,
+      "candidate_max": 0.3,
+      "distribution": {
+        "type": "triangular",
+        "mode": 0.2,
+        "status": "provisional"
+      },
+      "equations": [
+        "E8"
+      ],
+      "provenance": "PROJECT_REDUCED_FORM",
+      "confidence": "LOW",
+      "range_basis": "30-day E8 validation and boundary probing; eta=0.6 produced 48.669 C and is rejected.",
+      "sources": [
+        "physics_master_30days_validation.md",
+        "https://doi.org/10.1016/0304-4238(84)90027-X"
+      ],
+      "coupled_with": [
+        "soil_effective_thermal_capacity",
+        "soil_base_loss",
+        "cover_shortwave_transmittance"
+      ],
+      "calibration_requirement": "Fit against the fixed 7 cm ES-SM-TH-01 trajectory.",
+      "pilot_scenarios": [
+        "scenario_005_low_soil_solar_coupling",
+        "scenario_006_high_soil_solar_coupling"
+      ],
+      "final_status": "RANGE_TOO_WIDE",
+      "pilot_result": "eta=0.10 PASS; eta=0.30 FAIL with Tsoil,max=40.340 C.",
+      "approved_min": 0.1,
+      "approved_max": 0.2
+    },
+    "soil_base_loss": {
+      "config_paths": [
+        "soil_thermal.base_loss_u_w_m2_k"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 2.0,
+      "unit": "W/(m2 K)",
+      "candidate_min": 1.0,
+      "candidate_max": 4.0,
+      "distribution": {
+        "type": "triangular",
+        "mode": 2.0,
+        "status": "provisional"
+      },
+      "equations": [
+        "E8"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "Engineering prior for lumped pot/deeper-zone loss; retained as a structural closure after the E8 root-cause audit.",
+      "sources": [
+        "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E8",
+        "physics_master_30days_validation.md"
+      ],
+      "coupled_with": [
+        "soil_base_temperature",
+        "soil_effective_thermal_capacity",
+        "air_soil_heat_transfer"
+      ],
+      "calibration_requirement": "Joint E8 fit; do not sample independently yet.",
+      "pilot_scenarios": [],
+      "final_status": "FIX_AT_BASELINE"
+    },
+    "soil_base_temperature": {
+      "config_paths": [
+        "soil_thermal.base_temperature_c"
+      ],
+      "parameter_kind": "EFFECTIVE_BOUNDARY_PARAMETER",
+      "baseline": 27.0,
+      "unit": "degC",
+      "candidate_min": 25.0,
+      "candidate_max": 29.0,
+      "distribution": {
+        "type": "triangular",
+        "mode": 27.0,
+        "status": "provisional"
+      },
+      "equations": [
+        "E8"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "Nha Trang warm-boundary engineering prior; external reanalysis soil is deliberately not substituted.",
+      "sources": [
+        "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E8",
+        "config/greenhouse_parameters.yaml"
+      ],
+      "coupled_with": [
+        "soil_base_loss"
+      ],
+      "calibration_requirement": "Measure pot/base temperature before sampling.",
+      "pilot_scenarios": [],
+      "final_status": "NEEDS_REAL_CALIBRATION"
+    },
+    "soil_stress_profile": {
+      "config_paths": [
+        "soil_water.field_capacity",
+        "soil_water.wilting_point",
+        "soil_water.depletion_fraction"
+      ],
+      "parameter_kind": "COUPLED_SUBSTRATE_PARAMETERS",
+      "baseline": {
+        "field_capacity": 0.42,
+        "wilting_point": 0.15,
+        "depletion_fraction": 0.4
+      },
+      "unit": "m3/m3, m3/m3, dimensionless",
+      "candidate_min": {
+        "field_capacity": 0.35,
+        "wilting_point": 0.1,
+        "depletion_fraction": 0.3
+      },
+      "candidate_max": {
+        "field_capacity": 0.5,
+        "wilting_point": 0.2,
+        "depletion_fraction": 0.5
+      },
+      "distribution": {
+        "type": "provisional_constrained",
+        "status": "not_approved"
+      },
+      "equations": [
+        "E3",
+        "E4",
+        "E9"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION_PLUS_FAO_ADAPTATION",
+      "confidence": "LOW",
+      "range_basis": "Exploratory model bounds only; container capacity is geometry/substrate-specific and must be measured directly.",
+      "sources": [
+        "https://doi.org/10.2136/vzj2014.10.0146",
+        "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 4.2",
+        "FAO-56"
+      ],
+      "constraints": [
+        "wilting_point < field_capacity",
+        "residual_lower_bound < wilting_point",
+        "field_capacity < saturation_upper_bound"
+      ],
+      "coupled_with": [
+        "crop_et_response_scale",
+        "drainage_coefficient"
+      ],
+      "calibration_requirement": "Measure container capacity and dry-down stress curve on the purchased substrate.",
+      "pilot_scenarios": [],
+      "final_status": "NEEDS_REAL_CALIBRATION"
+    },
+    "drainage_coefficient": {
+      "config_paths": [
+        "soil_water.drainage_coefficient_s"
+      ],
+      "parameter_kind": "EFFECTIVE_MODEL_PARAMETER",
+      "baseline": 4.62962962962963e-05,
+      "unit": "1/s",
+      "candidate_min": 2.31481481481481e-05,
+      "candidate_max": 9.25925925925926e-05,
+      "distribution": {
+        "type": "log_uniform",
+        "status": "provisional"
+      },
+      "equations": [
+        "E9"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "Engineering excess-water e-folding times of 12 h to 3 h around the baseline 6 h closure.",
+      "sources": [
+        "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E9",
+        "https://doi.org/10.2136/vzj2014.10.0146"
+      ],
+      "coupled_with": [
+        "soil_stress_profile",
+        "irrigation_effective_flow"
+      ],
+      "calibration_requirement": "Drainage trial on the final 20 L pot and substrate.",
+      "pilot_scenarios": [],
+      "final_status": "LOW_SENSITIVITY"
+    },
+    "soil_moisture_closure_bounds": {
+      "config_paths": [
+        "soil_water.residual_lower_bound",
+        "soil_water.saturation_upper_bound"
+      ],
+      "parameter_kind": "PHYSICAL_NUMERICAL_CLOSURE",
+      "baseline": {
+        "residual_lower_bound": 0.05,
+        "saturation_upper_bound": 0.55
+      },
+      "unit": "m3/m3",
+      "candidate_min": {
+        "residual_lower_bound": 0.03,
+        "saturation_upper_bound": 0.5
+      },
+      "candidate_max": {
+        "residual_lower_bound": 0.08,
+        "saturation_upper_bound": 0.65
+      },
+      "distribution": {
+        "type": "fixed",
+        "status": "not_sampled"
+      },
+      "equations": [
+        "E9 closure"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "Exploratory substrate physical bounds, not diversity parameters.",
+      "sources": [
+        "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 4.2",
+        "config/greenhouse_parameters.yaml"
+      ],
+      "coupled_with": [
+        "soil_stress_profile"
+      ],
+      "calibration_requirement": "Measure substrate water-retention endpoints.",
+      "pilot_scenarios": [],
+      "final_status": "FIX_AT_BASELINE"
+    },
+    "irrigation_effective_flow": {
+      "config_paths": [
+        "irrigation.effective_flow_m3_s"
+      ],
+      "parameter_kind": "DIRECT_INSTALLED_SYSTEM_PARAMETER",
+      "baseline": 2.7778e-06,
+      "unit": "m3/s",
+      "candidate_min": 1.38888888888889e-06,
+      "candidate_max": 4.16666666666667e-06,
+      "distribution": {
+        "type": "triangular",
+        "mode": 2.7778e-06,
+        "status": "provisional"
+      },
+      "equations": [
+        "E9"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION_BOUNDED_BY_HARDWARE",
+      "confidence": "MEDIUM_LOW",
+      "range_basis": "5-15 L/h operating band around the 10 L/h emitter design point; equals 83-250 mL per 60 s pulse and remains far below the pump nominal capability.",
+      "sources": [
+        "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md sections 11-12"
+      ],
+      "coupled_with": [
+        "controls.pump_pulse_duration_s",
+        "drainage_coefficient"
+      ],
+      "calibration_requirement": "Collect at least five timed 60 s emitter-volume measurements.",
+      "pilot_scenarios": [
+        "scenario_004_high_irrigation_flow",
+        "scenario_008_low_irrigation_flow"
+      ],
+      "final_status": "APPROVED_FOR_SAMPLING",
+      "pilot_result": "Both 5 and 15 L/h boundaries passed; mean theta deltas were 0.03136, -0.03016.",
+      "approved_min": 1.38888888888889e-06,
+      "approved_max": 4.16666666666667e-06
+    },
+    "grow_light_response": {
+      "config_paths": [
+        "grow_light.radiant_fraction",
+        "grow_light.heat_fraction",
+        "grow_light.canopy_lux_gain"
+      ],
+      "parameter_kind": "COUPLED_DEVICE_RESPONSE_PARAMETERS",
+      "baseline": {
+        "radiant_fraction": 0.25,
+        "heat_fraction": 0.65,
+        "canopy_lux_gain": 5000.0
+      },
+      "unit": "dimensionless, dimensionless, lux",
+      "candidate_min": {
+        "radiant_fraction": 0.25,
+        "heat_fraction": 0.65,
+        "canopy_lux_gain": 5000.0
+      },
+      "candidate_max": {
+        "radiant_fraction": 0.25,
+        "heat_fraction": 0.65,
+        "canopy_lux_gain": 5000.0
+      },
+      "distribution": {
+        "type": "fixed",
+        "status": "inactive_in_pilot"
+      },
+      "equations": [
+        "E4",
+        "E7",
+        "E10"
+      ],
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "confidence": "LOW",
+      "range_basis": "Grow light is OFF in the locked baseline controller, so no physical range is identifiable in this weather-controlled pilot.",
+      "sources": [
+        "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 13"
+      ],
+      "coupled_with": [
+        "controls.grow_light_baseline_state"
+      ],
+      "calibration_requirement": "Night ES-ALS-02 test plus electrical/thermal measurement before any sampling.",
+      "pilot_scenarios": [],
+      "final_status": "NEEDS_REAL_CALIBRATION"
+    },
+    "luminous_efficacy_profile": {
+      "config_paths": [
+        "light.direct_luminous_efficacy_lm_w",
+        "light.diffuse_luminous_efficacy_lm_w"
+      ],
+      "parameter_kind": "COUPLED_EFFECTIVE_OPTICAL_PARAMETERS",
+      "baseline": {
+        "direct": 100.0,
+        "diffuse": 139.98
+      },
+      "unit": "lm/W",
+      "candidate_min": {
+        "direct": 100.0,
+        "diffuse": 139.98
+      },
+      "candidate_max": {
+        "direct": 100.0,
+        "diffuse": 139.98
+      },
+      "distribution": {
+        "type": "fixed",
+        "status": "not_sampled"
+      },
+      "equations": [
+        "E10"
+      ],
+      "provenance": "LITERATURE_PRIOR",
+      "confidence": "MEDIUM_LOW",
+      "range_basis": "Fakra tropical-humid prior retained as one optical profile; paper does not justify independent arbitrary ranges for this implementation.",
+      "sources": [
+        "https://doi.org/10.1016/j.renene.2010.06.042"
+      ],
+      "coupled_with": [
+        "cover_visible_transmittance"
+      ],
+      "calibration_requirement": "Fit direct/diffuse profile against ES-ALS-02; do not sample independently.",
+      "pilot_scenarios": [],
+      "final_status": "FIX_AT_BASELINE"
+    }
+  },
+  "coupled_groups": {
+    "air_thermal": {
+      "members": [
+        "effective_air_thermal_capacity",
+        "cover_u_value",
+        "air_solar_absorption_fraction"
+      ],
+      "rule": "Keep cover area derived from fixed geometry; enforce plausible C_eff/(U*A_cover) response time."
+    },
+    "natural_ventilation": {
+      "members": [
+        "passive_discharge_coefficient",
+        "wind_effect_coefficient",
+        "passive_leakage"
+      ],
+      "rule": "First pilot varies Cd only. Future sampling must constrain effective natural flow instead of independently drawing all three."
+    },
+    "forced_ventilation": {
+      "members": [
+        "ventilation.fan_nominal_airflow_m3_s",
+        "fan_effective_flow_factor"
+      ],
+      "rule": "Nominal flow remains fixed at datasheet value; only installed-flow factor may vary."
+    },
+    "crop_et": {
+      "members": [
+        "crop_effective_area",
+        "crop_et_response_scale"
+      ],
+      "rule": "Pilot holds area fixed and applies one shared scale to k_R and k_D."
+    },
+    "soil_thermal": {
+      "members": [
+        "soil_effective_thermal_capacity",
+        "air_soil_heat_transfer",
+        "soil_solar_coupling",
+        "soil_base_loss",
+        "soil_base_temperature"
+      ],
+      "rule": "One-factor pilot only; approved joint distributions require real E8 calibration."
+    },
+    "soil_water": {
+      "members": [
+        "soil_stress_profile",
+        "drainage_coefficient",
+        "irrigation_effective_flow",
+        "soil_moisture_closure_bounds"
+      ],
+      "rule": "Enforce residual < wilting < field capacity < saturation and keep the controller schedule fixed."
+    }
+  },
+  "pilot_scenarios": [
+    {
+      "scenario_id": "scenario_000_baseline",
+      "random_seed": 20240600,
+      "changed_axis": "none",
+      "changes": []
+    },
+    {
+      "scenario_id": "scenario_001_low_air_thermal_inertia",
+      "random_seed": 20240601,
+      "changed_axis": "effective_air_thermal_capacity",
+      "changes": [
+        {
+          "config_path": "greenhouse.effective_thermal_capacity_j_k",
+          "baseline_value": 60000.0,
+          "scenario_value": 40000.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "scenario_002_high_air_thermal_inertia",
+      "random_seed": 20240602,
+      "changed_axis": "effective_air_thermal_capacity",
+      "changes": [
+        {
+          "config_path": "greenhouse.effective_thermal_capacity_j_k",
+          "baseline_value": 60000.0,
+          "scenario_value": 90000.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "scenario_003_low_passive_ventilation",
+      "random_seed": 20240603,
+      "changed_axis": "passive_discharge_coefficient",
+      "changes": [
+        {
+          "config_path": "ventilation.discharge_coefficient",
+          "baseline_value": 0.65,
+          "scenario_value": 0.2
+        }
+      ]
+    },
+    {
+      "scenario_id": "scenario_004_high_irrigation_flow",
+      "random_seed": 20240604,
+      "changed_axis": "irrigation_effective_flow",
+      "changes": [
+        {
+          "config_path": "irrigation.effective_flow_m3_s",
+          "baseline_value": 2.7778e-06,
+          "scenario_value": 4.16666666666667e-06
+        }
+      ]
+    },
+    {
+      "scenario_id": "scenario_005_low_soil_solar_coupling",
+      "random_seed": 20240605,
+      "changed_axis": "soil_solar_coupling",
+      "changes": [
+        {
+          "config_path": "soil_thermal.solar_absorption_fraction",
+          "baseline_value": 0.2,
+          "scenario_value": 0.1
+        }
+      ]
+    },
+    {
+      "scenario_id": "scenario_006_high_soil_solar_coupling",
+      "random_seed": 20240606,
+      "changed_axis": "soil_solar_coupling",
+      "changes": [
+        {
+          "config_path": "soil_thermal.solar_absorption_fraction",
+          "baseline_value": 0.2,
+          "scenario_value": 0.3
+        }
+      ]
+    },
+    {
+      "scenario_id": "scenario_007_low_soil_thermal_capacity",
+      "random_seed": 20240607,
+      "changed_axis": "soil_effective_thermal_capacity",
+      "changes": [
+        {
+          "config_path": "soil_thermal.effective_heat_capacity_j_k",
+          "baseline_value": 90000.0,
+          "scenario_value": 60000.0
+        }
+      ]
+    },
+    {
+      "scenario_id": "scenario_008_low_irrigation_flow",
+      "random_seed": 20240608,
+      "changed_axis": "irrigation_effective_flow",
+      "changes": [
+        {
+          "config_path": "irrigation.effective_flow_m3_s",
+          "baseline_value": 2.7778e-06,
+          "scenario_value": 1.38888888888889e-06
+        }
+      ]
+    },
+    {
+      "scenario_id": "scenario_009_high_et_response",
+      "random_seed": 20240609,
+      "changed_axis": "crop_et_response_scale",
+      "changes": [
+        {
+          "config_path": "crop.transpiration_radiation_coefficient",
+          "baseline_value": 1.5e-07,
+          "scenario_value": 1.95e-07
+        },
+        {
+          "config_path": "crop.transpiration_vpd_coefficient",
+          "baseline_value": 2e-06,
+          "scenario_value": 2.6e-06
+        }
+      ]
+    }
+  ],
+  "validation_policy": {
+    "internal_timesteps_s": [
+      60,
+      120,
+      300
+    ],
+    "reuse": [
+      "validate_output_ranges",
+      "run_causal_tests",
+      "conservation_audit",
+      "stability_comparison",
+      "build_verification_passes"
+    ],
+    "soil_temperature_invalid_above_c": 40.0,
+    "soil_temperature_extreme_valid_above_c": 35.0,
+    "persistent_rh_saturation_fraction": 0.05,
+    "maximum_hourly_air_jump_c": 10.0,
+    "do_not_clip_temperature": true,
+    "same_weather_required": true,
+    "ml_contract_file": "ML_DATA_CONTRACT.md"
+  },
+  "approved_sampling_space": {
+    "passive_discharge_coefficient": {
+      "config_paths": [
+        "ventilation.discharge_coefficient"
+      ],
+      "min": 0.2,
+      "max": 0.65,
+      "distribution": "triangular",
+      "mode": 0.65
+    },
+    "soil_solar_coupling": {
+      "config_paths": [
+        "soil_thermal.solar_absorption_fraction"
+      ],
+      "min": 0.1,
+      "max": 0.2,
+      "distribution": "triangular",
+      "mode": 0.2,
+      "rejected_boundary": 0.3
+    },
+    "soil_effective_thermal_capacity": {
+      "config_paths": [
+        "soil_thermal.effective_heat_capacity_j_k"
+      ],
+      "min": 60000.0,
+      "max": 90000.0,
+      "distribution": "triangular",
+      "mode": 90000.0,
+      "constraint": "Do not independently combine with uncalibrated h_as, U_s or T_base."
+    },
+    "irrigation_effective_flow": {
+      "config_paths": [
+        "irrigation.effective_flow_m3_s"
+      ],
+      "min": 1.38888888888889e-06,
+      "max": 4.16666666666667e-06,
+      "distribution": "triangular",
+      "mode": 2.7778e-06,
+      "constraint": "Pump pulse schedule stays fixed."
+    },
+    "crop_et_response_scale": {
+      "config_paths": [
+        "crop.transpiration_radiation_coefficient",
+        "crop.transpiration_vpd_coefficient"
+      ],
+      "min": 1.0,
+      "max": 1.3,
+      "distribution": "triangular",
+      "mode": 1.0,
+      "constraint": "Apply the same scale to k_R and k_D; crop area stays fixed."
+    }
+  },
+  "invalid_parameter_regions": [
+    {
+      "axis": "soil_solar_coupling",
+      "region": "eta_s >= 0.30 under the current E8 companion priors",
+      "pilot_evidence": "eta_s=0.30 produced Tsoil,max=40.340 C and failed the unchanged 40 C guard.",
+      "history": "eta_s=0.60 produced 48.669 C in V1.0."
+    }
+  ],
+  "pilot_execution": {
+    "status": "PASS",
+    "scenarios": 10,
+    "accepted": 9,
+    "rejected_boundary_probes": 1,
+    "summary_file": "outputs\\scenario_pilot\\scenario_pilot_summary.csv",
+    "results_file": "outputs\\scenario_pilot\\scenario_pilot_results.json",
+    "ml_deployment_audit": {
+      "status": "PASS",
+      "file": "outputs\\greenhouse_ml_dataset_30days.csv",
+      "sha256": "3c0145e5688ae104963a3188de480700d816967ca5bfe507e1fe72bedcda1251",
+      "rows": 720,
+      "columns": [
+        "timestamp",
+        "air_temperature",
+        "air_humidity",
+        "soil_temperature",
+        "soil_moisture",
+        "light_lux",
+        "pump_state",
+        "fan_state",
+        "grow_light_state"
+      ],
+      "physics_or_weather_feature_count": 0,
+      "scenario_ml_datasets_generated": false
+    }
+  }
+}

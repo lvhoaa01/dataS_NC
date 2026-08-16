@@ -1,0 +1,329 @@
+{
+  "schema_version": "1.0",
+  "status": "EXECUTED",
+  "baseline": {
+    "parameter_set_id": "smartgarden_pa1_v1_1_rootzone_prior",
+    "config_file": "config/greenhouse_parameters.yaml",
+    "physics_master_file": "outputs/greenhouse_simulation_30days.csv",
+    "physics_master_sha256": "4a5fef1181266f150a18a9b6bf81eafcc447c830bfc99ad4b7fba8b54596ab07",
+    "weather_file": "nha_trang_weather_2018_2025.csv",
+    "weather_window_start": "2024-06-01T00:00",
+    "weather_window_end_inclusive": "2024-06-30T23:00",
+    "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+    "expected_rows": 720,
+    "internal_timesteps_s": [
+      60,
+      120,
+      300
+    ],
+    "sensor_noise_enabled": false
+  },
+  "approved_axes": {
+    "C_d": {
+      "config_paths": [
+        "ventilation.discharge_coefficient"
+      ],
+      "baseline": 0.65,
+      "min": 0.2,
+      "max": 0.65,
+      "distribution": "triangular",
+      "mode": 0.65,
+      "equations": [
+        "E2",
+        "E5",
+        "E7"
+      ]
+    },
+    "eta_s": {
+      "config_paths": [
+        "soil_thermal.solar_absorption_fraction"
+      ],
+      "baseline": 0.2,
+      "min": 0.1,
+      "max": 0.2,
+      "distribution": "triangular",
+      "mode": 0.2,
+      "equations": [
+        "E8"
+      ]
+    },
+    "C_s": {
+      "config_paths": [
+        "soil_thermal.effective_heat_capacity_j_k"
+      ],
+      "baseline": 90000.0,
+      "min": 60000.0,
+      "max": 90000.0,
+      "distribution": "triangular",
+      "mode": 90000.0,
+      "unit": "J/K",
+      "equations": [
+        "E8"
+      ]
+    },
+    "irrigation_flow_L_h": {
+      "config_paths": [
+        "irrigation.effective_flow_m3_s"
+      ],
+      "baseline": 10.0,
+      "min": 5.0,
+      "max": 15.0,
+      "distribution": "triangular",
+      "mode": 10.0,
+      "unit": "L/h",
+      "config_values_m3_s": {
+        "5.0": 1.38888888888889e-06,
+        "10.0": 2.7778e-06,
+        "15.0": 4.16666666666667e-06
+      },
+      "equations": [
+        "E9"
+      ]
+    },
+    "ET_scale": {
+      "config_paths": [
+        "crop.transpiration_radiation_coefficient",
+        "crop.transpiration_vpd_coefficient"
+      ],
+      "baseline": 1.0,
+      "min": 1.0,
+      "max": 1.3,
+      "distribution": "triangular",
+      "mode": 1.0,
+      "coupling_rule": "Multiply k_R and k_D by the same ET_scale; never sample them independently.",
+      "equations": [
+        "E4",
+        "E5",
+        "E7",
+        "E9"
+      ]
+    }
+  },
+  "design_rules": {
+    "structured_not_random": true,
+    "same_weather_required": true,
+    "same_controller_required": true,
+    "same_initial_state_method_required": true,
+    "fixed_hardware_unchanged": true,
+    "sensor_noise_enabled": false,
+    "baseline_must_pass_before_other_scenarios": true,
+    "validator_thresholds_may_not_be_relaxed": true
+  },
+  "scenarios": [
+    {
+      "scenario_id": "interaction_000_baseline",
+      "description": "Validated V1.1 control scenario.",
+      "purpose": "Hard baseline-reproduction gate before any interaction run.",
+      "interaction_focus": "baseline_reproduction",
+      "random_seed": 20240700,
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.0
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_213c903b8d5c",
+      "config_hash": "213c903b8d5cefe85add4502e2151b92f9b56a847db98b4bc0bbbe9514d46eb2"
+    },
+    {
+      "scenario_id": "interaction_001_low_ventilation_high_et",
+      "description": "Minimum accepted passive discharge with maximum accepted ET response.",
+      "purpose": "Probe humidity accumulation, condensation and saturation duration.",
+      "interaction_focus": "RH_mean",
+      "random_seed": 20240701,
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.3
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_08cb4c325d59",
+      "config_hash": "08cb4c325d59178058f762bfda022d6a480cc6a8626a2c8d49b6f547ed696dad"
+    },
+    {
+      "scenario_id": "interaction_002_high_soil_coupling_low_inertia",
+      "description": "Highest accepted soil-solar coupling with minimum accepted soil thermal capacity.",
+      "purpose": "Probe the worst accepted E8 root-zone heating boundary.",
+      "interaction_focus": "T_soil_max",
+      "random_seed": 20240702,
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.2,
+        "C_s": 60000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.0
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_72e6b49d1a80",
+      "config_hash": "72e6b49d1a8017e89179f4d8c3f19fefb430f96a9dcb6201a4c9372fdb03f83d"
+    },
+    {
+      "scenario_id": "interaction_003_low_irrigation_high_et",
+      "description": "Minimum emitter flow with maximum accepted ET response.",
+      "purpose": "Probe dry-root stress, Ks feedback and pump response.",
+      "interaction_focus": "soil_moisture_min",
+      "random_seed": 20240703,
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 5.0,
+        "ET_scale": 1.3
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_5eaa8462d470",
+      "config_hash": "5eaa8462d47046b0ceee5c0d67c39dd912250546b4684ce902b131a3999717ca"
+    },
+    {
+      "scenario_id": "interaction_004_wet_humid_boundary",
+      "description": "Minimum passive discharge, maximum emitter flow and maximum ET response.",
+      "purpose": "Probe the wet-substrate and ventilation-limited humidity corner.",
+      "interaction_focus": "RH_mean",
+      "random_seed": 20240704,
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 15.0,
+        "ET_scale": 1.3
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_c0fc643ba7cc",
+      "config_hash": "c0fc643ba7ccb9b01210873b57a0458eaa3bcc4ce751a844e44e77d0008588ed"
+    },
+    {
+      "scenario_id": "interaction_005_adverse_thermal_ventilation",
+      "description": "Minimum passive discharge plus the hottest accepted E8 edge.",
+      "purpose": "Probe low ventilation with high soil coupling and low soil thermal inertia.",
+      "interaction_focus": "T_soil_max",
+      "random_seed": 20240705,
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 60000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.0
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_9019e55b470a",
+      "config_hash": "9019e55b470aae00620bac2be869f3c43fb16156801fd503712427a8978c9707"
+    },
+    {
+      "scenario_id": "interaction_006_low_stress_reference",
+      "description": "Low soil-solar coupling with all other axes at baseline.",
+      "purpose": "Provide the cooler and more thermally stable accepted reference.",
+      "interaction_focus": "T_soil_max",
+      "random_seed": 20240706,
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.1,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.0
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_d6cc2151ffe2",
+      "config_hash": "d6cc2151ffe25563f9c37e8ef27dc30d5505d7ccbb0378092e52aa21157ff587"
+    },
+    {
+      "scenario_id": "interaction_007_combined_dry_hot_stress",
+      "description": "Low soil inertia, minimum irrigation and maximum ET at baseline-high ventilation.",
+      "purpose": "Probe root heat plus water demand without confounding it with ventilation-limited humidity.",
+      "interaction_focus": "soil_moisture_min",
+      "random_seed": 20240707,
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.2,
+        "C_s": 60000.0,
+        "irrigation_flow_L_h": 5.0,
+        "ET_scale": 1.3
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_c389fa3f9aaf",
+      "config_hash": "c389fa3f9aafd9771fca61f1f25f4d0bbe8975f1d77eb60d32655f6b74b07655"
+    },
+    {
+      "scenario_id": "interaction_008_low_ventilation_high_irrigation",
+      "description": "Minimum passive discharge and maximum emitter flow at baseline ET.",
+      "purpose": "Separate the ventilation-irrigation humidity effect from high ET.",
+      "interaction_focus": "RH_mean",
+      "random_seed": 20240708,
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 15.0,
+        "ET_scale": 1.0
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_a49b06fbce0a",
+      "config_hash": "a49b06fbce0a137937e58c0f32f6a41d68d609734dffa717231ee7d448a83bb1"
+    },
+    {
+      "scenario_id": "interaction_009_cd030_high_et_boundary",
+      "description": "Moderate-low passive discharge with maximum ET response.",
+      "purpose": "Bracket the ventilation side of a possible high-ET humidity constraint.",
+      "interaction_focus": "RH_mean",
+      "random_seed": 20240709,
+      "parameters": {
+        "C_d": 0.3,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.3
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_8a3d44cbdee0",
+      "config_hash": "8a3d44cbdee033312c1b15e2165543243cfebeccfad01a54dbd8890ce4a6b4a2"
+    },
+    {
+      "scenario_id": "interaction_010_low_ventilation_et115_boundary",
+      "description": "Minimum passive discharge with a midpoint ET response.",
+      "purpose": "Bracket the ET side of a possible low-ventilation humidity constraint.",
+      "interaction_focus": "RH_mean",
+      "random_seed": 20240710,
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.15
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_d7399431f289",
+      "config_hash": "d7399431f289ed229394068b8222766f0ed280bebfc4e9d0ff026133912ca746"
+    },
+    {
+      "scenario_id": "interaction_011_cd030_wet_high_et_boundary",
+      "description": "Moderate-low passive discharge with maximum irrigation and ET response.",
+      "purpose": "Bracket whether modestly stronger ventilation rescues the wet/humid corner.",
+      "interaction_focus": "RH_mean",
+      "random_seed": 20240711,
+      "parameters": {
+        "C_d": 0.3,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 15.0,
+        "ET_scale": 1.3
+      },
+      "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+      "parameter_set_id": "smartgarden_pa1_joint_1fe145a90033",
+      "config_hash": "1fe145a900337118d7659f9588ce10e1257a3b4f3356ca027c9406295f2057af"
+    }
+  ],
+  "execution": {
+    "status": "PASS",
+    "weather_hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+    "simulator_code_hash": "07b86fd9342a4c4a8fbadd7fd0fbb10b8d31befcf9ae797dd6ff53ce2f171336",
+    "scenarios": 12,
+    "accepted": 8,
+    "extreme_valid": 5,
+    "rejected": 4,
+    "summary_file": "outputs\\interaction_pilot\\interaction_pilot_summary.csv",
+    "results_file": "outputs\\interaction_pilot\\interaction_pilot_results.json"
+  }
+}

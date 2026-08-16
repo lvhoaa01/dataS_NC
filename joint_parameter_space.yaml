@@ -1,0 +1,413 @@
+{
+  "schema_version": "1.0",
+  "status": "VALIDATED_JOINT_SPACE",
+  "source_individual_space": "scenario_parameter_space.yaml",
+  "source_interaction_config": "interaction_scenarios.yaml",
+  "weather": {
+    "file": "nha_trang_weather_2018_2025.csv",
+    "window": [
+      "2024-06-01T00:00",
+      "2024-06-30T23:00"
+    ],
+    "hash": "2d014eb72e33a8686c01be5f0b699b38467158691ac7bc2db166853cb28b46de",
+    "randomized": false
+  },
+  "simulator_code_hash": "07b86fd9342a4c4a8fbadd7fd0fbb10b8d31befcf9ae797dd6ff53ce2f171336",
+  "parameters": {
+    "C_d": {
+      "config_paths": [
+        "ventilation.discharge_coefficient"
+      ],
+      "baseline": 0.65,
+      "min": 0.2,
+      "max": 0.65,
+      "distribution": "triangular",
+      "mode": 0.65,
+      "equations": [
+        "E2",
+        "E5",
+        "E7"
+      ]
+    },
+    "eta_s": {
+      "config_paths": [
+        "soil_thermal.solar_absorption_fraction"
+      ],
+      "baseline": 0.2,
+      "min": 0.1,
+      "max": 0.2,
+      "distribution": "triangular",
+      "mode": 0.2,
+      "equations": [
+        "E8"
+      ]
+    },
+    "C_s": {
+      "config_paths": [
+        "soil_thermal.effective_heat_capacity_j_k"
+      ],
+      "baseline": 90000.0,
+      "min": 60000.0,
+      "max": 90000.0,
+      "distribution": "triangular",
+      "mode": 90000.0,
+      "unit": "J/K",
+      "equations": [
+        "E8"
+      ]
+    },
+    "irrigation_flow_L_h": {
+      "config_paths": [
+        "irrigation.effective_flow_m3_s"
+      ],
+      "baseline": 10.0,
+      "min": 5.0,
+      "max": 15.0,
+      "distribution": "triangular",
+      "mode": 10.0,
+      "unit": "L/h",
+      "equations": [
+        "E9"
+      ]
+    },
+    "ET_scale": {
+      "config_paths": [
+        "crop.transpiration_radiation_coefficient",
+        "crop.transpiration_vpd_coefficient"
+      ],
+      "baseline": 1.0,
+      "min": 1.0,
+      "max": 1.3,
+      "distribution": "triangular",
+      "mode": 1.0,
+      "coupling_rule": "Multiply k_R and k_D by the same ET_scale; never sample them independently.",
+      "equations": [
+        "E4",
+        "E5",
+        "E7",
+        "E9"
+      ]
+    }
+  },
+  "joint_constraints": [
+    {
+      "constraint_id": "couple_et_coefficients",
+      "condition": "always",
+      "status": "REQUIRE",
+      "rule": "k_R = k_R_baseline * ET_scale and k_D = k_D_baseline * ET_scale",
+      "reason": "k_R and k_D are one approved coupled uncertainty axis."
+    },
+    {
+      "constraint_id": "reject_low_cd_high_et_wedge",
+      "condition": {
+        "all": [
+          {
+            "parameter": "C_d",
+            "operator": "<",
+            "value": 0.3
+          },
+          {
+            "parameter": "ET_scale",
+            "operator": ">",
+            "value": 1.15
+          }
+        ]
+      },
+      "status": "REJECT_FOR_FULL_GENERATION_V1",
+      "reason": "Persistent RH saturation at the adverse corner; both one-axis boundary relaxations passed.",
+      "evidence": [
+        "interaction_001_low_ventilation_high_et",
+        "interaction_009_cd030_high_et_boundary",
+        "interaction_010_low_ventilation_et115_boundary"
+      ]
+    },
+    {
+      "constraint_id": "reject_low_cd_high_irrigation_region",
+      "condition": {
+        "all": [
+          {
+            "parameter": "C_d",
+            "operator": "<",
+            "value": 0.3
+          },
+          {
+            "parameter": "irrigation_flow_L_h",
+            "operator": ">=",
+            "value": 15.0
+          }
+        ]
+      },
+      "status": "REJECT_FOR_FULL_GENERATION_V1",
+      "reason": "High irrigation at the low-Cd boundary exceeded unchanged humidity guards even at baseline ET.",
+      "evidence": [
+        "interaction_004_wet_humid_boundary",
+        "interaction_008_low_ventilation_high_irrigation"
+      ]
+    },
+    {
+      "constraint_id": "reject_moderate_low_cd_wet_high_et_corner",
+      "condition": {
+        "all": [
+          {
+            "parameter": "C_d",
+            "operator": "<=",
+            "value": 0.3
+          },
+          {
+            "parameter": "irrigation_flow_L_h",
+            "operator": ">=",
+            "value": 15.0
+          },
+          {
+            "parameter": "ET_scale",
+            "operator": ">=",
+            "value": 1.3
+          }
+        ]
+      },
+      "status": "REJECT_FOR_FULL_GENERATION_V1",
+      "reason": "C_d=0.30 was sufficient for high ET alone but not for simultaneous maximum irrigation and ET.",
+      "evidence": [
+        "interaction_011_cd030_wet_high_et_boundary",
+        "interaction_009_cd030_high_et_boundary"
+      ]
+    },
+    {
+      "constraint_id": "post_sample_physics_gate",
+      "condition": "every sampled parameter set",
+      "status": "REQUIRE",
+      "rule": "Run the locked 30-day June preflight and reject NaN/Inf, causal/balance/stability failure, T_soil>40 C, or RH=100 for >5% of rows.",
+      "reason": "A five-dimensional accepted space can be non-rectangular beyond the structured probes."
+    }
+  ],
+  "accepted_probe_regions": [
+    {
+      "scenario_id": "interaction_000_baseline",
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.0
+      },
+      "classification": "VALID"
+    },
+    {
+      "scenario_id": "interaction_002_high_soil_coupling_low_inertia",
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.2,
+        "C_s": 60000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.0
+      },
+      "classification": "EXTREME_VALID"
+    },
+    {
+      "scenario_id": "interaction_003_low_irrigation_high_et",
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 5.0,
+        "ET_scale": 1.3
+      },
+      "classification": "VALID"
+    },
+    {
+      "scenario_id": "interaction_005_adverse_thermal_ventilation",
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 60000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.0
+      },
+      "classification": "EXTREME_VALID"
+    },
+    {
+      "scenario_id": "interaction_006_low_stress_reference",
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.1,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.0
+      },
+      "classification": "VALID"
+    },
+    {
+      "scenario_id": "interaction_007_combined_dry_hot_stress",
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.2,
+        "C_s": 60000.0,
+        "irrigation_flow_L_h": 5.0,
+        "ET_scale": 1.3
+      },
+      "classification": "EXTREME_VALID"
+    },
+    {
+      "scenario_id": "interaction_009_cd030_high_et_boundary",
+      "parameters": {
+        "C_d": 0.3,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.3
+      },
+      "classification": "EXTREME_VALID"
+    },
+    {
+      "scenario_id": "interaction_010_low_ventilation_et115_boundary",
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.15
+      },
+      "classification": "EXTREME_VALID"
+    }
+  ],
+  "rejected_probe_regions": [
+    {
+      "scenario_id": "interaction_001_low_ventilation_high_et",
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.3
+      },
+      "classification": "INVALID_JOINT_REGION",
+      "reason": [
+        "RH=100% exceeds the unchanged 5% persistent-saturation threshold."
+      ]
+    },
+    {
+      "scenario_id": "interaction_004_wet_humid_boundary",
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 15.0,
+        "ET_scale": 1.3
+      },
+      "classification": "INVALID_JOINT_REGION",
+      "reason": [
+        "RH=100% exceeds the unchanged 5% persistent-saturation threshold."
+      ]
+    },
+    {
+      "scenario_id": "interaction_008_low_ventilation_high_irrigation",
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 15.0,
+        "ET_scale": 1.0
+      },
+      "classification": "INVALID_JOINT_REGION",
+      "reason": [
+        "RH=100% exceeds the unchanged 5% persistent-saturation threshold."
+      ]
+    },
+    {
+      "scenario_id": "interaction_011_cd030_wet_high_et_boundary",
+      "parameters": {
+        "C_d": 0.3,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 15.0,
+        "ET_scale": 1.3
+      },
+      "classification": "INVALID_JOINT_REGION",
+      "reason": [
+        "RH=100% exceeds the unchanged 5% persistent-saturation threshold."
+      ]
+    }
+  ],
+  "extreme_valid_probe_regions": [
+    {
+      "scenario_id": "interaction_002_high_soil_coupling_low_inertia",
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.2,
+        "C_s": 60000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.0
+      }
+    },
+    {
+      "scenario_id": "interaction_005_adverse_thermal_ventilation",
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 60000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.0
+      }
+    },
+    {
+      "scenario_id": "interaction_007_combined_dry_hot_stress",
+      "parameters": {
+        "C_d": 0.65,
+        "eta_s": 0.2,
+        "C_s": 60000.0,
+        "irrigation_flow_L_h": 5.0,
+        "ET_scale": 1.3
+      }
+    },
+    {
+      "scenario_id": "interaction_009_cd030_high_et_boundary",
+      "parameters": {
+        "C_d": 0.3,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.3
+      }
+    },
+    {
+      "scenario_id": "interaction_010_low_ventilation_et115_boundary",
+      "parameters": {
+        "C_d": 0.2,
+        "eta_s": 0.2,
+        "C_s": 90000.0,
+        "irrigation_flow_L_h": 10.0,
+        "ET_scale": 1.15
+      }
+    }
+  ],
+  "sampling": {
+    "method_candidate": "constrained_latin_hypercube_sampling",
+    "number_of_dimensions": 5,
+    "recommended_parameter_sets_total": 24,
+    "composition": "1 locked baseline plus 23 constrained LHS parameter sets",
+    "seed_policy": "Record one project seed; deterministic candidate generation and deterministic rejection filtering.",
+    "constraint_policy": "Apply joint_constraints, then require the locked 30-day physics preflight before a parameter set enters full generation.",
+    "full_period_rows_per_parameter_set": 70128,
+    "estimated_total_rows": 1683072,
+    "full_generation_executed": false
+  },
+  "ml_contract": {
+    "status": "PASS",
+    "file": "outputs\\greenhouse_ml_dataset_30days.csv",
+    "sha256": "3c0145e5688ae104963a3188de480700d816967ca5bfe507e1fe72bedcda1251",
+    "rows": 720,
+    "columns": [
+      "timestamp",
+      "air_temperature",
+      "air_humidity",
+      "soil_temperature",
+      "soil_moisture",
+      "light_lux",
+      "pump_state",
+      "fan_state",
+      "grow_light_state"
+    ],
+    "physics_or_weather_feature_count": 0,
+    "scenario_ml_datasets_generated": false
+  }
+}
