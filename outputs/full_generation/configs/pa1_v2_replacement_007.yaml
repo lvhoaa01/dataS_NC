@@ -1,0 +1,567 @@
+{
+  "identity": {
+    "parameter_set_id": {
+      "value": "pa1_v2_replacement_007",
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md plus 30-day E8 root-cause audit"
+    },
+    "simulation_id": {
+      "value": "pa1_v2_replacement_007_20180101_20251231_physics_v1",
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "Task-defined 30-day validation window"
+    }
+  },
+  "physical_constants": {
+    "svp_coefficient_kpa": {
+      "value": 0.6108,
+      "unit": "kPa",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "FAO-56; GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E0"
+    },
+    "svp_exponent_numerator": {
+      "value": 17.27,
+      "unit": "dimensionless",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "FAO-56; GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E0"
+    },
+    "svp_temperature_offset_c": {
+      "value": 237.3,
+      "unit": "degC",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "FAO-56; GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E0"
+    },
+    "kelvin_offset": {
+      "value": 273.15,
+      "unit": "K",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "SI temperature conversion"
+    },
+    "water_vapor_gas_constant_j_kg_k": {
+      "value": 461.5,
+      "unit": "J/(kg K)",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E0"
+    },
+    "dry_air_gas_constant_j_kg_k": {
+      "value": 287.05,
+      "unit": "J/(kg K)",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "GREENHOUSE_PHYSICS_DATASET_KNOWLEDGE.md E7"
+    },
+    "dry_air_heat_capacity_j_kg_k": {
+      "value": 1005.0,
+      "unit": "J/(kg K)",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "FIXED_V1",
+      "source": "Standard near-ambient dry-air constant-pressure heat capacity"
+    },
+    "latent_heat_vaporization_j_kg": {
+      "value": 2450000.0,
+      "unit": "J/kg",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "FIXED_V1",
+      "source": "Standard near-ambient water latent heat prior"
+    },
+    "water_density_kg_m3": {
+      "value": 1000.0,
+      "unit": "kg/m3",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "FIXED_V1",
+      "source": "Standard liquid-water density prior"
+    },
+    "gravity_m_s2": {
+      "value": 9.80665,
+      "unit": "m/s2",
+      "provenance": "DIRECT",
+      "status": "FIXED",
+      "source": "Standard gravity"
+    }
+  },
+  "greenhouse": {
+    "length_m": {
+      "value": 0.8,
+      "unit": "m",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 3.2"
+    },
+    "width_m": {
+      "value": 0.8,
+      "unit": "m",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 3.2"
+    },
+    "height_m": {
+      "value": 1.5,
+      "unit": "m",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 3.2"
+    },
+    "volume_m3": {
+      "value": 0.96,
+      "unit": "m3",
+      "provenance": "DERIVED",
+      "status": "BASELINE",
+      "source": "0.8 m x 0.8 m x 1.5 m"
+    },
+    "floor_area_m2": {
+      "value": 0.64,
+      "unit": "m2",
+      "provenance": "DERIVED",
+      "status": "BASELINE",
+      "source": "0.8 m x 0.8 m"
+    },
+    "exposed_cover_area_m2": {
+      "value": 5.44,
+      "unit": "m2",
+      "provenance": "DERIVED",
+      "status": "BASELINE",
+      "source": "Rectangular enclosure excluding floor"
+    },
+    "effective_thermal_capacity_j_k": {
+      "value": 60000.0,
+      "unit": "J/K",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Executable V1 lumped-capacitance prior; calibrate from measured indoor response"
+    }
+  },
+  "cover": {
+    "shortwave_transmittance": {
+      "value": 0.85,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "TO_CALIBRATE",
+      "source": "Baneshi et al. 2020; hardware knowledge section 5.2"
+    },
+    "visible_transmittance": {
+      "value": 0.88,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_CALIBRATE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 5.2"
+    },
+    "u_value_w_m2_k": {
+      "value": 6.4,
+      "unit": "W/(m2 K)",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "TO_CALIBRATE",
+      "source": "UGA Extension and doi:10.1007/s43621-024-00276-5"
+    },
+    "air_solar_absorption_fraction": {
+      "value": 0.35,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Executable V1 effective solar-gain prior for E7; not measured"
+    }
+  },
+  "ventilation": {
+    "passive_leakage_m3_s": {
+      "value": 0.0,
+      "unit": "m3/s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_CALIBRATE",
+      "source": "Conservative V1 prior; explicit leakage term retained in E2"
+    },
+    "vent_area_m2": {
+      "value": 0.01,
+      "unit": "m2",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 6"
+    },
+    "vent_height_m": {
+      "value": 1.2,
+      "unit": "m",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 6"
+    },
+    "discharge_coefficient": {
+      "value": 0.5893102791884168,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Teitel and Tanny 1999 driver form; geometry-dependent V1 prior"
+    },
+    "wind_effect_coefficient": {
+      "value": 0.09,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Teitel and Tanny 1999 driver form; geometry-dependent V1 prior"
+    },
+    "fan_nominal_airflow_m3_s": {
+      "value": 0.0013889,
+      "unit": "m3/s",
+      "provenance": "DERIVED",
+      "status": "BASELINE_FREE_AIR_SPEC",
+      "source": "Verified 5 m3/h product specification"
+    },
+    "fan_effective_flow_factor": {
+      "value": 1.0,
+      "unit": "dimensionless",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "TO_MEASURE_OR_CALIBRATE",
+      "source": "Hardware knowledge section 10 initial effective-flow baseline"
+    }
+  },
+  "crop": {
+    "effective_area_m2": {
+      "value": 0.3,
+      "unit": "m2",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "One compact tomato V1 effective-area prior; not measured"
+    },
+    "transpiration_radiation_coefficient": {
+      "value": 1.6311993749061567e-07,
+      "unit": "kg/(m2 s)/(W/m2)",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "E4 executable magnitude prior; driver structure from Boulard and Wang 2000"
+    },
+    "transpiration_vpd_coefficient": {
+      "value": 2.1749324998748757e-06,
+      "unit": "kg/(m2 s kPa)",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "E4 executable magnitude prior; driver structure from Boulard and Wang 2000"
+    }
+  },
+  "soil_thermal": {
+    "surface_area_m2": {
+      "value": 0.0707,
+      "unit": "m2",
+      "provenance": "DERIVED",
+      "status": "BASELINE",
+      "source": "20 L pot geometry in hardware knowledge section 4.1"
+    },
+    "effective_heat_capacity_j_k": {
+      "value": 84076.80608092397,
+      "unit": "J/K",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Executable V1 effective root-zone thermal-mass prior; not measured"
+    },
+    "air_soil_heat_transfer_w_m2_k": {
+      "value": 8.0,
+      "unit": "W/(m2 K)",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Natural-convection order-of-magnitude prior for E7/E8"
+    },
+    "solar_absorption_fraction": {
+      "value": 0.18710255841854878,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Revised after 30-day E8 audit: effective coupling into the lumped 7 cm root-zone state, not literal surface absorptivity; sensitivity-tested but not measured; calibrate with ES-SM-TH-01; tomato root-zone context doi:10.1016/0304-4238(84)90027-X"
+    },
+    "base_loss_u_w_m2_k": {
+      "value": 2.0,
+      "unit": "W/(m2 K)",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "E8 slow thermal-base loss prior; not measured"
+    },
+    "base_temperature_c": {
+      "value": 27.0,
+      "unit": "degC",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Fixed V1 thermal-base prior; external reanalysis soil is not substituted"
+    }
+  },
+  "soil_water": {
+    "root_volume_m3": {
+      "value": 0.02,
+      "unit": "m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "20 L root-zone design in hardware knowledge section 4.1"
+    },
+    "field_capacity": {
+      "value": 0.42,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_MEASURE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 4.2 initial prior"
+    },
+    "wilting_point": {
+      "value": 0.15,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_CALIBRATE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 4.2 initial prior"
+    },
+    "depletion_fraction": {
+      "value": 0.4,
+      "unit": "dimensionless",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "TO_CALIBRATE",
+      "source": "FAO-56 adapted E3 prior"
+    },
+    "drainage_coefficient_s": {
+      "value": 4.62962962962963e-05,
+      "unit": "1/s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Six-hour excess-water drainage timescale prior for executable E9"
+    },
+    "residual_lower_bound": {
+      "value": 0.05,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Numerical physical lower bound below wilting point; substrate-specific"
+    },
+    "saturation_upper_bound": {
+      "value": 0.55,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Potting-mix saturation prior; excess is recorded as overflow drainage"
+    },
+    "initial_theta": {
+      "value": 0.4,
+      "unit": "m3/m3",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_INITIAL_CONDITION",
+      "source": "Near field-capacity initialization required by task"
+    }
+  },
+  "irrigation": {
+    "effective_flow_m3_s": {
+      "value": 2.1782150450442757e-06,
+      "unit": "m3/s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TO_MEASURE",
+      "source": "10 L/h emitter design setting; hardware knowledge section 12"
+    },
+    "pump_nominal_flow_min_l_h": {
+      "value": 280.0,
+      "unit": "L/h",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY_NOT_USED_BY_E9",
+      "source": "Pump product specification"
+    },
+    "pump_nominal_flow_max_l_h": {
+      "value": 500.0,
+      "unit": "L/h",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY_NOT_USED_BY_E9",
+      "source": "Pump product specification"
+    }
+  },
+  "grow_light": {
+    "electrical_power_w": {
+      "value": 18.0,
+      "unit": "W",
+      "provenance": "USER_BOM",
+      "status": "BASELINE",
+      "source": "GREENHOUSE_HARDWARE_PARAMETER_KNOWLEDGE.md section 13"
+    },
+    "radiant_fraction": {
+      "value": 0.25,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Testable E4 prior only; not inferred from 18 W and not sensor-calibrated"
+    },
+    "heat_fraction": {
+      "value": 0.65,
+      "unit": "dimensionless",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Testable E7 prior only; not inferred from 18 W and not measured"
+    },
+    "canopy_lux_gain": {
+      "value": 5000.0,
+      "unit": "lux",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "INITIAL_PRIOR_TO_MEASURE",
+      "source": "Testable E10 prior only; replace using ES-ALS-02 night calibration"
+    }
+  },
+  "light": {
+    "direct_luminous_efficacy_lm_w": {
+      "value": 100.0,
+      "unit": "lm/W",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Fakra et al. 2011 tropical-humid luminous-efficacy model context"
+    },
+    "diffuse_luminous_efficacy_lm_w": {
+      "value": 139.98,
+      "unit": "lm/W",
+      "provenance": "LITERATURE_PRIOR",
+      "status": "INITIAL_PRIOR_TO_CALIBRATE",
+      "source": "Fakra et al. 2011 all-sky diffuse efficacy prior"
+    }
+  },
+  "controls": {
+    "pump_pulse_start_seconds": {
+      "value": [
+        21600,
+        64800
+      ],
+      "unit": "s after local midnight",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_DETERMINISTIC",
+      "source": "V1 deterministic schedule: 06:00 and 18:00"
+    },
+    "pump_pulse_duration_s": {
+      "value": 60,
+      "unit": "s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_DETERMINISTIC",
+      "source": "V1 deterministic pulse schedule"
+    },
+    "fan_on_temperature_c": {
+      "value": 30.0,
+      "unit": "degC",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_DETERMINISTIC",
+      "source": "V1 threshold controller"
+    },
+    "fan_minimum_cooling_delta_c": {
+      "value": 0.5,
+      "unit": "degC",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_DETERMINISTIC",
+      "source": "Fan enabled only when indoor air is warmer than outdoor air"
+    },
+    "grow_light_baseline_state": {
+      "value": 0,
+      "unit": "binary",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE_DETERMINISTIC",
+      "source": "Physics-first baseline keeps grow light OFF"
+    },
+    "vent_state": {
+      "value": 1.0,
+      "unit": "fraction",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "Hardware knowledge section 26: passive opening always present"
+    }
+  },
+  "simulation": {
+    "start_timestamp": {
+      "value": "2018-01-01T00:00",
+      "unit": "Asia/Ho_Chi_Minh local time",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TASK_WINDOW",
+      "source": "Task requested strong-solar 30-day preference"
+    },
+    "duration_days": {
+      "value": 2922,
+      "unit": "day",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "TASK_WINDOW",
+      "source": "Task requirement"
+    },
+    "internal_timestep_s": {
+      "value": 60,
+      "unit": "s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "SELECTED_AFTER_STABILITY_TEST",
+      "source": "Knowledge-file recommended 60-300 s range"
+    },
+    "output_interval_s": {
+      "value": 3600,
+      "unit": "s",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "Hourly raw-weather and task output contract"
+    },
+    "weather_interpolation": {
+      "value": "linear_nonnegative_radiation",
+      "unit": "method",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "BASELINE",
+      "source": "Task weather interpolation rule"
+    }
+  },
+  "sensor_model": {
+    "noise_enabled": {
+      "value": false,
+      "unit": "boolean",
+      "provenance": "PROJECT_DESIGN_ASSUMPTION",
+      "status": "DISABLED_FOR_PHYSICS_VALIDATION",
+      "source": "Task V1 sensor-model rule"
+    },
+    "air_temperature_accuracy_c": {
+      "value": 0.5,
+      "unit": "degC",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY",
+      "source": "TH10S-B-PE product specification"
+    },
+    "air_humidity_accuracy_percent": {
+      "value": 3.0,
+      "unit": "percent RH",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY",
+      "source": "TH10S-B-PE product specification"
+    },
+    "soil_temperature_accuracy_c": {
+      "value": 0.5,
+      "unit": "degC",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY",
+      "source": "ES-SM-TH-01 product specification"
+    },
+    "light_accuracy_percent": {
+      "value": 5.0,
+      "unit": "percent",
+      "provenance": "VERIFIED_PRODUCT_SPEC",
+      "status": "REFERENCE_ONLY",
+      "source": "ES-ALS-02 product specification"
+    }
+  },
+  "scenario": {
+    "candidate_id": {
+      "value": "lhs_candidate_000033",
+      "unit": "identifier",
+      "provenance": "CONSTRAINED_LHS",
+      "status": "DETERMINISTIC_FINAL_PREFLIGHT",
+      "source": "joint_parameter_space.yaml"
+    },
+    "sampling_index": {
+      "value": 33,
+      "unit": "integer",
+      "provenance": "CONSTRAINED_LHS",
+      "status": "RECORDED",
+      "source": "pa1_constrained_lhs_v1"
+    },
+    "raw_candidate_index": {
+      "value": 33,
+      "unit": "integer",
+      "provenance": "CONSTRAINED_LHS",
+      "status": "RECORDED",
+      "source": "pa1_constrained_lhs_v1"
+    },
+    "sampling_seed": {
+      "value": 20260816,
+      "unit": "integer",
+      "provenance": "CONSTRAINED_LHS",
+      "status": "FIXED_REPRODUCIBILITY_SEED",
+      "source": "pa1_constrained_lhs_v1"
+    }
+  }
+}

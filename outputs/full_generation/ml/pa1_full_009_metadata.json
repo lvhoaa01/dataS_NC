@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "contract": "ML_DATA_CONTRACT.md",
+  "contract_version": "1.0",
+  "source_type": "synthetic",
+  "parameter_set_id": "pa1_full_009",
+  "simulation_id": "pa1_full_009_20180101_20251231_physics_v1",
+  "rows": 70128,
+  "columns": [
+    "timestamp",
+    "air_temperature",
+    "air_humidity",
+    "soil_temperature",
+    "soil_moisture",
+    "light_lux",
+    "pump_state",
+    "fan_state",
+    "grow_light_state"
+  ],
+  "model_features": [
+    "air_temperature",
+    "air_humidity",
+    "soil_temperature",
+    "soil_moisture",
+    "light_lux",
+    "pump_state",
+    "fan_state",
+    "grow_light_state"
+  ],
+  "observation_mode": "physics_true_state",
+  "sensor_noise_enabled": false,
+  "source_column_mapping": {
+    "air_temperature": "temperature_inside_true",
+    "air_humidity": "humidity_inside_true",
+    "soil_temperature": "soil_temperature_inside_true",
+    "soil_moisture": "soil_moisture_inside_true",
+    "light_lux": "light_lux_inside_true"
+  },
+  "physics_feature_count": 0,
+  "weather_feature_count": 0,
+  "soil_moisture_real_adapter_status": "TO_CALIBRATE"
+}

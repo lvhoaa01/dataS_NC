@@ -1,0 +1,19 @@
+{
+  "parameter_set_id": "pa1_full_006",
+  "source_config_hash": "46da8ac2e356f4880c7f84ef936fac9a31ae164c37a149fc80dfc19fc3a33fb2",
+  "run_config_hash": "62bef901777699b1874772c0a5042ff0a97a940ee33f3e3cf69c6fa42a43e06b",
+  "weather_hash": "802410aef51e8fea6096860ed4162a65ff5ae3cb70fdadcffdf5c970e13313a3",
+  "start_timestamp": "2018-01-01T00:00",
+  "end_timestamp": "2025-12-31T23:00",
+  "expected_rows": 70128,
+  "internal_timestep_s": 60,
+  "runner_version": "pa1_full_generation_runner_v1",
+  "simulator_code_hash": "058bfd097ded4cb91c2098634bedfa28f3160392895cf0c2a48cfc4069ce9771",
+  "status": "FAILED_VALIDATION",
+  "end_time_utc": "2026-08-16T07:50:44+00:00",
+  "runtime_seconds": 541.834539800002,
+  "validation_status": "FAIL",
+  "error": "Physics validation failed: RH=100 for 6571/70128 rows (9.370009%) exceeds 5%.",
+  "failure_stage": "PHYSICS_VALIDATION",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\DDrive\\dataset\\nha_trang_weather_2018_2025_downloader\\run_full_generation.py\", line 879, in run_one_job\n    raise PhysicsValidationFailure(\n    ...<5 lines>...\n    )\nPhysicsValidationFailure: Physics validation failed: RH=100 for 6571/70128 rows (9.370009%) exceeds 5%.\n"
+}
