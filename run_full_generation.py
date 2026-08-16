@@ -273,11 +273,40 @@ def manifest_parameter_values(row: dict[str, str]) -> dict[str, float]:
     }
 
 
-def audit_final_manifest() -> dict[str, Any]:
-    rows = load_manifest_rows()
-    machine = json.loads(FINAL_MANIFEST_YAML.read_text(encoding="utf-8"))
+def resolve_manifest_paths(manifest: Path | None = None) -> tuple[Path, Path]:
+    if manifest is None:
+        return FINAL_MANIFEST_CSV, FINAL_MANIFEST_YAML
+    path = manifest if manifest.is_absolute() else ROOT / manifest
+    path = path.resolve()
+    if path.suffix.lower() == ".csv":
+        csv_path = path
+        machine_path = path.with_suffix(".yaml")
+    elif path.suffix.lower() in {".yaml", ".yml", ".json"}:
+        machine_path = path
+        machine = json.loads(machine_path.read_text(encoding="utf-8"))
+        companion = machine.get("companion_csv")
+        csv_path = (
+            (machine_path.parent / str(companion)).resolve()
+            if companion
+            else machine_path.with_suffix(".csv")
+        )
+    else:
+        raise FullGenerationError("--manifest must point to CSV, YAML, or JSON.")
+    if not csv_path.is_file() or not machine_path.is_file():
+        raise FullGenerationError(
+            f"Manifest pair is incomplete: CSV={csv_path}, machine={machine_path}."
+        )
+    return csv_path, machine_path
+
+
+def audit_final_manifest(manifest: Path | None = None) -> dict[str, Any]:
+    manifest_csv, manifest_yaml = resolve_manifest_paths(manifest)
+    rows = load_manifest_rows(manifest_csv)
+    machine = json.loads(manifest_yaml.read_text(encoding="utf-8"))
     joint_space = json.loads(JOINT_SPACE_PATH.read_text(encoding="utf-8"))
-    manifest_hash = sha256_file(FINAL_MANIFEST_CSV)
+    manifest_hash = sha256_file(manifest_csv)
+    is_v1 = manifest_csv.resolve() == FINAL_MANIFEST_CSV.resolve()
+    manifest_version = str(machine.get("manifest_version", machine.get("schema_version", "1.0")))
     errors: list[str] = []
     ids = [row["parameter_set_id"] for row in rows]
     config_hashes = [row["config_hash"] for row in rows]
@@ -297,11 +326,39 @@ def audit_final_manifest() -> dict[str, Any]:
     machine_ids = [item["parameter_set_id"] for item in machine.get("parameter_sets", [])]
     if machine_ids != ids:
         errors.append("CSV and machine manifest parameter-set order differs.")
-    if manifest_hash != KNOWN_FINAL_MANIFEST_SHA256:
+    if is_v1 and manifest_hash != KNOWN_FINAL_MANIFEST_SHA256:
         errors.append(
             "Final manifest hash differs from the locked readiness milestone; "
             "no authorized manifest update was found."
         )
+    if not is_v1:
+        if manifest_version != "2.0":
+            errors.append(f"Unsupported non-V1 manifest version {manifest_version!r}.")
+        if machine.get("companion_csv_sha256") != manifest_hash:
+            errors.append("V2 machine manifest does not authenticate its companion CSV.")
+        if machine.get("source_v1_manifest_sha256") != KNOWN_FINAL_MANIFEST_SHA256:
+            errors.append("V2 source V1 manifest hash is not the locked V1 hash.")
+        for row in rows:
+            identifier = row["parameter_set_id"]
+            if row.get("eligibility_status") != "ELIGIBLE_FULL_RUN":
+                errors.append(f"{identifier}: V2 eligibility status is not approved.")
+            basis = row.get("eligibility_basis")
+            if basis == "FULL_HORIZON_PASS":
+                if row.get("full_horizon_status") != "FULL_HORIZON_PASS":
+                    errors.append(f"{identifier}: invalid full-horizon eligibility evidence.")
+            elif basis == "SEASONAL_STRESS_PASS":
+                statuses = [
+                    row.get("seasonal_preflight_status"),
+                    row.get("reference_june_status"),
+                    row.get("humid_stress_status"),
+                    row.get("hot_solar_status"),
+                    row.get("dry_vpd_status"),
+                    row.get("transition_status"),
+                ]
+                if statuses != ["SEASONAL_PREFLIGHT_PASS", "PASS", "PASS", "PASS", "PASS", "PASS"]:
+                    errors.append(f"{identifier}: seasonal eligibility evidence is incomplete.")
+            else:
+                errors.append(f"{identifier}: unknown V2 eligibility basis {basis!r}.")
 
     config_audits: list[dict[str, Any]] = []
     for row in rows:
@@ -337,11 +394,12 @@ def audit_final_manifest() -> dict[str, Any]:
 
     audit = {
         "status": "PASS" if not errors else "FAIL",
-        "manifest_csv": str(FINAL_MANIFEST_CSV.relative_to(ROOT)),
-        "manifest_yaml": str(FINAL_MANIFEST_YAML.relative_to(ROOT)),
+        "manifest_csv": str(manifest_csv.relative_to(ROOT)),
+        "manifest_yaml": str(manifest_yaml.relative_to(ROOT)),
+        "manifest_version": manifest_version,
         "manifest_sha256": manifest_hash,
         "known_manifest_sha256": KNOWN_FINAL_MANIFEST_SHA256,
-        "known_hash_match": manifest_hash == KNOWN_FINAL_MANIFEST_SHA256,
+        "known_hash_match": is_v1 and manifest_hash == KNOWN_FINAL_MANIFEST_SHA256,
         "parameter_sets": len(rows),
         "baseline_count": baseline_count,
         "non_baseline_count": len(rows) - baseline_count,
@@ -1081,9 +1139,10 @@ def default_output_root(args: argparse.Namespace) -> Path:
 
 
 def execute(args: argparse.Namespace) -> dict[str, Any]:
-    manifest_audit = audit_final_manifest()
+    manifest_csv, _ = resolve_manifest_paths(args.manifest)
+    manifest_audit = audit_final_manifest(args.manifest)
     all_weather, weather_audit = audit_weather_dataset()
-    manifest_rows = load_manifest_rows()
+    manifest_rows = load_manifest_rows(manifest_csv)
     jobs = resolve_jobs(args, manifest_rows)
     output_root = default_output_root(args)
     plan = {
@@ -1183,6 +1242,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--continue-on-error", action="store_true")
+    parser.add_argument(
+        "--manifest",
+        type=Path,
+        help="Approved parameter manifest CSV/YAML; defaults to locked V1.",
+    )
     return parser
 
 
