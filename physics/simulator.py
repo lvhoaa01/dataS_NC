@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 import csv
 from datetime import datetime, timedelta
 import math
@@ -276,6 +276,127 @@ def load_and_validate_weather_window(
         "duplicates": 0,
         "timestamp_gaps": 0,
         "nonfinite_core_values": 0,
+    }
+    return selected, quality
+
+
+def load_and_validate_weather_range(
+    csv_path: str | Path,
+    start: datetime,
+    end_inclusive: datetime,
+    *,
+    allow_terminal_hold: bool = False,
+) -> tuple[list[WeatherForcing], dict[str, Any]]:
+    """Validate raw weather and return an inclusive hourly output range plus endpoint.
+
+    The integrator needs one forcing row after the final saved timestamp. The raw
+    2018-2025 dataset ends at 2025-12-31T23:00, so a full-period run may opt into
+    a single last-value-held endpoint without modifying the source CSV.
+    """
+
+    if end_inclusive < start:
+        raise WeatherDataError("Weather range end precedes its start.")
+    if start.minute or start.second or start.microsecond:
+        raise WeatherDataError("Weather range start must be aligned to an hour.")
+    if end_inclusive.minute or end_inclusive.second or end_inclusive.microsecond:
+        raise WeatherDataError("Weather range end must be aligned to an hour.")
+
+    path = Path(csv_path)
+    endpoint = end_inclusive + timedelta(hours=1)
+    selected: list[WeatherForcing] = []
+    row_count = 0
+    previous_timestamp: datetime | None = None
+    first_timestamp: datetime | None = None
+    last_timestamp: datetime | None = None
+    columns: tuple[str, ...] = ()
+
+    try:
+        handle = path.open("r", encoding="utf-8-sig", newline="")
+    except OSError as exc:
+        raise WeatherDataError(f"Cannot open raw weather file {path}: {exc}") from exc
+
+    with handle:
+        reader = csv.DictReader(handle)
+        columns = tuple(reader.fieldnames or ())
+        missing_columns = [c for c in RAW_WEATHER_COLUMNS if c not in columns]
+        if missing_columns:
+            raise WeatherDataError(
+                f"Raw weather is missing required columns: {missing_columns}"
+            )
+        for line_number, row in enumerate(reader, start=2):
+            raw_timestamp = row.get("timestamp", "")
+            try:
+                timestamp = datetime.fromisoformat(raw_timestamp)
+            except ValueError as exc:
+                raise WeatherDataError(
+                    f"Invalid timestamp at CSV line {line_number}: {raw_timestamp!r}."
+                ) from exc
+            if previous_timestamp is not None:
+                expected = previous_timestamp + timedelta(hours=1)
+                if timestamp != expected:
+                    raise WeatherDataError(
+                        "Raw weather timestamp discontinuity or duplicate: "
+                        f"expected {expected.isoformat(timespec='minutes')}, "
+                        f"got {timestamp.isoformat(timespec='minutes')}."
+                    )
+            forcing = _row_to_forcing(row, timestamp, line_number)
+            if start <= timestamp <= endpoint:
+                selected.append(forcing)
+            row_count += 1
+            first_timestamp = first_timestamp or timestamp
+            last_timestamp = timestamp
+            previous_timestamp = timestamp
+
+    terminal_hold_applied = False
+    if (
+        selected
+        and datetime.fromisoformat(selected[-1].timestamp) == end_inclusive
+        and end_inclusive == last_timestamp
+        and allow_terminal_hold
+    ):
+        selected.append(
+            replace(
+                selected[-1],
+                timestamp=endpoint.isoformat(timespec="minutes"),
+            )
+        )
+        terminal_hold_applied = True
+
+    expected_output_rows = int(
+        (end_inclusive - start).total_seconds() // 3600
+    ) + 1
+    expected_forcing_rows = expected_output_rows + 1
+    if len(selected) != expected_forcing_rows:
+        raise WeatherDataError(
+            f"Range requires {expected_forcing_rows} forcing rows including endpoint; "
+            f"found {len(selected)}."
+        )
+    if datetime.fromisoformat(selected[0].timestamp) != start:
+        raise WeatherDataError("Selected weather range does not begin at requested start.")
+    if datetime.fromisoformat(selected[-1].timestamp) != endpoint:
+        raise WeatherDataError("Selected weather range does not include its endpoint.")
+
+    quality = {
+        "status": "PASS",
+        "rows_checked": row_count,
+        "columns": list(columns),
+        "first_timestamp": first_timestamp.isoformat(timespec="minutes")
+        if first_timestamp
+        else None,
+        "last_timestamp": last_timestamp.isoformat(timespec="minutes")
+        if last_timestamp
+        else None,
+        "requested_start": start.isoformat(timespec="minutes"),
+        "requested_end_inclusive": end_inclusive.isoformat(timespec="minutes"),
+        "window_output_rows": expected_output_rows,
+        "window_forcing_rows_including_endpoint": len(selected),
+        "duplicates": 0,
+        "timestamp_gaps": 0,
+        "nonfinite_core_values": 0,
+        "terminal_endpoint_policy": (
+            "last_value_hold" if terminal_hold_applied else "observed_next_hour"
+        ),
+        "terminal_hold_applied": terminal_hold_applied,
     }
     return selected, quality
 
@@ -754,8 +875,9 @@ def run_simulation(
     parameters: ModelParameters,
     internal_timestep_s: int | None = None,
     weather_quality: dict[str, Any] | None = None,
+    initial_state: GreenhouseState | None = None,
 ) -> SimulationResult:
-    """Run a 30-day hourly-output simulation with internal RK4 substeps."""
+    """Run an hourly-output simulation with internal RK4 substeps."""
 
     started = time.perf_counter()
     timestep_s = internal_timestep_s or parameters.simulation.internal_timestep_s
@@ -770,8 +892,8 @@ def run_simulation(
             f"Expected {expected_intervals + 1} weather points, got {len(weather)}."
         )
 
-    state = create_initial_state(weather[0], parameters)
-    initial_state = state
+    state = initial_state or create_initial_state(weather[0], parameters)
+    simulation_initial_state = state
     rows: list[dict[str, Any]] = []
     totals = BalanceTotals()
     warnings: list[str] = []
@@ -854,7 +976,7 @@ def run_simulation(
         )
     return SimulationResult(
         rows=rows,
-        initial_state=initial_state,
+        initial_state=simulation_initial_state,
         final_state=state,
         balances=totals,
         weather_quality=weather_quality or {"status": "NOT_RECHECKED"},

@@ -212,7 +212,9 @@ def parse_finite(value: str, field: str, row_number: int) -> float:
 
 
 def build_rows(
-    master_path: Path, simulator_report: dict[str, Any]
+    master_path: Path,
+    simulator_report: dict[str, Any],
+    expected_rows: int = 720,
 ) -> tuple[list[dict[str, str]], str, bool, dict[str, str], dict[str, str]]:
     with master_path.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
@@ -262,9 +264,9 @@ def build_rows(
                 (source.get("parameter_set_id") or "").strip()
             )
 
-    if len(output_rows) != 720:
+    if len(output_rows) != expected_rows:
         raise DatasetBuildError(
-            f"Expected 720 hourly rows, found {len(output_rows)}."
+            f"Expected {expected_rows} hourly rows, found {len(output_rows)}."
         )
     if len(set(timestamps)) != len(timestamps):
         raise DatasetBuildError("Duplicate timestamps found in physics master.")
@@ -287,13 +289,13 @@ def build_rows(
     return output_rows, mode, sensor_noise, mapping, identities
 
 
-def validate_canonical_file(path: Path) -> None:
+def validate_canonical_file(path: Path, expected_rows: int = 720) -> None:
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
         if tuple(reader.fieldnames or ()) != CANONICAL_COLUMNS:
             raise DatasetBuildError("Canonical output columns or order changed.")
         rows = list(reader)
-    if len(rows) != 720:
+    if len(rows) != expected_rows:
         raise DatasetBuildError("Canonical output row count changed during write.")
     forbidden = [
         column
@@ -314,7 +316,9 @@ def validate_canonical_file(path: Path) -> None:
                 )
 
 
-def write_csv_atomic(path: Path, rows: list[dict[str, str]]) -> None:
+def write_csv_atomic(
+    path: Path, rows: list[dict[str, str]], expected_rows: int = 720
+) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
     try:
@@ -322,7 +326,7 @@ def write_csv_atomic(path: Path, rows: list[dict[str, str]]) -> None:
             writer = csv.DictWriter(handle, fieldnames=CANONICAL_COLUMNS)
             writer.writeheader()
             writer.writerows(rows)
-        validate_canonical_file(temporary)
+        validate_canonical_file(temporary, expected_rows)
         temporary.replace(path)
     finally:
         temporary.unlink(missing_ok=True)
