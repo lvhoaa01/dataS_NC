@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+
+# Local notebook smoke artifacts and full Colab preprocessing exports.
+outputs/ml_notebook_smoke/
+artifacts/preprocessing/
+artifacts/preprocessing_smoke/
