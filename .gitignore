@@ -4,8 +4,11 @@ __pycache__/
 # Local notebook smoke artifacts and full Colab preprocessing exports.
 outputs/ml_notebook_smoke/
 outputs/ml_training_notebook_smoke/
+outputs/multi_horizon_notebook_smoke/
 artifacts/preprocessing/
 artifacts/preprocessing_smoke/
 artifacts/model_training/
 artifacts/model_training_smoke/
+artifacts/multi_horizon_training/
+artifacts/multi_horizon_training_smoke/
 *.pt
