@@ -6,6 +6,7 @@ outputs/ml_notebook_smoke/
 outputs/ml_training_notebook_smoke/
 outputs/multi_horizon_notebook_smoke/
 outputs/operational_lookback_notebook_smoke/
+outputs/actuator_identifiability_notebook_smoke/
 artifacts/preprocessing/
 artifacts/preprocessing_smoke/
 artifacts/model_training/
@@ -14,4 +15,6 @@ artifacts/multi_horizon_training/
 artifacts/multi_horizon_training_smoke/
 artifacts/operational_lookback_ablation/
 artifacts/operational_lookback_ablation_smoke/
+artifacts/actuator_identifiability_audit/
+artifacts/actuator_identifiability_audit_smoke/
 *.pt
