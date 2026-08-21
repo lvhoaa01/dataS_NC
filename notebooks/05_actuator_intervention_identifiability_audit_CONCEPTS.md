@@ -5,6 +5,20 @@ Tài liệu này ánh xạ đúng 28 logical section của
 liệu quan sát do controller tạo ra; không train model và không chứng minh quan hệ
 nhân quả.
 
+## Colab bootstrap - trước Cell 00
+
+Hai physical cell đầu tiên là bootstrap riêng cho Google Colab. Khi module
+`google.colab` khả dụng, notebook mount `/content/drive`, đặt `DATA_ROOT` thành
+`/content/drive/MyDrive/smart_greenhouse_dataset`, cấu hình preprocessing và full
+audit artifact directories, rồi ép `GREENHOUSE_ACTUATOR_AUDIT_SMOKE_TEST=false`
+trước khi import helper. Notebook assert file
+`DATA_ROOT/actuator_identifiability_audit.py` tồn tại và báo cách khắc phục rõ
+ràng nếu Drive thiếu file này. Không có CUDA gate vì audit chỉ dùng CPU.
+
+Ngoài Colab, bootstrap không mount Drive và không sửa environment. Cơ chế locate
+helper qua working directory, parent và `GREENHOUSE_DATA_ROOT` vẫn được giữ để
+local smoke hoặc execution trong workspace tiếp tục hoạt động.
+
 ## Cell 00 - Experiment Overview
 
 Actuator xuất hiện trong history chưa đủ để model trả lời câu hỏi can thiệp. Nếu
@@ -28,7 +42,8 @@ smoke luôn `False`; environment chỉ override khi kiểm tra integration.
 ## Cell 03 - Imports
 
 Notebook dùng Python standard library, NumPy, Pandas, Joblib và Matplotlib trên
-CPU. Không có PyTorch model, optimizer, training loop, LLM hay API client.
+CPU. Helper chỉ được import sau Colab bootstrap. Không có PyTorch model,
+optimizer, training loop, LLM hay API client.
 
 ## Cell 04 - Reproducibility
 

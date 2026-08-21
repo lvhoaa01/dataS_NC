@@ -12,6 +12,48 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "notebooks" / "05_actuator_intervention_identifiability_audit.ipynb"
 
 
+COLAB_BOOTSTRAP = """import os
+from pathlib import Path
+
+try:
+    from google.colab import drive as colab_drive
+except ImportError:
+    colab_drive = None
+
+IN_GOOGLE_COLAB = colab_drive is not None
+if IN_GOOGLE_COLAB:
+    colab_drive.mount("/content/drive")
+
+    DATA_ROOT = Path("/content/drive/MyDrive/smart_greenhouse_dataset")
+    COLAB_FULL_AUDIT_ARTIFACT_DIR = (
+        DATA_ROOT / "artifacts" / "actuator_identifiability_audit"
+    )
+
+    os.environ["GREENHOUSE_DATA_ROOT"] = str(DATA_ROOT)
+    os.environ["GREENHOUSE_PREPROCESSING_ARTIFACT_DIR"] = str(
+        DATA_ROOT / "artifacts" / "preprocessing"
+    )
+    os.environ["GREENHOUSE_ACTUATOR_AUDIT_ARTIFACT_DIR"] = str(
+        COLAB_FULL_AUDIT_ARTIFACT_DIR
+    )
+    os.environ["GREENHOUSE_ACTUATOR_AUDIT_SMOKE_TEST"] = "false"
+
+    HELPER_MODULE_PATH = DATA_ROOT / "actuator_identifiability_audit.py"
+    assert HELPER_MODULE_PATH.is_file(), (
+        "Notebook 05 Colab bootstrap cannot find the audit helper at "
+        f"{HELPER_MODULE_PATH}. Place actuator_identifiability_audit.py in "
+        f"{DATA_ROOT} on Google Drive, then restart and run the notebook from "
+        "the first cell."
+    )
+
+    print("Notebook 05 Colab bootstrap PASS")
+    print("DATA_ROOT =", DATA_ROOT)
+    print("FULL_AUDIT_ARTIFACT_DIR =", COLAB_FULL_AUDIT_ARTIFACT_DIR)
+else:
+    print("Local runtime detected; preserving existing path/environment settings.")
+"""
+
+
 SECTIONS: list[tuple[str, str, str]] = [
     (
         "00",
@@ -454,7 +496,18 @@ except ImportError:
 
 
 def main() -> None:
-    cells = []
+    cells = [
+        nbformat.v4.new_markdown_cell(
+            "## Colab Bootstrap\n\n"
+            "Mount Google Drive and configure full-audit paths before importing "
+            "the project helper. This cell is CPU-compatible and has no CUDA gate.",
+            metadata={"section_id": "00", "cell_role": "colab_bootstrap"},
+        ),
+        nbformat.v4.new_code_cell(
+            textwrap.dedent(COLAB_BOOTSTRAP).strip() + "\n",
+            metadata={"section_id": "00", "cell_role": "colab_bootstrap"},
+        ),
+    ]
     for section_id, title, code in SECTIONS:
         markdown = nbformat.v4.new_markdown_cell(
             f"## {section_id} - {title}",

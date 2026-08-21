@@ -66,9 +66,9 @@ class ActuatorIdentifiabilityNotebookTests(unittest.TestCase):
         cls.temporary_directory.cleanup()
 
     def test_01_notebook_json_valid_and_all_cells_compile(self) -> None:
-        self.assertEqual(len(self.notebook.cells), 56)
+        self.assertEqual(len(self.notebook.cells), 58)
         self.assertEqual(
-            sum(cell.cell_type == "code" for cell in self.notebook.cells), 28
+            sum(cell.cell_type == "code" for cell in self.notebook.cells), 29
         )
 
     def test_02_concepts_are_synchronized(self) -> None:
@@ -397,6 +397,43 @@ class ActuatorIdentifiabilityNotebookTests(unittest.TestCase):
             self.namespace["audit_manifest"]["artifact_isolation_status"],
             "PASS",
         )
+
+    def test_45_colab_bootstrap_precedes_helper_import_and_preserves_local(self) -> None:
+        bootstrap_indexes = [
+            index
+            for index, cell in enumerate(self.notebook.cells)
+            if cell.metadata.get("cell_role") == "colab_bootstrap"
+        ]
+        self.assertEqual(len(bootstrap_indexes), 2)
+        bootstrap_code_index = next(
+            index
+            for index in bootstrap_indexes
+            if self.notebook.cells[index].cell_type == "code"
+        )
+        helper_import_index = next(
+            index
+            for index, cell in enumerate(self.notebook.cells)
+            if cell.cell_type == "code"
+            and "from actuator_identifiability_audit import" in cell.source
+        )
+        self.assertLess(bootstrap_code_index, helper_import_index)
+
+        source = self.notebook.cells[bootstrap_code_index].source
+        for required in (
+            'colab_drive.mount("/content/drive")',
+            'DATA_ROOT = Path("/content/drive/MyDrive/smart_greenhouse_dataset")',
+            'os.environ["GREENHOUSE_DATA_ROOT"] = str(DATA_ROOT)',
+            'os.environ["GREENHOUSE_PREPROCESSING_ARTIFACT_DIR"]',
+            'os.environ["GREENHOUSE_ACTUATOR_AUDIT_ARTIFACT_DIR"]',
+            'os.environ["GREENHOUSE_ACTUATOR_AUDIT_SMOKE_TEST"] = "false"',
+            'HELPER_MODULE_PATH = DATA_ROOT / "actuator_identifiability_audit.py"',
+            "assert HELPER_MODULE_PATH.is_file()",
+        ):
+            self.assertIn(required, source)
+        self.assertNotIn("cuda", source.lower())
+        self.assertNotIn("torch", source.lower())
+        self.assertFalse(self.namespace["IN_GOOGLE_COLAB"])
+        self.assertTrue(self.namespace["ACTUATOR_AUDIT_SMOKE_TEST"])
 
 
 if __name__ == "__main__":

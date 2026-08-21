@@ -90,6 +90,11 @@ def validate_static_protocol(notebook: nbformat.NotebookNode) -> dict[str, Any]:
     combined = source + "\n" + helper_source
     required = (
         'AUTHORITATIVE_NOTEBOOK_04_NAME = "04_operational_lookback_ablation_FULL_FIXED.ipynb"',
+        'colab_drive.mount("/content/drive")',
+        'DATA_ROOT = Path("/content/drive/MyDrive/smart_greenhouse_dataset")',
+        'os.environ["GREENHOUSE_ACTUATOR_AUDIT_SMOKE_TEST"] = "false"',
+        'HELPER_MODULE_PATH = DATA_ROOT / "actuator_identifiability_audit.py"',
+        "assert HELPER_MODULE_PATH.is_file()",
         "OPERATIONAL_LOOKBACK = 24",
         "FORECAST_HORIZONS = (1, 3)",
         "resolve_development_paths(",

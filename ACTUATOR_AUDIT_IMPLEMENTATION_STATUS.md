@@ -25,7 +25,7 @@ was read but not modified.
 
 ## Implemented sections
 
-Notebook 05 contains 28 logical sections / 56 physical cells covering the locked
+Notebook 05 contains 28 logical sections / 58 physical cells covering the locked
 split and canonical index, source-traced actuator timing, usage, transitions,
 dwell time, joint actions, empirical state overlap, `+1h/+3h` transition events,
 clean events, no-change references, state matching, confounding, scenario support,
@@ -48,8 +48,8 @@ re-evaluated every 60-second internal step. Pump is a 60-second pulse at 06:00 a
 - Model training / optimizer / LLM API: `NO`.
 - State-matched response diagnostic: deterministic bounded 1-nearest-neighbor
   implementation; smoke and full modes have separate event/reference caps.
-- Focused Notebook 05 tests: `44/44 PASS`.
-- Complete historical project regression suite: `255/255 PASS`.
+- Focused Notebook 05 tests: `45/45 PASS`.
+- Complete historical project regression suite: `256/256 PASS`.
 
 Smoke readiness remains `REVIEW_REQUIRED` by design and is not a scientific result.
 
@@ -69,3 +69,11 @@ there is no incomplete full artifact set to interpret.
 The matching bottleneck has since been replaced without rerunning the full audit.
 `ML_ACTUATOR_IDENTIFIABILITY_AUDIT_REPORT.md` now records implementation and smoke
 validation only; it intentionally contains no scientific readiness conclusion.
+
+## Colab portability
+
+Notebook 05 mounts `/content/drive` and configures the full Drive data/artifact
+paths before importing `actuator_identifiability_audit.py` when running in Colab.
+It asserts that the helper exists in the Drive dataset root, disables smoke mode,
+and has no CUDA gate. Local execution preserves the pre-existing environment and
+path resolution.

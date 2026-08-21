@@ -20,6 +20,22 @@ The authoritative predecessor is
 was not modified. The locked operational contract remains a 24-hour lookback,
 forecast horizons `(1, 3)`, 8 input features, and 5 targets.
 
+## Colab Bootstrap
+
+Notebook 05 now has an explicit bootstrap cell before the audit-helper import.
+In Google Colab it mounts `/content/drive` and configures:
+
+- `GREENHOUSE_DATA_ROOT=/content/drive/MyDrive/smart_greenhouse_dataset`
+- `GREENHOUSE_PREPROCESSING_ARTIFACT_DIR=/content/drive/MyDrive/smart_greenhouse_dataset/artifacts/preprocessing`
+- `GREENHOUSE_ACTUATOR_AUDIT_ARTIFACT_DIR=/content/drive/MyDrive/smart_greenhouse_dataset/artifacts/actuator_identifiability_audit`
+- `GREENHOUSE_ACTUATOR_AUDIT_SMOKE_TEST=false`
+
+Before the helper import, it asserts that
+`/content/drive/MyDrive/smart_greenhouse_dataset/actuator_identifiability_audit.py`
+exists and gives a corrective error if it is missing. The bootstrap has no CUDA
+gate. Outside Colab it preserves the existing environment and local helper-path
+discovery behavior.
+
 ## Temporal Semantics
 
 The audit traces `physics/simulator.py` and
@@ -133,12 +149,12 @@ Runtime artifacts are ignored by Git.
 
 ## Validation
 
-- Notebook JSON: PASS (56 physical cells, 28 code cells).
+- Notebook JSON: PASS (58 physical cells, 29 code cells).
 - All code cells compile: PASS.
 - Concepts synchronization: PASS (28 logical sections).
 - Bounded smoke execution: PASS.
-- Focused Notebook 05 tests: 44/44 PASS.
-- Complete repository regression suite: 255/255 PASS.
+- Focused Notebook 05 tests: 45/45 PASS.
+- Complete repository regression suite: 256/256 PASS.
 - Model classes, optimizers, and training loops: absent.
 - LLM/API clients: absent.
 - Held-out paths resolved or loaded: NO.
